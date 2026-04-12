@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/RedParrotBerkeley/rx-guard/blob/main/agent/schemas/response.schema.json",
+  "title": "RX Guard Review Response",
+  "description": "Structured response schema for RX Guard prescribing safety review results.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "status",
+    "riskLevel",
+    "summary",
+    "flags",
+    "missingDocumentation",
+    "suggestedLanguage",
+    "metadata"
+  ],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["review_complete", "partial_review", "input_error"]
+    },
+    "riskLevel": {
+      "type": "string",
+      "enum": ["low", "moderate", "high", "unknown"]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "flags": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["code", "severity", "source", "message", "explanation"],
+        "properties": {
+          "code": { "type": "string", "minLength": 1 },
+          "severity": {
+            "type": "string",
+            "enum": ["low", "moderate", "high"]
+          },
+          "source": {
+            "type": "string",
+            "enum": ["rules", "ai", "merged"]
+          },
+          "message": { "type": "string", "minLength": 1 },
+          "explanation": { "type": "string", "minLength": 1 }
+        }
+      },
+      "default": []
+    },
+    "missingDocumentation": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "suggestedLanguage": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["synthetic", "version"],
+      "properties": {
+        "synthetic": { "type": "boolean" },
+        "version": { "type": "string", "minLength": 1 },
+        "requestId": { "type": "string" },
+        "reviewMode": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}

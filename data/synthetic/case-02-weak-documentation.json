@@ -1,0 +1,41 @@
+{
+  "requestId": "case-02",
+  "synthetic": true,
+  "patient": {
+    "id": "patient-002",
+    "age": 39,
+    "sex": "male"
+  },
+  "encounter": {
+    "id": "enc-002",
+    "type": "medication follow-up",
+    "date": "2026-04-11",
+    "setting": "primary-care"
+  },
+  "conditions": [
+    { "name": "knee pain", "status": "active" }
+  ],
+  "activeMedications": [],
+  "allergies": [],
+  "proposedMedication": {
+    "name": "hydrocodone-acetaminophen",
+    "dose": "5/325 mg",
+    "quantity": 20,
+    "durationDays": 5,
+    "sig": "take 1 tablet every 6 hours as needed",
+    "scheduleClass": "Schedule II"
+  },
+  "monitoringSummary": {
+    "pdmpReviewed": false,
+    "pdmpDocumented": false,
+    "udsAvailable": false,
+    "earlyRefillConcern": false,
+    "painAgreementOnFile": false
+  },
+  "riskIndicators": [],
+  "noteText": "Patient seen for knee pain. Says pain is still present. Wants refill. Refill sent today.",
+  "source": {
+    "platform": "prompt-opinion-demo",
+    "fhirContext": true
+  }
+}

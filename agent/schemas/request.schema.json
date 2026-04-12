@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/RedParrotBerkeley/rx-guard/blob/main/agent/schemas/request.schema.json",
+  "title": "RX Guard Review Request",
+  "description": "Schema for invoking the RX Guard prescribing safety review agent with synthetic or de-identified encounter context.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "requestId",
+    "synthetic",
+    "patient",
+    "encounter",
+    "proposedMedication",
+    "noteText"
+  ],
+  "properties": {
+    "requestId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "synthetic": {
+      "type": "boolean",
+      "const": true,
+      "description": "Hackathon MVP requires synthetic or de-identified data only."
+    },
+    "patient": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "age": { "type": "integer", "minimum": 0, "maximum": 120 },
+        "sex": { "type": "string" }
+      }
+    },
+    "encounter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "type": { "type": "string", "minLength": 1 },
+        "date": { "type": "string", "format": "date" },
+        "setting": { "type": "string" }
+      }
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "code": { "type": "string" },
+          "status": { "type": "string" }
+        }
+      },
+      "default": []
+    },
+    "activeMedications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "dose": { "type": "string" },
+          "sig": { "type": "string" },
+          "scheduleClass": { "type": "string" }
+        }
+      },
+      "default": []
+    },
+    "allergies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["substance"],
+        "properties": {
+          "substance": { "type": "string", "minLength": 1 },
+          "reaction": { "type": "string" }
+        }
+      },
+      "default": []
+    },
+    "proposedMedication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "dose": { "type": "string" },
+        "quantity": { "type": "integer", "minimum": 1 },
+        "durationDays": { "type": "integer", "minimum": 1 },
+        "sig": { "type": "string" },
+        "scheduleClass": { "type": "string" }
+      }
+    },
+    "monitoringSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pdmpReviewed": { "type": "boolean" },
+        "pdmpDocumented": { "type": "boolean" },
+        "udsAvailable": { "type": "boolean" },
+        "udsConsistent": { "type": "boolean" },
+        "earlyRefillConcern": { "type": "boolean" },
+        "painAgreementOnFile": { "type": "boolean" }
+      }
+    },
+    "riskIndicators": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "noteText": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "platform": { "type": "string" },
+        "fhirContext": { "type": "boolean" }
+      }
+    }
+  }
+}

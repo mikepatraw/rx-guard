@@ -1,0 +1,47 @@
+{
+  "requestId": "case-03",
+  "synthetic": true,
+  "patient": {
+    "id": "patient-003",
+    "age": 29,
+    "sex": "female"
+  },
+  "encounter": {
+    "id": "enc-003",
+    "type": "acute visit",
+    "date": "2026-04-12",
+    "setting": "urgent-care"
+  },
+  "conditions": [
+    { "name": "acute dental pain", "status": "active" }
+  ],
+  "activeMedications": [
+    {
+      "name": "ibuprofen",
+      "dose": "600 mg",
+      "sig": "take every 8 hours as needed"
+    }
+  ],
+  "allergies": [],
+  "proposedMedication": {
+    "name": "tramadol",
+    "dose": "50 mg",
+    "quantity": 8,
+    "durationDays": 2,
+    "sig": "take 1 tablet every 8 hours as needed for breakthrough pain",
+    "scheduleClass": "Schedule IV"
+  },
+  "monitoringSummary": {
+    "pdmpReviewed": true,
+    "pdmpDocumented": true,
+    "udsAvailable": false,
+    "earlyRefillConcern": false,
+    "painAgreementOnFile": false
+  },
+  "riskIndicators": [],
+  "noteText": "Patient presents with acute dental pain and has dental follow-up tomorrow. Reviewed non-opioid options and current ibuprofen use. PDMP reviewed with no concerning recent controlled-substance fills. Short course tramadol prescribed for breakthrough pain only. Discussed sedation precautions, avoidance of alcohol, and need for reassessment if symptoms worsen.",
+  "source": {
+    "platform": "prompt-opinion-demo",
+    "fhirContext": true
+  }
+}
