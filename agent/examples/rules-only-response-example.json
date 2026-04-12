@@ -1,0 +1,40 @@
+{
+  "status": "review_complete",
+  "riskLevel": "high",
+  "summary": "Rule-based review found 2 flag(s) and 4 documentation gap(s) for clinician review.",
+  "flags": [
+    {
+      "code": "opioid_benzo_overlap",
+      "severity": "high",
+      "source": "rules",
+      "message": "Concurrent opioid and benzodiazepine exposure detected.",
+      "explanation": "An active benzodiazepine appears in the medication list while an opioid is being prescribed, which may increase sedation and overdose risk."
+    },
+    {
+      "code": "missing_pdmp_documentation",
+      "severity": "moderate",
+      "source": "rules",
+      "message": "PDMP review may have occurred but was not documented.",
+      "explanation": "The monitoring summary indicates PDMP review, but the encounter note does not clearly document it."
+    }
+  ],
+  "missingDocumentation": [
+    "PDMP review documentation",
+    "functional goal or treatment objective",
+    "monitoring or follow-up plan",
+    "risk discussion or counseling"
+  ],
+  "suggestedLanguage": [
+    "Reviewed PDMP today and no unexpected recent controlled-substance fills were identified.",
+    "Treatment goal is short-term improvement in pain control and daily functioning.",
+    "Patient will follow up for reassessment if symptoms worsen or fail to improve.",
+    "Discussed medication risks, sedation precautions, and when to seek further evaluation."
+  ],
+  "metadata": {
+    "synthetic": true,
+    "version": "mvp-rules-only",
+    "requestId": "case-01",
+    "reviewMode": "rules-only",
+    "timestamp": "2026-04-12T19:00:00.000Z"
+  }
+}

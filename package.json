@@ -1,0 +1,13 @@
+{
+  "name": "rx-guard",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "review:case1": "npm run build && node -e \"import fs from 'node:fs'; import { reviewEncounter } from './dist/api/review.js'; const input = JSON.parse(fs.readFileSync('./data/synthetic/case-01-opioid-benzo-overlap.json', 'utf8')); console.log(JSON.stringify(reviewEncounter(input), null, 2));\""
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
