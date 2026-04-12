@@ -75,13 +75,63 @@ rx-guard/
 └── .gitignore
 ```
 
+## Current MVP status
+
+The repository now includes a working rules-based MVP foundation with:
+- request and response schemas
+- synthetic demo cases
+- a prompt spec for the AI review layer
+- a TypeScript rules engine skeleton
+- a simple local HTTP server
+- CLI-style case runners for demo review
+- basic test coverage for the rules core
+
+## Run locally
+
+### Install
+
+```bash
+npm install
+```
+
+### Run tests
+
+```bash
+npm test
+```
+
+### Review a synthetic case
+
+```bash
+npm run review:case1
+npm run review:case2
+npm run review:case3
+```
+
+### Start the local server
+
+```bash
+npm start
+```
+
+Then POST a review request to:
+
+```text
+http://localhost:8787/review
+```
+
+Health endpoint:
+
+```text
+http://localhost:8787/health
+```
+
 ## Near-term plan
 
-1. Finalize a hackathon-specific product spec
-2. Define the A2A agent workflow and FHIR context contract
-3. Create synthetic patient cases for demo scenarios
-4. Implement a first-pass review engine with explainable output
-5. Prepare a short in-platform demo
+1. Add the AI explanation layer on top of the rules engine
+2. Improve normalization for FHIR-like inputs
+3. Create a polished demo script and submission draft
+4. Wire the MVP into Prompt Opinion-compatible agent flow
 
 ## License
 

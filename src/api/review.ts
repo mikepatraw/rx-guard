@@ -1,8 +1,10 @@
 import { runRuleReview } from '../engine/rules.js';
+import { normalizeReviewRequest } from '../fhir/normalize.js';
 import type { ReviewRequest, ReviewResponse } from '../types/review.js';
 
 export function reviewEncounter(request: ReviewRequest): ReviewResponse {
-  const result = runRuleReview(request);
+  const normalized = normalizeReviewRequest(request);
+  const result = runRuleReview(normalized);
 
   const summary =
     result.flags.length === 0 && result.missingDocumentation.length === 0
@@ -19,7 +21,7 @@ export function reviewEncounter(request: ReviewRequest): ReviewResponse {
     metadata: {
       synthetic: true,
       version: 'mvp-rules-only',
-      requestId: request.requestId,
+      requestId: normalized.requestId,
       reviewMode: 'rules-only',
       timestamp: new Date().toISOString()
     }
