@@ -25,14 +25,15 @@ RX Guard is intentionally **not** framed as:
 
 ## MVP
 
-The initial MVP will:
-- ingest a synthetic prescribing encounter
-- inspect note text and structured clinical context
-- flag missing documentation and prescribing risk signals
-- explain why each issue matters
-- suggest chart-ready language for clinician review
+The current MVP:
+- ingests a synthetic prescribing encounter
+- inspects note text and structured clinical context
+- flags missing documentation and prescribing risk signals
+- generates hybrid rule-based and AI-style review output
+- explains why each issue matters
+- suggests chart-ready language for clinician review
 
-## Proposed inputs
+## Inputs
 
 - synthetic patient context
 - encounter summary
@@ -43,7 +44,7 @@ The initial MVP will:
 - allergies
 - optional prior-fill or monitoring summary
 
-## Proposed outputs
+## Outputs
 
 - risk summary
 - missing documentation checklist
@@ -80,12 +81,23 @@ rx-guard/
 The repository now includes a working hybrid MVP foundation with:
 - request and response schemas
 - synthetic demo cases
+- a Prompt Opinion submission checklist and wrapper plan
 - a prompt spec for the AI review layer
 - a TypeScript rules engine skeleton
 - AI-style explanation synthesis layered on top of rules
 - a simple local HTTP server
 - CLI-style case runners for demo review
 - basic test coverage for the review core
+- demo script and Devpost draft
+
+## Repo docs
+
+- Product requirements: `docs/product/PRD.md`
+- Architecture: `docs/architecture/ARCHITECTURE.md`
+- Prompt Opinion wrapper plan: `docs/architecture/PROMPT-OPINION-WRAPPER-SPEC.md`
+- Submission checklist: `docs/product/SUBMISSION-CHECKLIST.md`
+- Demo script: `docs/product/DEMO-SCRIPT.md`
+- Devpost draft: `docs/product/DEVPOST-DRAFT.md`
 
 ## Run locally
 
@@ -127,12 +139,13 @@ Health endpoint:
 http://localhost:8787/health
 ```
 
-## Near-term plan
+## Remaining work
 
 1. Improve normalization for FHIR-like inputs
 2. Replace the local AI-style explanation synthesis with a true model-backed layer when platform/runtime details are finalized
 3. Wire the MVP into Prompt Opinion-compatible agent flow
 4. Validate marketplace publication and in-platform invocation
+5. Record the final in-platform demo
 
 ## License
 
