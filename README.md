@@ -77,14 +77,15 @@ rx-guard/
 
 ## Current MVP status
 
-The repository now includes a working rules-based MVP foundation with:
+The repository now includes a working hybrid MVP foundation with:
 - request and response schemas
 - synthetic demo cases
 - a prompt spec for the AI review layer
 - a TypeScript rules engine skeleton
+- AI-style explanation synthesis layered on top of rules
 - a simple local HTTP server
 - CLI-style case runners for demo review
-- basic test coverage for the rules core
+- basic test coverage for the review core
 
 ## Run locally
 
@@ -128,10 +129,10 @@ http://localhost:8787/health
 
 ## Near-term plan
 
-1. Add the AI explanation layer on top of the rules engine
-2. Improve normalization for FHIR-like inputs
-3. Create a polished demo script and submission draft
-4. Wire the MVP into Prompt Opinion-compatible agent flow
+1. Improve normalization for FHIR-like inputs
+2. Replace the local AI-style explanation synthesis with a true model-backed layer when platform/runtime details are finalized
+3. Wire the MVP into Prompt Opinion-compatible agent flow
+4. Validate marketplace publication and in-platform invocation
 
 ## License
 
