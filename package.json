@@ -9,6 +9,7 @@
     "review:case1": "npm run build && node dist/api/run-case.js data/synthetic/case-01-opioid-benzo-overlap.json",
     "review:case2": "npm run build && node dist/api/run-case.js data/synthetic/case-02-weak-documentation.json",
     "review:case3": "npm run build && node dist/api/run-case.js data/synthetic/case-03-lower-risk-balanced.json",
+    "review:case4": "npm run build && node dist/api/run-case.js data/synthetic/case-04-pdmp-crossref-bankston.json",
     "start": "npm run build && node dist/api/server.js"
   },
   "devDependencies": {

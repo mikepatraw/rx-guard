@@ -1,0 +1,44 @@
+{
+  "requestId": "case-04",
+  "synthetic": true,
+  "patient": {
+    "id": "patient-004",
+    "name": "Sheila Bankston",
+    "dob": "1960-06-13",
+    "age": 65,
+    "sex": "female"
+  },
+  "encounter": {
+    "id": "enc-004",
+    "type": "office visit",
+    "date": "2026-04-19",
+    "setting": "outpatient"
+  },
+  "conditions": [
+    { "name": "chronic pain", "status": "active" },
+    { "name": "generalized anxiety", "status": "active" }
+  ],
+  "activeMedications": [],
+  "allergies": [],
+  "proposedMedication": {
+    "name": "oxycodone",
+    "dose": "10 mg",
+    "quantity": 40,
+    "durationDays": 5,
+    "sig": "take 1 tablet every 6 hours as needed for pain",
+    "scheduleClass": "Schedule II"
+  },
+  "monitoringSummary": {
+    "pdmpReviewed": true,
+    "pdmpDocumented": false,
+    "udsAvailable": false,
+    "earlyRefillConcern": false,
+    "painAgreementOnFile": false
+  },
+  "riskIndicators": [],
+  "noteText": "Patient presents requesting a refill of pain medication. Reports ongoing back pain and anxiety. Will consider oxycodone. Follow up as needed.",
+  "source": {
+    "platform": "prompt-opinion-demo",
+    "fhirContext": true
+  }
+}

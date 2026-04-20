@@ -24,6 +24,19 @@ export interface PatientInput {
   id: string;
   age?: number;
   sex?: string;
+  name?: string;
+  dob?: string;
+}
+
+export interface PdmpCrossReference {
+  matched: boolean;
+  name?: string;
+  dob?: string;
+  totalPrescriptions: number;
+  prescriberCount90d: number;
+  pharmacyCount90d: number;
+  lastFillDate?: string;
+  activeOverlaps: { medA: string; medB: string; date: string }[];
 }
 
 export interface EncounterInput {
@@ -80,6 +93,7 @@ export interface ReviewResponse {
   flags: ReviewFlag[];
   missingDocumentation: string[];
   suggestedLanguage: string[];
+  pdmpCrossReference?: PdmpCrossReference;
   metadata: {
     synthetic: boolean;
     version: string;
