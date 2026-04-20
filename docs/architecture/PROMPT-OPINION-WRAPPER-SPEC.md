@@ -15,7 +15,7 @@ The missing layer is the **Prompt Opinion-facing agent wrapper** that makes RX G
 
 ## 2. Wrapper Goal
 
-Turn the current RX Guard engine into a Prompt Opinion-compatible **A2A agent** that:
+Turn the current RX Guard engine into a Prompt Opinion-compatible **BYO Agent with A2A enabled** that:
 - accepts healthcare-aware context
 - invokes the review pipeline
 - returns structured, explainable results
@@ -166,6 +166,7 @@ Best for:
 - fastest hackathon integration
 - minimal moving parts
 - reliable demo
+- simplest path for a BYO Agent with A2A enabled
 
 ### Mode B: FHIR-context mapping mode
 Prompt Opinion provides healthcare context plus note text, and the wrapper maps that into RX Guard request fields.
@@ -175,7 +176,7 @@ Best for:
 - more authentic healthcare-agent framing
 
 ### Recommendation
-Start with **Mode A** for reliable integration, then layer in Mode B if platform setup is straightforward.
+Start with **Mode A** for reliable integration and publishability, then layer in Mode B if platform setup is straightforward.
 
 ## 11. Expected Marketplace Metadata
 
@@ -226,15 +227,22 @@ That is enough to satisfy the hackathon structure if the demo is clean.
 ## 16. Open Questions Requiring Prompt Opinion Access
 
 These are the questions we cannot fully answer until we can inspect the platform directly:
-- What exact fields are required to create an A2A agent?
-- Does the marketplace require a manifest, card, or config file?
-- How are structured outputs displayed?
-- How are SHARP/FHIR context objects passed into the agent?
-- Is a local or externally hosted endpoint required, or can the agent be configured entirely inside the platform?
-- What metadata is required for discoverability and publication?
+- How are structured outputs displayed in the final chat session UX?
+- How are SHARP/FHIR context objects passed into the agent during real Prompt Opinion chat invocation?
+- What exact marketplace listing URL pattern is exposed to end users after publication?
+- Why can Launchpad still show stale native-template-style copy even after a BYO/A2A agent is published and chat-selectable?
+- What is the cleanest user-facing invocation flow for a published BYO/A2A agent from the workspace?
+
+## 16.1 Confirmed live Prompt Opinion endpoints
+
+Current live endpoints captured from Prompt Opinion:
+- MCP URL: `https://app.promptopinion.ai/api/workspaces/019d881e-b5b2-7bae-b3ef-c1df241d8e01/ai-agents/019d8868-ce0e-78bb-9f77-97a09fae4a8e/mcp`
+- A2A URL: `https://app.promptopinion.ai/api/workspaces/019d881e-b5b2-7bae-b3ef-c1df241d8e01/ai-agents/019d8868-ce0e-78bb-9f77-97a09fae4a8e/.well-known/agent-card.json`
+
+These confirm that Prompt Opinion has provisioned RX Guard as a concrete BYO agent artifact with both MCP and A2A surfaces, even though the intended end-user/demo path remains the chat/A2A flow rather than a custom MCP-tools experience.
 
 ## 17. Decision
 
-Until platform access is available, RX Guard should continue evolving around a stable internal engine and a thin future wrapper.
+Current platform exploration suggests the final hackathon path should target a stable internal engine plus a thin **BYO Agent / A2A** wrapper, rather than relying on native Po Agent templates alone.
 
-That keeps the architecture sane and minimizes rework once Prompt Opinion-specific details are known.
+That keeps the architecture sane and minimizes rework once the final Prompt Opinion publication requirements are confirmed.

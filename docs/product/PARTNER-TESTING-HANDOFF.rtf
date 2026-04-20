@@ -1,0 +1,106 @@
+{\rtf1\ansi\deff0
+{\fonttbl{\f0 Arial;}}
+\fs24
+\b RX Guard Testing Handoff\b0\par
+\par
+This guide is for continuing RX Guard testing inside Prompt Opinion. It is written for someone who has not used the site before.\par
+\par
+\b Goal\b0\par
+Test RX Guard as a Prompt Opinion chat / A2A agent using synthetic prescribing cases, then send back feedback on what works and what needs improvement.\par
+\par
+\b What RX Guard is supposed to do\b0\par
+RX Guard should:\par
+- review a synthetic prescribing encounter\par
+- identify the most important documentation and contextual medication-risk concerns\par
+- stay clinician-supportive, precise, and non-punitive\par
+- avoid unsupported claims or overreaching conclusions\par
+- suggest concise chart-ready language a clinician could adapt\par
+- clearly frame itself as support guidance, not an autonomous prescribing decision\par
+\par
+\b Part 1. How to get into Prompt Opinion\b0\par
+1. Open a browser and go to: https://app.promptopinion.ai/\par
+2. Log in using the account credentials Mike sends you.\par
+3. If the site asks you to choose a workspace, select the workspace that contains RX Guard.\par
+4. Wait for the main Prompt Opinion screen to load.\par
+\par
+\b Part 2. How to find RX Guard\b0\par
+1. Open the left-side navigation menu if it is collapsed.\par
+2. Look for the main chat / agent area.\par
+3. Find the published RX Guard agent. It may appear as RX Guard in the chat-selectable agent list or marketplace-linked agent list.\par
+4. Make sure you are using the RX Guard chat / agent path, not the MCP tools screens.\par
+5. If you are unsure whether you are in the right place, take a screenshot and send it back.\par
+\par
+\b Part 3. How to run a test\b0\par
+1. Open RX Guard in the Prompt Opinion chat / agent interface.\par
+2. Use a synthetic prescribing case only. Do not use any real patient data.\par
+3. Submit the case through the normal chat or input flow.\par
+4. Wait for RX Guard to respond.\par
+5. Read the first visible part of the response before expanding anything else.\par
+\par
+\b Part 4. What to look for in the response\b0\par
+RX Guard should focus most strongly on:\par
+- opioid + benzodiazepine overlap\par
+- PDMP documentation gaps\par
+- monitoring or follow-up gaps\par
+- missing functional goal or treatment objective\par
+- missing risk discussion or counseling\par
+\par
+The response should:\par
+- be clear within the first few seconds of reading\par
+- stay clinically respectful\par
+- say something was not documented instead of assuming it did not happen\par
+- avoid accusatory language\par
+- avoid implying misuse, diversion, abuse, or wrongdoing unless directly evidenced\par
+- avoid sounding like a final prescribing decision\par
+- include concise, defensible suggested chart language\par
+\par
+\b Part 5. What bad output looks like\b0\par
+Please flag the response if it does any of the following:\par
+- takes too long to get to the main issue\par
+- repeats the same concern too many times\par
+- sounds judgmental, suspicious, or punitive\par
+- overstates misuse risk without evidence\par
+- sounds like it is telling the clinician what they must do\par
+- gives awkward or overly long suggested chart language\par
+\par
+\b Part 6. Questions to answer after each test\b0\par
+After each case, please answer:\par
+1. Was the main concern easy to identify quickly?\par
+2. Did RX Guard emphasize the right issues?\par
+3. Was the tone clinically appropriate?\par
+4. Did any part feel too aggressive, too vague, or too long?\par
+5. Was the suggested chart language realistic and usable?\par
+6. If you were a clinician, would this output actually help you improve the note before signing?\par
+\par
+\b Part 7. Feedback format to send back\b0\par
+Please send feedback in this format for each test:\par
+\par
+TEST CASE:\par
+[short name]\par
+\par
+OVERALL:\par
+Pass / Needs work\par
+\par
+WHAT WORKED:\par
+- ...\par
+- ...\par
+\par
+WHAT FELT OFF:\par
+- ...\par
+- ...\par
+\par
+MAIN ISSUES MISSED OR OVERSTATED:\par
+- ...\par
+\par
+TONE:\par
+Too aggressive / Good / Too vague\par
+\par
+SUGGESTED LANGUAGE:\par
+Usable / Needs tightening / Too long / Too generic\par
+\par
+IF I WERE A CLINICIAN:\par
+[1 to 3 sentences on whether this would actually help]\par
+\par
+\b Part 8. Simple success standard\b0\par
+RX Guard passes if it gives a clinician a quick, defensible, non-punitive explanation of the main prescribing documentation risks and offers concise language they could realistically adapt into the chart.\par
+}

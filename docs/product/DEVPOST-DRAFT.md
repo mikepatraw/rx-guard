@@ -39,7 +39,7 @@ We built RX Guard as a narrow MVP focused on feasibility and interoperability. T
 - a local server and testable review flow
 - architecture and submission planning for Prompt Opinion integration
 
-The project is scoped as an A2A-style healthcare agent and designed to align with healthcare context propagation using FHIR-inspired payloads and a future Prompt Opinion wrapper layer.
+The project is now framed as a Prompt Opinion chat / A2A healthcare agent. In the current hackathon setup, RX Guard has been published through Prompt Opinion Marketplace with A2A enabled, and the remaining work is focused on tightening the live chat response quality and final demo flow.
 
 ## Key features
 
@@ -61,11 +61,20 @@ RX Guard is intentionally narrow. It uses synthetic or de-identified data only, 
 
 ## What’s next
 
-Next steps include integrating RX Guard directly into the Prompt Opinion platform, publishing it to the Prompt Opinion Marketplace, and adding the AI explanation layer to complement the existing rules-based review core.
+Next steps include tightening the live Prompt Opinion response style, validating the final synthetic-case chat flow, capturing the final marketplace listing URL/details, and refining the AI explanation layer so the published agent stays concise, clinician-supportive, and demo-ready.
 
 ## Built for
 
 Agents Assemble: The Healthcare AI Endgame
+
+## Prompt Opinion endpoints captured
+
+- A2A agent URL: https://app.promptopinion.ai/api/workspaces/019d881e-b5b2-7bae-b3ef-c1df241d8e01/ai-agents/019d8868-ce0e-78bb-9f77-97a09fae4a8e
+- A2A HTTP+JSON interface URL: https://app.promptopinion.ai/api/workspaces/019d881e-b5b2-7bae-b3ef-c1df241d8e01/ai-agents/019d8868-ce0e-78bb-9f77-97a09fae4a8e/a2a-http-json
+- MCP URL: https://app.promptopinion.ai/api/workspaces/019d881e-b5b2-7bae-b3ef-c1df241d8e01/ai-agents/019d8868-ce0e-78bb-9f77-97a09fae4a8e/mcp
+- A2A agent card URL: https://app.promptopinion.ai/api/workspaces/019d881e-b5b2-7bae-b3ef-c1df241d8e01/ai-agents/019d8868-ce0e-78bb-9f77-97a09fae4a8e/.well-known/agent-card.json
+
+These are technical integration endpoints, not polished marketplace landing pages. For judges and end users, RX Guard should be presented through the Prompt Opinion chat/A2A agent experience.
 
 ## Repo
 

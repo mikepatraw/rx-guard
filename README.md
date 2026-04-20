@@ -1,6 +1,6 @@
 # RX Guard
 
-RX Guard is a FHIR-aware prescribing safety agent for controlled-substance workflows. It reviews synthetic prescribing encounters, identifies documentation gaps and contextual risk factors, and returns explainable guidance before a prescription is finalized.
+RX Guard is a Prompt Opinion-published, A2A-enabled prescribing safety agent for controlled-substance workflows. It reviews synthetic prescribing encounters, identifies documentation gaps and contextual risk factors, and returns explainable clinician-support guidance before a prescription is finalized.
 
 ## Why this project exists
 
@@ -76,6 +76,17 @@ rx-guard/
 └── .gitignore
 ```
 
+## Current status
+
+RX Guard now has:
+- a working hybrid MVP review engine
+- synthetic demo cases
+- Prompt Opinion marketplace publication
+- A2A enabled on the published agent
+- free-tier Prompt Opinion model configuration validated
+- repo docs aligned to the Prompt Opinion chat/A2A path
+- a provisional BYO/A2A wrapper endpoint for local shaping
+
 ## Current MVP status
 
 The repository now includes a working hybrid MVP foundation with:
@@ -86,18 +97,22 @@ The repository now includes a working hybrid MVP foundation with:
 - a TypeScript rules engine skeleton
 - AI-style explanation synthesis layered on top of rules
 - a simple local HTTP server
+- a provisional BYO/A2A adapter endpoint for shaping external invocation
 - CLI-style case runners for demo review
 - basic test coverage for the review core
 - demo script and Devpost draft
+- Prompt Opinion chat/A2A calibration guidance
 
 ## Repo docs
 
 - Product requirements: `docs/product/PRD.md`
 - Architecture: `docs/architecture/ARCHITECTURE.md`
 - Prompt Opinion wrapper plan: `docs/architecture/PROMPT-OPINION-WRAPPER-SPEC.md`
+- BYO/A2A integration plan: `docs/architecture/BYO-A2A-INTEGRATION-PLAN.md`
 - Submission checklist: `docs/product/SUBMISSION-CHECKLIST.md`
 - Demo script: `docs/product/DEMO-SCRIPT.md`
 - Devpost draft: `docs/product/DEVPOST-DRAFT.md`
+- Prompt Opinion chat calibration: `docs/product/PROMPT-OPINION-CHAT-CALIBRATION.md`
 
 ## Run locally
 
@@ -139,13 +154,45 @@ Health endpoint:
 http://localhost:8787/health
 ```
 
+## Prompt Opinion demo path
+
+The current intended live demo path is:
+1. select RX Guard as the published Prompt Opinion chat/A2A agent
+2. run a synthetic prescribing case through chat
+3. show the ranked findings and concise suggested chart language
+4. reinforce that the output is clinician-support guidance, not an autonomous prescribing decision
+
 ## Remaining work
 
 1. Improve normalization for FHIR-like inputs
 2. Replace the local AI-style explanation synthesis with a true model-backed layer when platform/runtime details are finalized
-3. Wire the MVP into Prompt Opinion-compatible agent flow
-4. Validate marketplace publication and in-platform invocation
+3. Validate the end-user Prompt Opinion chat invocation flow on a synthetic case through the published **BYO Agent with A2A enabled** path
+4. Capture the final marketplace listing URL/details and fold them into submission materials
 5. Record the final in-platform demo
+
+## Current Prompt Opinion findings
+
+Recent platform validation changed the expected integration path:
+
+- A free Prompt Opinion account is sufficient to begin setup
+- Free-tier model configuration works with `Google Gemini (FREE TIER)` using `Gemini 3 Flash Preview`
+- Native `Po Agents` are useful for learning the platform, but the final publishable path is the **A2A-enabled BYO Agent** flow
+- RX Guard is now published in Prompt Opinion Marketplace
+- RX Guard has **A2A enabled** and is intended to be used through the **chat/A2A agent path**, not as a custom MCP-tools surface
+- No custom MCP tools are exposed beyond built-in patient helpers
+- The remaining live validation gap is confirming a clean synthetic-case invocation flow from Prompt Opinion chat, since Launchpad still showed stale template-style copy during browser inspection
+
+Known live endpoints:
+- A2A agent URL: `https://app.promptopinion.ai/api/workspaces/019d881e-b5b2-7bae-b3ef-c1df241d8e01/ai-agents/019d8868-ce0e-78bb-9f77-97a09fae4a8e`
+- A2A HTTP+JSON interface URL: `https://app.promptopinion.ai/api/workspaces/019d881e-b5b2-7bae-b3ef-c1df241d8e01/ai-agents/019d8868-ce0e-78bb-9f77-97a09fae4a8e/a2a-http-json`
+- MCP URL: `https://app.promptopinion.ai/api/workspaces/019d881e-b5b2-7bae-b3ef-c1df241d8e01/ai-agents/019d8868-ce0e-78bb-9f77-97a09fae4a8e/mcp`
+- A2A agent card URL: `https://app.promptopinion.ai/api/workspaces/019d881e-b5b2-7bae-b3ef-c1df241d8e01/ai-agents/019d8868-ce0e-78bb-9f77-97a09fae4a8e/.well-known/agent-card.json`
+
+That means the current best submission path is:
+1. finish the core RX Guard prompt/behavior
+2. validate chat selection and synthetic-case invocation against the published BYO/A2A agent
+3. capture the marketplace listing URL/details
+4. record the in-platform demo against that final published path
 
 ## License
 

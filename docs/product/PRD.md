@@ -34,7 +34,7 @@ Build a healthcare AI agent that demonstrates successful integration into the Pr
 
 For RX Guard, that objective becomes:
 
-> Build a FHIR-aware A2A prescribing safety agent that reviews synthetic controlled-substance prescribing encounters and returns explainable documentation and risk guidance within the Prompt Opinion platform.
+> Build a FHIR-aware Prompt Opinion chat / A2A prescribing safety agent that reviews synthetic controlled-substance prescribing encounters and returns explainable documentation and risk guidance within the Prompt Opinion platform.
 
 ## 5. Product Goal
 
@@ -166,6 +166,8 @@ This supports the hackathon’s **Feasibility** criterion because RX Guard is in
 8. The system must return a structured response for downstream use.
 9. The system must be demonstrable within the Prompt Opinion platform.
 10. The system must be publishable/discoverable in the Prompt Opinion Marketplace.
+11. The Prompt Opinion version must stay clinician-supportive, precise, and non-punitive.
+12. The Prompt Opinion version must avoid unsupported inference about misuse or wrongdoing unless directly evidenced.
 
 ### Non-functional requirements
 1. Must use synthetic or de-identified data only.

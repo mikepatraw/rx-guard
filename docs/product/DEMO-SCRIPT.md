@@ -62,13 +62,17 @@ Keep this fast. Do not over-explain every field.
 
 Suggested narration:
 
-> RX Guard receives the encounter context, normalizes the structured data, reviews the note, and runs a prescribing safety review to identify both documentation gaps and contextual risks.
+> RX Guard receives the encounter context, reviews the synthetic note and medication context, and runs a prescribing safety review to identify both documentation gaps and contextual risks.
 
 Visuals:
-- trigger the review
+- start from the live Prompt Opinion chat or launch flow
+- select RX Guard through the final **chat/A2A** path, not an MCP tools view
+- submit the synthetic case
 - show the result loading or appearing
 
-If integrated in Prompt Opinion, this is where the platform invocation should be shown.
+Important:
+- treat RX Guard as an **A2A/chat agent path**, not an MCP-tool path
+- if Launchpad still shows stale template wording, center the demo on the actual selected agent/session behavior and returned output rather than the misleading card copy
 
 ## 4. Show findings (1:05 to 1:40)
 
@@ -121,9 +125,14 @@ Visuals:
 ## If Prompt Opinion access arrives
 
 Update the demo flow to show:
-- in-platform invocation
-- marketplace or agent listing if useful
+- in-platform invocation through the final **BYO Agent / A2A-enabled** chat path
+- marketplace listing only if it helps credibility without adding clutter
 - final response displayed in Prompt Opinion
+- published/discoverable state, if it can be shown cleanly
+
+Current note:
+- RX Guard is already published in Marketplace and A2A-enabled
+- the remaining validation step is a clean synthetic-case invocation through Prompt Opinion chat
 
 ## If Prompt Opinion access does not arrive in time
 

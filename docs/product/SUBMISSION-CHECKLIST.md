@@ -20,19 +20,21 @@ Decision check:
 
 ## 3. Prompt Opinion account and platform setup
 
-- [ ] Create Prompt Opinion account
-- [ ] Access Prompt Opinion workspace
-- [ ] Create or configure RX Guard agent in-platform
-- [ ] Verify required setup fields for marketplace publication
-- [ ] Confirm whether any additional org/workspace metadata is required
+- [x] Create Prompt Opinion account
+- [x] Access Prompt Opinion workspace
+- [x] Configure free-tier workspace model using `Google Gemini (FREE TIER)` with `Gemini 3 Flash Preview`
+- [x] Create/configure RX Guard as a **BYO Agent** rather than relying only on native Po Agent scaffolds
+- [x] Enable **A2A availability** for RX Guard
+- [x] Verify required setup fields for marketplace publication
+- [x] Confirm subscription-level publishing entitlement was sufficient to publish
 
 ## 4. Integration requirements
 
 - [ ] Connect RX Guard logic to Prompt Opinion-compatible agent flow
 - [ ] Confirm request/response payload shape expected by the platform
-- [ ] Confirm agent can be invoked from Prompt Opinion successfully
+- [ ] Confirm agent can be invoked from Prompt Opinion successfully through the final **chat/A2A path**
 - [ ] Confirm output renders cleanly in the platform
-- [ ] Add any required SHARP/FHIR context fields to the wrapper
+- [x] Enable FHIR context extension on the BYO/A2A agent
 
 ## 5. Healthcare context requirements
 
@@ -48,12 +50,14 @@ Practical checklist for RX Guard:
 
 ## 6. Marketplace readiness
 
-- [ ] Configure project so it is discoverable in Prompt Opinion Marketplace
-- [ ] Add marketplace title
-- [ ] Add marketplace description
+- [x] Configure RX Guard as an **A2A-enabled BYO Agent**
+- [x] Verify RX Guard appears in Marketplace Studio as publishable
+- [x] Confirm publishing is allowed on the current Prompt Opinion subscription
+- [x] Add marketplace title
+- [x] Add marketplace description
 - [ ] Add category/tags if required
 - [ ] Add usage instructions or invocation notes if required
-- [ ] Publish and verify discoverability
+- [x] Publish and verify discoverability
 
 ## 7. Demo readiness
 
@@ -109,11 +113,18 @@ The submission should clearly communicate:
 - [ ] Draft Devpost submission copy
 
 ### Once Prompt Opinion account access is available
-- [ ] Inspect platform setup flow
-- [ ] Create/configure RX Guard agent
-- [ ] Publish to marketplace
-- [ ] run end-to-end in-platform validation
-- [ ] record final demo video
+- [x] Inspect platform setup flow
+- [x] Configure RX Guard as a BYO Agent with A2A enabled
+- [x] Publish to marketplace
+- [ ] Run end-to-end in-platform validation through the final chat/A2A path
+- [ ] Record final demo video
+
+## 12. Newly confirmed platform constraints
+
+- Native `Po Agents` can help explore templates, but marketplace publication appears to require **A2A-enabled agents**.
+- Marketplace Studio explicitly points users to the **BYO Agents** page to enable A2A before publish.
+- Free-tier model setup is acceptable for initial workspace activation and does not appear to violate hackathon rules.
+- `Po Sample Policies` worked as a practical unblocker in policy-list-required template flows, but that path may still be secondary to the final BYO/A2A submission path.
 
 ## 12. Definition of submission-ready
 
@@ -121,6 +132,15 @@ RX Guard is submission-ready when all of the following are true:
 - it runs locally and predictably
 - it is integrated into Prompt Opinion
 - it is published to the Prompt Opinion Marketplace
-- it can be invoked in-platform on a synthetic case
+- it can be invoked in-platform on a synthetic case through the intended chat/A2A path
 - the demo video shows that workflow clearly
 - the Devpost submission copy is complete
+
+## 13. Current live-state note
+
+As of the current Prompt Opinion pass:
+- RX Guard is published in Marketplace
+- RX Guard is configured as a BYO Agent with A2A enabled
+- Chat Selectable is available
+- no custom MCP tools are exposed beyond built-in patient helpers
+- the remaining validation gap is confirming the clean end-user invocation flow from Prompt Opinion chat, since Launchpad still surfaced an older template-style card during browser verification
