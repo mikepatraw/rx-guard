@@ -205,3 +205,8 @@ TBD
 - **Core capability:** FHIR-aware safety review with explainable guidance before finalizing a prescription.
 - **Primary stack:** TypeScript agent workflow + healthcare data context.
 - **Status:** Active MVP development.
+
+
+## Related projects
+
+- [rules-of-engagement](https://github.com/mikepatraw/rules-of-engagement) — policy guardrails for AI agents (private).\n- [agent-black-box](https://github.com/mikepatraw/agent-black-box) — flight recorder and incident reporting for agent runs.\n- [Fredsidian](https://github.com/mikepatraw/Fredsidian) — memory architecture for long-running assistants.
