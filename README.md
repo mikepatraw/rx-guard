@@ -197,3 +197,11 @@ That means the current best submission path is:
 ## License
 
 TBD
+
+
+## Portfolio snapshot
+
+- **Problem:** Controlled-substance prescribing reviews are high-stakes and documentation-heavy under time pressure.
+- **Core capability:** FHIR-aware safety review with explainable guidance before finalizing a prescription.
+- **Primary stack:** TypeScript agent workflow + healthcare data context.
+- **Status:** Active MVP development.
