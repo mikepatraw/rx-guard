@@ -23,13 +23,13 @@ This leaves some room under the 3-minute limit.
 
 ## Recommended primary case
 
-Use:
-- **case-01-opioid-benzo-overlap**
+Use the synthetic **Sheila Bankston / proposed Xanax** case for the EHR-style UI demo.
 
 Why:
-- obvious clinical relevance
-- easy for judges to understand quickly
-- demonstrates both safety and documentation value
+- directly matches the current Prompt Opinion/RXGuard consult prompt
+- produces an obvious high-risk result for judges to understand quickly
+- demonstrates PDMP mismatch, multiple prescribers/pharmacies, opioid + benzodiazepine overlap, and documentation value
+- drives the full workflow-button contract, especially **Do Not Prescribe**
 
 ## Demo structure
 
@@ -48,13 +48,13 @@ Visuals:
 
 Suggested narration:
 
-> Here we have a synthetic outpatient follow-up encounter. The patient has chronic back pain, active alprazolam on the medication list, and a new oxycodone prescription is being considered.
+> Here we have a synthetic medication workflow for Sheila Bankston. A Xanax prescription is pending, the patient reports no recent controlled-substance use, and PDMP documentation is not yet in the encounter.
 
 Visuals:
-- synthetic patient context
-- note text snippet
-- active medication list
-- proposed medication
+- synthetic eCW-style medication page
+- Prompt Opinion/RXGuard consult prompt panel
+- proposed Xanax prescription
+- patient-reported history and PDMP documentation status
 
 Keep this fast. Do not over-explain every field.
 
@@ -62,41 +62,44 @@ Keep this fast. Do not over-explain every field.
 
 Suggested narration:
 
-> RX Guard receives the encounter context, reviews the synthetic note and medication context, and runs a prescribing safety review to identify both documentation gaps and contextual risks.
+> RXGuard receives the synthetic consult prompt, reviews the medication and PDMP-style context, and returns structured JSON that drives this EHR-style risk modal.
 
 Visuals:
-- start from the live Prompt Opinion chat or launch flow
-- select RX Guard through the final **chat/A2A** path, not an MCP tools view
-- submit the synthetic case
+- paste the Sheila Bankston consult prompt
+- click **Run RXGuard Analysis**
 - show the result loading or appearing
 
 Important:
 - treat RX Guard as an **A2A/chat agent path**, not an MCP-tool path
+- the static UI demonstrates the rendering/workflow contract for the structured Prompt Opinion result
 - if Launchpad still shows stale template wording, center the demo on the actual selected agent/session behavior and returned output rather than the misleading card copy
 
 ## 4. Show findings (1:05 to 1:40)
 
 Suggested narration:
 
-> In this case, RX Guard flags concurrent opioid and benzodiazepine exposure, identifies that PDMP review was not clearly documented, and notes that the encounter is missing a functional goal and risk discussion. Instead of just warning, it explains why each issue matters.
+> RXGuard identifies a history mismatch, recent opioid and benzodiazepine exposure, multiple prescribers and pharmacies, and missing PDMP documentation. The result is high risk and not recommended pending verification and care coordination.
 
 Visuals:
-- risk level
+- history mismatch banner
+- PDMP summary table
+- risk score and risk level
 - top flags
-- missing documentation list
-- short explanations
+- recommendation panel
 
 Focus on clarity, not UI flourish.
 
-## 5. Show suggested documentation language (1:40 to 2:05)
+## 5. Show suggested documentation language and workflow buttons (1:40 to 2:05)
 
 Suggested narration:
 
-> RX Guard also generates suggested chart-ready language that the clinician can review and adapt, helping reduce chart rework while preserving human oversight.
+> RXGuard also generates chart-ready documentation. The clinician stays in control: they can proceed, proceed with caution, or choose not to prescribe. In this high-risk case, selecting Do Not Prescribe cancels the order and inserts the non-prescribing rationale.
 
 Visuals:
 - suggested note language
-- short highlighted improvements
+- Proceed / Proceed with Caution / Do Not Prescribe buttons
+- click **Do Not Prescribe**
+- updated documentation/action status
 
 ## 6. Close with value and fit (2:05 to 2:30)
 
@@ -140,9 +143,12 @@ Keep the demo prep ready anyway, but note that final hackathon compliance still 
 
 ## Recording tips
 
+- show the prompt being pasted before the results screen appears
 - keep zoom level high enough to read output on mobile and laptop
-- use one clear case, not multiple cases
+- use the Sheila Bankston case, not multiple cases
 - avoid scrolling too much
+- pause briefly on the loaded modal and workflow buttons
+- click **Do Not Prescribe** only after the viewer can see the recommendation and documentation
 - do one full dry run before final recording
 - cut dead time aggressively
 

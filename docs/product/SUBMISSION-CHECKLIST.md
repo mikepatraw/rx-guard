@@ -63,12 +63,13 @@ Practical checklist for RX Guard:
 
 The rules require a video under 3 minutes showing the project functioning within Prompt Opinion.
 
-- [ ] Finalize one primary demo case
+- [x] Finalize one primary demo case
 - [ ] Finalize backup demo case
 - [ ] Confirm in-platform invocation path is reliable
+- [x] Record local prompt-to-results UI flow for review
 - [ ] Record the platform flow from invocation to result
 - [ ] Keep final video under 3 minutes
-- [ ] Ensure no real patient data appears on screen
+- [x] Ensure no real patient data appears on screen
 
 ## 8. Devpost submission assets
 
