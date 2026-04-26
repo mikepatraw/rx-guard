@@ -86,6 +86,7 @@ RX Guard now has:
 - free-tier Prompt Opinion model configuration validated
 - repo docs aligned to the Prompt Opinion chat/A2A path
 - a provisional BYO/A2A wrapper endpoint for local shaping
+- a static EHR-style demo UI with prompt-to-results flow and workflow buttons
 
 ## Current MVP status
 
@@ -112,6 +113,7 @@ The repository now includes a working hybrid MVP foundation with:
 - Submission checklist: `docs/product/SUBMISSION-CHECKLIST.md`
 - Competition rules and compliance review: `docs/product/COMPETITION-RULES-AND-COMPLIANCE.md`
 - Demo script: `docs/product/DEMO-SCRIPT.md`
+- Demo UI walkthrough: `docs/product/DEMO-UI-WALKTHROUGH.md`
 - Devpost draft: `docs/product/DEVPOST-DRAFT.md`
 - Prompt Opinion chat calibration: `docs/product/PROMPT-OPINION-CHAT-CALIBRATION.md`
 - Prompt Opinion BYO Agent configuration: `docs/product/PROMPT-OPINION-BYO-AGENT-CONFIG.md`
@@ -158,6 +160,8 @@ Then open:
 http://localhost:4173
 ```
 
+The UI opens on a synthetic eCW-style medication page, shows a Prompt Opinion/RXGuard consult prompt panel, then renders the RXGuard controlled-substance risk modal with Proceed / Proceed with Caution / Do Not Prescribe workflow buttons. See `docs/product/DEMO-UI-WALKTHROUGH.md` for the recording flow.
+
 Then POST a review request to:
 
 ```text
@@ -172,11 +176,13 @@ http://localhost:8787/health
 
 ## Prompt Opinion demo path
 
-The current intended live demo path is:
-1. select RX Guard as the published Prompt Opinion chat/A2A agent
-2. run a synthetic prescribing case through chat
-3. show the ranked findings and concise suggested chart language
-4. reinforce that the output is clinician-support guidance, not an autonomous prescribing decision
+The current intended live/demo path is:
+1. select or configure RX Guard as the Prompt Opinion BYO/A2A agent
+2. paste the Sheila Bankston synthetic controlled-substance consult prompt
+3. run RXGuard analysis and show the results loading
+4. show the EHR-style controlled-substance risk modal with ranked findings, suggested chart language, and workflow buttons
+5. click the appropriate workflow action for the synthetic case, usually **Do Not Prescribe** for the high-risk Sheila Bankston scenario
+6. reinforce that the output is clinician-support guidance, not an autonomous prescribing decision
 
 ## Remaining work
 
