@@ -10,11 +10,17 @@ Render a modal with patient/proposed medication, PDMP summary, history mismatch 
 - **Proceed with Caution**: continue prescription, move medication to pending/eRx, insert stronger risk/coordination documentation.
 - **Do NOT Prescribe**: cancel medication order, insert rationale for not prescribing.
 
-## Current embedded-database prompt setup
+## Current PDMP database setup
 
-The current Prompt Opinion setup includes `PDMP_DATABASE` directly in the System Prompt. That is acceptable for a synthetic hackathon demo because no external tool is configured and the model needs local data for exact name + DOB lookup.
+The current Prompt Opinion setup does **not** have `PDMP_DATABASE` embedded in the System Prompt. The System Prompt references `PDMP_DATABASE`, so the synthetic database must be available somewhere else the agent can read it.
 
-Keep the embedded database synthetic and de-identified. Do not paste real patient data into the System Prompt. When an RX Guard API or MCP tool is available, move the database and scoring logic out of the System Prompt and into code.
+For the current hackathon/demo setup, use one of these paths:
+
+1. **Preferred for now:** put the synthetic `PDMP_DATABASE` in the BYO Agent **Content** field or attached knowledge/content area, and keep the System Prompt focused on instructions.
+2. **Acceptable fallback:** paste the synthetic `PDMP_DATABASE` at the end of the System Prompt only if Prompt Opinion does not reliably expose Content to the model during chat.
+3. **Future production-style path:** move PDMP lookup and scoring into a deployed RX Guard API or MCP tool.
+
+Keep the database synthetic and de-identified. Do not paste real patient data into System Prompt, Content, tools, screenshots, or demos.
 
 ## System Prompt
 
@@ -101,24 +107,30 @@ If the UI needs explicit button metadata, add it in the UI adapter layer rather 
 
 ## Content
 
+Use the Content field for static RX Guard context that the agent must reference but that should not clutter the System Prompt.
+
 ```text
 RX Guard is an A2A-enabled Prompt Opinion healthcare agent for controlled-substance prescribing safety review.
 
 Primary use case: before a controlled-substance prescription is finalized, RX Guard reviews synthetic/de-identified encounter context, PDMP-style history, medication list, patient-reported history, and documentation status. It returns an EHR-style risk modal with key flags, risk score, recommendation, workflow actions, and chart-ready documentation.
+
+Include the synthetic PDMP_DATABASE here if it is not embedded in the System Prompt and no external PDMP lookup tool is configured. The System Prompt can then refer to PDMP_DATABASE by name.
 ```
+
+Content should contain only synthetic/de-identified demo data. If Prompt Opinion chat tests show the agent cannot access Content reliably, move the synthetic `PDMP_DATABASE` into the System Prompt as a temporary demo fallback.
 
 ## Tools
 
-Prompt Opinion's **Additional Tools / MCP Servers** section is for attaching callable external tools to the agent. It is not where the synthetic PDMP database belongs if the database is embedded directly in the System Prompt.
+Prompt Opinion's **Additional Tools / MCP Servers** section is for attaching callable external tools to the agent. It is not where the synthetic PDMP database belongs when the database is supplied through the Content field or pasted into the System Prompt.
 
 For the current hackathon/demo setup:
 
 - Keep **Additional Tools / MCP Servers** empty unless the Prompt Opinion account has a deployed RX Guard API or MCP server ready to call.
+- Put the synthetic `PDMP_DATABASE` in **Content** if the System Prompt only references it by name and no external tool exists.
 - Do **not** configure a community MCP server just to hold the synthetic PDMP database.
-- Keep the synthetic `PDMP_DATABASE` in the System Prompt for now because the model needs it to perform the exact name + DOB lookup without an external tool.
-- Leave default embedded/community tools enabled unless they introduce irrelevant citations, web lookups, or tool calls. If the agent starts using unrelated tools instead of the embedded PDMP database, disable default tools.
+- Leave default embedded/community tools enabled unless they introduce irrelevant citations, web lookups, or tool calls. If the agent starts using unrelated tools instead of the supplied synthetic PDMP data, disable default tools.
 
-Future production-style setup: move `PDMP_DATABASE` out of the System Prompt, then expose RX Guard service tools for exact PDMP lookup, deterministic risk scoring, and workflow-decision documentation. Until those tools exist, configuring no MCP servers is correct.
+Future production-style setup: move `PDMP_DATABASE` out of Prompt Opinion prompt/content fields, then expose RX Guard service tools for exact PDMP lookup, deterministic risk scoring, and workflow-decision documentation. Until those tools exist, configuring no MCP servers is correct.
 
 ## Guardrails
 
