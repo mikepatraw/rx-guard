@@ -116,6 +116,7 @@ The repository now includes a working hybrid MVP foundation with:
 - Prompt Opinion chat calibration: `docs/product/PROMPT-OPINION-CHAT-CALIBRATION.md`
 - Prompt Opinion BYO Agent configuration: `docs/product/PROMPT-OPINION-BYO-AGENT-CONFIG.md`
 - Prompt Opinion copy-paste System Prompt: `docs/product/PROMPT-OPINION-SYSTEM-PROMPT.md`
+- Prompt Opinion raw System Prompt: `docs/product/PROMPT-OPINION-SYSTEM-PROMPT.txt`
 
 ## Run locally
 
