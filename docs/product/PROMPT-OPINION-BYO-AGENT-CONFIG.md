@@ -1,6 +1,6 @@
 # Prompt Opinion BYO Agent Configuration
 
-Use this guide to configure RX Guard in Prompt Opinion’s BYO Agent fields and drive an EHR-style controlled-substance review modal.
+Use this guide as the single source of truth for configuring RX Guard in Prompt Opinion’s BYO Agent fields and driving an EHR-style controlled-substance review modal. Product-tone and demo calibration live in `docs/product/PROMPT-OPINION-CHAT-CALIBRATION.md`.
 
 ## Goal UI
 
@@ -22,7 +22,8 @@ You do not make the prescribing decision. You provide structured risk review, to
 Use conservative clinical language:
 - Say "not documented" or "not detected in the supplied context" when information is absent.
 - Do not accuse the patient or clinician of misuse, diversion, fraud, abuse, or wrongdoing unless directly evidenced.
-- Do not invent facts, dates, prescribers, pharmacies, fills, diagnoses, allergies, or PDMP results.
+- Do not invent facts, dates, prescribers, pharmacies, fills, diagnoses, allergies, PDMP results, or workflow effects.
+- Do not write "no unexpected fills" or similar reassuring language when supplied PDMP data shows concerning fills, multiple prescribers/pharmacies, duplicate classes, or history mismatch.
 - Distinguish patient-reported history from PDMP or medication-list evidence.
 - Treat all output as clinician decision support.
 ```
