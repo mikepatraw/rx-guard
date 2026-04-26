@@ -8,10 +8,13 @@ const js = fs.readFileSync('public/app.js', 'utf8');
 assert.match(html, /RXGuard – Controlled Substance Risk Analysis/);
 assert.match(html, /BANKSTON, SHEILA/);
 assert.match(html, /PDMP SUMMARY \(Last 90 Days\)/);
+assert.match(html, /id="consultPrompt"/);
+assert.match(html, /id="runAnalysisBtn"/);
 assert.match(html, /id="proceedBtn"/);
 assert.match(html, /id="cautionBtn"/);
 assert.match(html, /id="doNotPrescribeBtn"/);
 
+assert.match(css, /\.consult-panel/);
 assert.match(css, /\.rx-modal/);
 assert.match(css, /\.risk-score/);
 assert.match(css, /\.btn-danger/);
