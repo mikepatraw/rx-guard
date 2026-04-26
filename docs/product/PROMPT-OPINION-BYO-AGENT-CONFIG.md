@@ -15,7 +15,7 @@ Render a modal with patient/proposed medication, PDMP summary, history mismatch 
 Use the full copy-paste prompt in:
 
 - `docs/product/PROMPT-OPINION-SYSTEM-PROMPT.md`
-- `docs/product/PROMPT-OPINION-SYSTEM-PROMPT.txt` (raw copy-paste version, about 12,833 characters)
+- `docs/product/PROMPT-OPINION-SYSTEM-PROMPT.txt` (raw copy-paste version, about 13,161 characters)
 
 That System Prompt includes the synthetic, de-identified `PDMP_DATABASE` directly. Do not split the database into Content for the current demo; keeping it in the System Prompt makes exact name + DOB lookup more reliable in Prompt Opinion chat.
 
@@ -44,7 +44,7 @@ Use only facts in the supplied case. If a field is missing, mark it unavailable 
 
 ## Response Format
 
-For the current Prompt Opinion chat/BYO-agent setup, keep the agent output compact and strict. The EHR-style UI should render this JSON and map the recommendation to buttons. Do **not** require the LLM to perform the button action itself.
+For the current Prompt Opinion chat/BYO-agent setup, keep the agent output compact and strict. The EHR-style UI should render this JSON and map the recommendation to buttons. Do **not** require the LLM to perform the button action itself. `pdmp_summary` must be an array of JSON objects, not strings containing JSON.
 
 ```json
 {
@@ -142,7 +142,7 @@ Pass only if all conditions are true:
 2. The JSON contains exactly these top-level keys: risk_score, risk_level, pdmp_summary, flags, recommendation, compliance_flag, auto_note.
 3. risk_score is an integer from 0 to 100.
 4. risk_level is one of: low, moderate, high.
-5. pdmp_summary is an array of up to 5 entries with medication, dose, fill_date, qty, prescriber, and pharmacy.
+5. pdmp_summary is an array of up to 5 entries. Each entry must be a JSON object, not a string, with medication, dose, fill_date, qty, prescriber, and pharmacy.
 6. flags has no more than 3 short labels.
 7. recommendation is one line and does not claim to make the prescribing decision.
 8. auto_note is neutral, chart-ready, and no more than two short sentences.
