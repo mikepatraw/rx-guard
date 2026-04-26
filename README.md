@@ -114,6 +114,7 @@ The repository now includes a working hybrid MVP foundation with:
 - Demo script: `docs/product/DEMO-SCRIPT.md`
 - Devpost draft: `docs/product/DEVPOST-DRAFT.md`
 - Prompt Opinion chat calibration: `docs/product/PROMPT-OPINION-CHAT-CALIBRATION.md`
+- Prompt Opinion BYO Agent configuration: `docs/product/PROMPT-OPINION-BYO-AGENT-CONFIG.md`
 
 ## Run locally
 
