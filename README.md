@@ -110,6 +110,7 @@ The repository now includes a working hybrid MVP foundation with:
 - Prompt Opinion wrapper plan: `docs/architecture/PROMPT-OPINION-WRAPPER-SPEC.md`
 - BYO/A2A integration plan: `docs/architecture/BYO-A2A-INTEGRATION-PLAN.md`
 - Submission checklist: `docs/product/SUBMISSION-CHECKLIST.md`
+- Competition rules and compliance review: `docs/product/COMPETITION-RULES-AND-COMPLIANCE.md`
 - Demo script: `docs/product/DEMO-SCRIPT.md`
 - Devpost draft: `docs/product/DEVPOST-DRAFT.md`
 - Prompt Opinion chat calibration: `docs/product/PROMPT-OPINION-CHAT-CALIBRATION.md`
