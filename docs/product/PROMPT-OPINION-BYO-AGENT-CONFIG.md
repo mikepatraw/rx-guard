@@ -10,35 +10,15 @@ Render a modal with patient/proposed medication, PDMP summary, history mismatch 
 - **Proceed with Caution**: continue prescription, move medication to pending/eRx, insert stronger risk/coordination documentation.
 - **Do NOT Prescribe**: cancel medication order, insert rationale for not prescribing.
 
-## Current PDMP database setup
-
-The current Prompt Opinion setup does **not** have `PDMP_DATABASE` embedded in the System Prompt. The System Prompt references `PDMP_DATABASE`, so the synthetic database must be available somewhere else the agent can read it.
-
-For the current hackathon/demo setup, use one of these paths:
-
-1. **Preferred for now:** put the synthetic `PDMP_DATABASE` in the BYO Agent **Content** field or attached knowledge/content area, and keep the System Prompt focused on instructions.
-2. **Acceptable fallback:** paste the synthetic `PDMP_DATABASE` at the end of the System Prompt only if Prompt Opinion does not reliably expose Content to the model during chat.
-3. **Future production-style path:** move PDMP lookup and scoring into a deployed RX Guard API or MCP tool.
-
-Keep the database synthetic and de-identified. Do not paste real patient data into System Prompt, Content, tools, screenshots, or demos.
-
 ## System Prompt
 
-```text
-You are RX Guard, a clinician-support prescribing safety review agent for controlled-substance workflows.
+Use the full copy-paste prompt in:
 
-Review supplied synthetic or de-identified encounter context before a controlled-substance prescription is finalized. Combine patient-reported history, current medications, proposed medication, PDMP-style history, documentation status, and FHIR/SHARP context when available.
+- `docs/product/PROMPT-OPINION-SYSTEM-PROMPT.md`
 
-You do not make the prescribing decision. You provide structured risk review, top clinical concerns, documentation gaps, recommended workflow action, and chart-ready documentation language for clinician review.
+That System Prompt includes the synthetic, de-identified `PDMP_DATABASE` directly. Do not split the database into Content for the current demo; keeping it in the System Prompt makes exact name + DOB lookup more reliable in Prompt Opinion chat.
 
-Use conservative clinical language:
-- Say "not documented" or "not detected in the supplied context" when information is absent.
-- Do not accuse the patient or clinician of misuse, diversion, fraud, abuse, or wrongdoing unless directly evidenced.
-- Do not invent facts, dates, prescribers, pharmacies, fills, diagnoses, allergies, PDMP results, or workflow effects.
-- Do not write "no unexpected fills" or similar reassuring language when supplied PDMP data shows concerning fills, multiple prescribers/pharmacies, duplicate classes, or history mismatch.
-- Distinguish patient-reported history from PDMP or medication-list evidence.
-- Treat all output as clinician decision support.
-```
+Keep the database synthetic and de-identified. Do not paste real patient data into System Prompt, Content, tools, screenshots, or demos.
 
 ## Consult Prompt
 
@@ -107,30 +87,25 @@ If the UI needs explicit button metadata, add it in the UI adapter layer rather 
 
 ## Content
 
-Use the Content field for static RX Guard context that the agent must reference but that should not clutter the System Prompt.
+Use the Content field only for short product context. Do not put `PDMP_DATABASE` here for the current demo; it belongs in the System Prompt file above.
 
 ```text
 RX Guard is an A2A-enabled Prompt Opinion healthcare agent for controlled-substance prescribing safety review.
 
-Primary use case: before a controlled-substance prescription is finalized, RX Guard reviews synthetic/de-identified encounter context, PDMP-style history, medication list, patient-reported history, and documentation status. It returns an EHR-style risk modal with key flags, risk score, recommendation, workflow actions, and chart-ready documentation.
-
-Include the synthetic PDMP_DATABASE here if it is not embedded in the System Prompt and no external PDMP lookup tool is configured. The System Prompt can then refer to PDMP_DATABASE by name.
+Primary use case: before a controlled-substance prescription is finalized, RX Guard reviews synthetic/de-identified encounter context, PDMP-style history, medication list, patient-reported history, and documentation status. It returns strict JSON for an EHR-style risk modal with key flags, risk score, recommendation, workflow actions, and chart-ready documentation.
 ```
-
-Content should contain only synthetic/de-identified demo data. If Prompt Opinion chat tests show the agent cannot access Content reliably, move the synthetic `PDMP_DATABASE` into the System Prompt as a temporary demo fallback.
 
 ## Tools
 
-Prompt Opinion's **Additional Tools / MCP Servers** section is for attaching callable external tools to the agent. It is not where the synthetic PDMP database belongs when the database is supplied through the Content field or pasted into the System Prompt.
+Prompt Opinion's **Additional Tools / MCP Servers** section is for attaching callable external tools to the agent. For the current demo, the synthetic PDMP database is embedded directly in the System Prompt, so no MCP server is required.
 
 For the current hackathon/demo setup:
 
 - Keep **Additional Tools / MCP Servers** empty unless the Prompt Opinion account has a deployed RX Guard API or MCP server ready to call.
-- Put the synthetic `PDMP_DATABASE` in **Content** if the System Prompt only references it by name and no external tool exists.
 - Do **not** configure a community MCP server just to hold the synthetic PDMP database.
-- Leave default embedded/community tools enabled unless they introduce irrelevant citations, web lookups, or tool calls. If the agent starts using unrelated tools instead of the supplied synthetic PDMP data, disable default tools.
+- Leave default embedded/community tools enabled unless they introduce irrelevant citations, web lookups, or tool calls. If the agent starts using unrelated tools instead of the embedded System Prompt database, disable default tools.
 
-Future production-style setup: move `PDMP_DATABASE` out of Prompt Opinion prompt/content fields, then expose RX Guard service tools for exact PDMP lookup, deterministic risk scoring, and workflow-decision documentation. Until those tools exist, configuring no MCP servers is correct.
+Future production-style setup: move `PDMP_DATABASE` out of the System Prompt and expose RX Guard service tools for exact PDMP lookup, deterministic risk scoring, and workflow-decision documentation. Until those tools exist, configuring no MCP servers is correct.
 
 ## Guardrails
 
