@@ -103,11 +103,12 @@ The output should help a clinician improve the note and make a documented workfl
 
 The Prompt Opinion version should prefer:
 
-- one concise risk headline
-- 2 to 4 ranked findings
-- one missing-documentation or compliance list
-- action-specific suggested documentation
-- one explicit clinician-support disclaimer
-- structured button/workflow metadata when an external UI will render actions
+- one compact JSON response matching `PROMPT-OPINION-BYO-AGENT-CONFIG.md`
+- one concise risk headline in the UI derived from `risk_level`, `recommendation`, and `flags`
+- up to 3 ranked/highest-impact flags
+- one compliance flag when applicable
+- one action-specific documentation note
+- one explicit clinician-support disclaimer in surrounding UI copy
+- button/workflow metadata added by the UI adapter, not invented by the model
 
 That shape is easier to demo, easier to judge, and more defensible than a long narrative summary.
