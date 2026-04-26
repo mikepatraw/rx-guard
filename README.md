@@ -146,6 +146,18 @@ npm run review:case3
 npm start
 ```
 
+### Launch the static EHR demo UI
+
+```bash
+npm run demo:ui
+```
+
+Then open:
+
+```text
+http://localhost:4173
+```
+
 Then POST a review request to:
 
 ```text
