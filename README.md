@@ -121,54 +121,28 @@ The repository now includes a working hybrid MVP foundation with:
 - Prompt Opinion chat calibration: `docs/product/PROMPT-OPINION-CHAT-CALIBRATION.md`
 - Prompt Opinion BYO Agent configuration: `docs/product/PROMPT-OPINION-BYO-AGENT-CONFIG.md`
 - Prompt Opinion copy-paste System Prompt: `docs/product/PROMPT-OPINION-SYSTEM-PROMPT.md`
+- Local run guide for macOS and Windows: `docs/product/LOCAL-RUN-GUIDE.md`
 
 ## Run locally
 
-### Install
+For a clone-to-demo walkthrough with both macOS and Windows instructions, see `docs/product/LOCAL-RUN-GUIDE.md`.
+
+### Fast path after install
 
 ```bash
 npm install
 ```
 
-### Run tests
+Run the local Prompt Opinion adapter demo:
 
 ```bash
-npm test
+./scripts/run-local-demo.sh
 ```
 
-### Review a synthetic case
+Launch the static EHR demo UI:
 
 ```bash
-npm run review:case1
-npm run review:case2
-npm run review:case3
-npm run review:case4
-```
-
-### Run the local Prompt Opinion adapter demo
-
-```bash
-npm run review:local -- \
-  --name "Sheila Bankston" \
-  --dob "1960-06-13" \
-  --medication "Xanax 1 mg tablet" \
-  --directions "1 tablet PO BID PRN for anxiety" \
-  --history "no recent narcotic or controlled-substance use" \
-  --note "PDMP review not yet documented"
-```
-
-The local adapter demonstrates the intended handoff without requiring a live Prompt Opinion API call: RX Guard accepts realistic EHR-style encounter fields, resolves the synthetic patient to `RXG-SB-001`, sends only the synthetic key and clinical facts through the Prompt Opinion-safe payload, then renders compact decision-support JSON together with deterministic local PDMP rows.
-
-### Start the local server
-
-```bash
-npm start
-```
-
-### Launch the static EHR demo UI
-
-```bash
-npm run demo:ui
+./scripts/start-ui-demo.sh
 ```
 
 Then open:
@@ -177,9 +151,30 @@ Then open:
 http://localhost:4173
 ```
 
-The UI opens on a synthetic eCW-style medication page. `npm run demo:ui` first builds `public/demo-data.js` from the same local adapter used by `npm run review:local`, then the page reads that payload to render the Sheila Bankston RXGuard analysis, deterministic local PDMP rows, and Proceed / Proceed with Caution / Do Not Prescribe workflow buttons. See `docs/product/DEMO-UI-WALKTHROUGH.md` for the recording flow.
+Windows users can run the matching PowerShell wrappers:
 
-Then POST a review request to:
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\run-local-demo.ps1
+powershell -ExecutionPolicy Bypass -File .\scripts\start-ui-demo.ps1
+```
+
+The local adapter demonstrates the intended handoff without requiring a live Prompt Opinion API call: RX Guard accepts realistic EHR-style encounter fields, resolves the synthetic patient to `RXG-SB-001`, sends only the synthetic key and clinical facts through the Prompt Opinion-safe payload, then renders compact decision-support JSON together with deterministic local PDMP rows.
+
+The UI opens on a synthetic eCW-style medication page. The UI wrapper builds `public/demo-data.js` from the same local adapter used by the CLI demo, then the page reads that payload to render the Sheila Bankston RXGuard analysis, deterministic local PDMP rows, and Proceed / Proceed with Caution / Do Not Prescribe workflow buttons. See `docs/product/DEMO-UI-WALKTHROUGH.md` for the recording flow.
+
+### Developer checks
+
+```bash
+npm test
+```
+
+### Optional API server
+
+```bash
+npm start
+```
+
+Review endpoint:
 
 ```text
 http://localhost:8787/review
