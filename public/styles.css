@@ -19,9 +19,9 @@ aside h2 { margin: 4px 0 14px; font-size: 18px; color: #0b6d9d; } aside p { padd
 .page-head { display: flex; justify-content: space-between; align-items: center; } .page-head h2 { margin: 0; color: #145f83; }
 .tabs { display: flex; gap: 28px; padding: 11px 14px; } .tabs b { color: #006da1; }
 .card h3, .pending h3, .reminders h3 { margin: 0 0 10px; color: #304f60; } .med { padding: 11px; border-top: 1px solid #e4edf2; } .pending { border-left: 5px solid #f6b21a; } .overdue { color: #b11226; }
-.consult-overlay, .overlay { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; padding: 24px; background: rgba(10, 31, 43, .54); }
+.consult-overlay, .overlay { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; padding: 24px; background: rgba(10, 31, 43, .54); overflow-y: auto; }
 .hidden { display: none !important; }
-.consult-panel { width: min(1060px, 95vw); background: #f8fbfd; border-radius: 16px; border: 1px solid #b7d1df; box-shadow: 0 26px 80px #001b2fcc; overflow: hidden; }
+.consult-panel { width: min(1060px, 95vw); max-height: calc(100dvh - 48px); display: flex; flex-direction: column; background: #f8fbfd; border-radius: 16px; border: 1px solid #b7d1df; box-shadow: 0 26px 80px #001b2fcc; overflow-y: auto; }
 .consult-head { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; color: #fff; background: linear-gradient(90deg, #0c5270, #167fac); } .consult-head b { font-size: 22px; }
 .handoff-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding: 18px 20px 8px; }
 .handoff-card { padding: 16px; border: 1px solid #d1e4ec; border-radius: 12px; background: #fff; } .handoff-card small, .adapter-card small { display: block; text-transform: uppercase; color: #6c8795; font-weight: 800; letter-spacing: .04em; } .handoff-card strong { display: block; margin: 8px 0 4px; color: #074f76; font-size: 18px; }
@@ -46,3 +46,46 @@ h3 { margin: 15px 0 8px; color: #254b5e; font-size: 14px; letter-spacing: .02em;
 .modal-foot { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-top: 1px solid #dbe7ed; background: #f4f8fa; } .modal-foot button { margin-left: 8px; color: #fff; background: #63869a; }
 .btn-success { background: #2d8b57 !important; } .btn-warning { background: #d79b00 !important; } .btn-danger { background: #c53d36 !important; }
 @media (max-width: 980px) { .patient-strip { grid-template-columns: 70px 1fr 1fr; } .modal-body { grid-template-columns: 1fr; } .handoff-grid { grid-template-columns: 1fr; } }
+@media (max-width: 640px) {
+  body { font-size: 13px; }
+  .topbar { gap: 8px; overflow-x: auto; white-space: nowrap; }
+  nav { min-width: max-content; gap: 12px; }
+  .search, .topbar a, aside { display: none; }
+  .patient-strip { grid-template-columns: 48px 1fr; gap: 10px; padding: 10px; }
+  .patient-strip > div:nth-child(n+4) { display: none; }
+  .photo { width: 44px; height: 54px; font-size: 17px; }
+  h1 { font-size: 16px; }
+  .layout { display: block; min-height: auto; }
+  .page { padding: 10px; }
+  .page-head, .tabs { align-items: flex-start; flex-direction: column; gap: 8px; }
+  .consult-overlay, .overlay { display: block; padding: 0; background: rgba(10, 31, 43, .62); }
+  .consult-panel, .rx-modal { width: 100%; min-height: 100dvh; max-height: none; border-radius: 0; border: 0; box-shadow: none; }
+  .consult-panel { padding-bottom: 64px; }
+  .rx-modal { padding-bottom: 190px; }
+  .consult-head, .modal-head { align-items: flex-start; flex-direction: column; gap: 4px; padding: 12px 14px; }
+  .consult-head b, .modal-head h2 { font-size: 18px; }
+  .handoff-grid { gap: 8px; padding: 12px 14px 6px; }
+  .handoff-card { padding: 10px 12px; }
+  .handoff-card strong { margin: 4px 0 2px; font-size: 16px; }
+  .consult-panel label { margin: 8px 14px 6px; }
+  #consultPrompt { width: calc(100% - 28px); min-height: 120px; margin: 0 14px; font-size: 12px; }
+  .json-preview { margin: 10px 14px; max-height: 210px; overflow-y: auto; }
+  .json-preview pre { max-height: 160px; overflow-y: auto; font-size: 11px; }
+  .agent-status { margin: 0 14px 10px; }
+  .analyze-btn { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; width: 100%; margin: 0; border-radius: 0; padding: 16px; box-shadow: 0 -8px 18px rgba(0, 27, 47, .16); }
+  .modal-body { display: block; max-height: none; overflow: visible; padding: 12px; }
+  .summary { grid-template-columns: 1fr; }
+  .avatar { display: none; }
+  .pdmp-table, .pdmp-table thead, .pdmp-table tbody, .pdmp-table tr, .pdmp-table th, .pdmp-table td { display: block; }
+  .pdmp-table { border-collapse: separate; border-spacing: 0; }
+  .pdmp-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .pdmp-table tr { margin-bottom: 10px; border: 1px solid #dbe7ed; border-radius: 8px; overflow: hidden; background: #fff; }
+  .pdmp-table td { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 8px; border: 0; border-bottom: 1px solid #edf3f6; white-space: normal; overflow-wrap: anywhere; }
+  .pdmp-table td:last-child { border-bottom: 0; }
+  .pdmp-table td::before { content: attr(data-label); color: #496b7d; font-weight: 800; }
+  .risk-box { grid-template-columns: 1fr; }
+  .risk-score { font-size: 38px; }
+  .risk-level { font-size: 24px; }
+  .modal-foot { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; display: block; padding: 10px; }
+  .modal-foot button { width: 100%; margin: 5px 0; }
+}

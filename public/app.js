@@ -62,9 +62,17 @@ function renderPdmpRows(rows) {
   tbody.innerHTML = '';
   for (const row of rows) {
     const tr = document.createElement('tr');
-    const cells = [row.medication, formatDate(row.date), row.qty, row.days, row.prescriber, row.pharmacy];
-    for (const cell of cells) {
+    const cells = [
+      ['Medication', row.medication],
+      ['Fill Date', formatDate(row.date)],
+      ['Qty', row.qty],
+      ['Days', row.days],
+      ['Prescriber', row.prescriber],
+      ['Pharmacy', row.pharmacy],
+    ];
+    for (const [label, cell] of cells) {
       const td = document.createElement('td');
+      td.dataset.label = label;
       td.textContent = String(cell ?? '');
       tr.appendChild(td);
     }

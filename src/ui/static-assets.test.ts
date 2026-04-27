@@ -24,7 +24,13 @@ assert.match(css, /\.consult-panel/);
 assert.match(css, /\.rx-modal/);
 assert.match(css, /\.risk-score/);
 assert.match(css, /\.btn-danger/);
+assert.match(css, /@media \(max-width: 640px\)/);
+assert.match(css, /\.consult-panel, \.rx-modal \{ width: 100%; min-height: 100dvh/);
+assert.match(css, /\.analyze-btn \{ position: fixed; left: 0; right: 0; bottom: 0/);
+assert.match(css, /\.modal-foot \{ position: fixed; left: 0; right: 0; bottom: 0/);
 
+assert.match(css, /\.pdmp-table td::before \{ content: attr\(data-label\)/);
+assert.match(js, /td\.dataset\.label = label/);
 assert.match(js, /insert_standard_documentation/);
 assert.match(js, /insert_enhanced_risk_documentation/);
 assert.match(js, /cancel_medication_order/);
