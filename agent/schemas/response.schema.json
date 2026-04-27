@@ -12,6 +12,7 @@
     "flags",
     "missingDocumentation",
     "suggestedLanguage",
+    "pdmpCrossReference",
     "metadata"
   ],
   "properties": {
@@ -58,6 +59,33 @@
       "type": "array",
       "items": { "type": "string" },
       "default": []
+    },
+    "pdmpCrossReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["matched", "totalPrescriptions", "prescriberCount90d", "pharmacyCount90d", "activeOverlaps"],
+      "properties": {
+        "matched": { "type": "boolean" },
+        "name": { "type": "string" },
+        "dob": { "type": "string", "format": "date" },
+        "totalPrescriptions": { "type": "integer", "minimum": 0 },
+        "prescriberCount90d": { "type": "integer", "minimum": 0 },
+        "pharmacyCount90d": { "type": "integer", "minimum": 0 },
+        "lastFillDate": { "type": "string", "format": "date" },
+        "activeOverlaps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["medA", "medB", "date"],
+            "properties": {
+              "medA": { "type": "string" },
+              "medB": { "type": "string" },
+              "date": { "type": "string", "format": "date" }
+            }
+          }
+        }
+      }
     },
     "metadata": {
       "type": "object",

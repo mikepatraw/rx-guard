@@ -165,7 +165,7 @@ If a case is relatively clean, the model should say so and avoid manufacturing c
     "monitoring or follow-up plan"
   ],
   "suggestedChartLanguage": [
-    "Reviewed PDMP today; no unexpected recent controlled-substance fills were identified.",
+    "Reviewed PDMP today; document any recent controlled-substance fills, care-coordination concerns, and rationale before finalizing.",
     "Treatment goal is short-term improvement in pain control and daily functioning."
   ],
   "safetyNote": "RX Guard provides clinician-support guidance only and does not make autonomous prescribing decisions."

@@ -60,7 +60,7 @@ function buildSuggestedLanguage(missingDocumentation: string[]): string[] {
   const suggestions: string[] = [];
 
   if (missingDocumentation.includes('PDMP review documentation')) {
-    suggestions.push('Reviewed PDMP today and no unexpected recent controlled-substance fills were identified.');
+    suggestions.push('Reviewed PDMP today; document recent controlled-substance history, care-coordination concerns, and prescribing rationale before finalizing.');
   }
 
   if (missingDocumentation.includes('functional goal or treatment objective')) {
