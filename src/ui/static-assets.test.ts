@@ -29,8 +29,8 @@ const expectedAge = String(patientFixture.patient.age);
 const expectedUiDob = expectedDob.replace(/^(\d{4})-(\d{2})-(\d{2})$/, '$2/$3/$1');
 assert.ok(html.includes(`F, ${expectedAge} Y, ${expectedUiDob}`));
 assert.ok(html.includes(`DOB:</b> ${expectedUiDob} (${expectedAge})`));
-assert.ok(js.includes(`DOB: ${expectedUiDob}`));
+assert.ok(js.includes('Synthetic patient key: RXG-SB-001'));
+assert.doesNotMatch(js, /DOB:|06\/13\/1960|05\/12\/1984/);
 assert.doesNotMatch(html, /05\/12\/1984|F, 42 Y/);
-assert.doesNotMatch(js, /05\/12\/1984/);
 
 console.log('static UI asset tests passed');
