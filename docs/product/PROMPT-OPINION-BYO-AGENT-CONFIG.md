@@ -115,9 +115,11 @@ Prompt Opinion guardrails validate or constrain the agent's behavior. They are s
 - The **Response Format** tells RX Guard what JSON shape to return.
 - The **Guardrail** checks whether the output is safe, valid, and on-policy.
 
-Recommended guardrail type for this demo: **Agent** guardrail.
+Recommended guardrail setup for this demo: **leave custom guardrails disabled during live chat testing unless Prompt Opinion lets you scope the guardrail to assistant output only**.
 
-Use an Agent guardrail first because it can inspect the full response for JSON shape, prohibited language, and clinical-safety framing. HTTP or code-based guardrails are better later when a stable validator endpoint or code hook exists.
+Important platform behavior discovered during testing: Prompt Opinion may run the Agent guardrail against the **user's chat prompt** before RXGuard responds. If the JSON validator below is attached in that mode, a normal consult prompt such as `Synthetic patient key: RXG-SB-001 ...` fails before the agent can answer because the user prompt is not the final JSON response. If this happens, remove/disable the custom guardrail for the demo and rely on the System Prompt + Response Format instead.
+
+Use the Agent guardrail below only when it can inspect the assistant response after generation, because it validates the final JSON shape, prohibited language, and clinical-safety framing. HTTP or code-based guardrails are better later when a stable validator endpoint or code hook exists.
 
 Recommended guardrail name:
 
