@@ -2,6 +2,8 @@
 
 Use this exact prompt in Prompt Opinion chat with the published **RX Guard** agent selected.
 
+Before testing: disable RXGuard's custom Agent guardrail unless Prompt Opinion clearly scopes it to assistant output only. A JSON-shape guardrail attached to the user-input path will reject this consult prompt before RXGuard can respond.
+
 This version intentionally uses a synthetic patient key instead of direct patient identifiers so Prompt Opinion guardrails do not treat the test input as real PHI.
 
 ---
