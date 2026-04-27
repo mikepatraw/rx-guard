@@ -116,16 +116,16 @@ The repository now includes a working hybrid MVP foundation with:
 - Submission checklist: `docs/product/SUBMISSION-CHECKLIST.md`
 - Competition rules and compliance review: `docs/product/COMPETITION-RULES-AND-COMPLIANCE.md`
 - Demo script: `docs/product/DEMO-SCRIPT.md`
-- Demo UI walkthrough: `docs/product/DEMO-UI-WALKTHROUGH.md`
-- Devpost draft: `docs/product/DEVPOST-DRAFT.md`
+- Local UI test walkthrough: `docs/product/LOCAL-TEST-GUIDE.md`
+- Prompt Opinion chat test prompt: `docs/product/PROMPT-OPINION-CHAT-TEST-PROMPT.md`
 - Prompt Opinion chat calibration: `docs/product/PROMPT-OPINION-CHAT-CALIBRATION.md`
 - Prompt Opinion BYO Agent configuration: `docs/product/PROMPT-OPINION-BYO-AGENT-CONFIG.md`
 - Prompt Opinion copy-paste System Prompt: `docs/product/PROMPT-OPINION-SYSTEM-PROMPT.md`
-- Local run guide for macOS and Windows: `docs/product/LOCAL-RUN-GUIDE.md`
+- Devpost draft: `docs/product/DEVPOST-DRAFT.md`
 
 ## Run locally
 
-For a clone-to-demo walkthrough with both macOS and Windows instructions, see `docs/product/LOCAL-RUN-GUIDE.md`.
+For a clone-to-local-test walkthrough with both macOS and Windows instructions, see `docs/product/LOCAL-TEST-GUIDE.md`.
 
 ### Fast path after install
 
@@ -133,13 +133,13 @@ For a clone-to-demo walkthrough with both macOS and Windows instructions, see `d
 npm install
 ```
 
-Run the local Prompt Opinion adapter demo:
+Run the local Prompt Opinion adapter test:
 
 ```bash
 ./scripts/run-local-demo.sh
 ```
 
-Launch the static EHR demo UI:
+Launch the static EHR local test UI:
 
 ```bash
 ./scripts/start-ui-demo.sh
@@ -160,7 +160,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\start-ui-demo.ps1
 
 The local adapter demonstrates the intended handoff without requiring a live Prompt Opinion API call: RX Guard accepts realistic EHR-style encounter fields, resolves the synthetic patient to `RXG-SB-001`, sends only the synthetic key and clinical facts through the Prompt Opinion-safe payload, then renders compact decision-support JSON together with deterministic local PDMP rows.
 
-The UI opens on a synthetic eCW-style medication page. The UI wrapper builds `public/demo-data.js` from the same local adapter used by the CLI demo, then the page reads that payload to render the Sheila Bankston RXGuard analysis, deterministic local PDMP rows, and Proceed / Proceed with Caution / Do Not Prescribe workflow buttons. See `docs/product/DEMO-UI-WALKTHROUGH.md` for the recording flow.
+The UI opens on a synthetic eCW-style medication page. The UI wrapper builds `public/demo-data.js` from the same local adapter used by the CLI demo, then the page reads that payload to render the Sheila Bankston RXGuard analysis, deterministic local PDMP rows, and Proceed / Proceed with Caution / Do Not Prescribe workflow buttons. Use `docs/product/LOCAL-TEST-GUIDE.md` as the local test link.
 
 ### Developer checks
 
