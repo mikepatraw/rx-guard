@@ -11,25 +11,28 @@ You **do** need a Prompt Opinion account for the following tasks:
 
 ## Current status
 
-As of now, local repository work can continue without account access.
+RX Guard has been configured/published as a Prompt Opinion BYO/A2A agent, and local/staging repository work can continue without account access. Account access is still needed for final in-platform validation, marketplace URL capture, and the submission video.
 
 ## Trigger point for account access
 
-Account access is needed when we are ready to do either of these:
-1. inspect Prompt Opinion’s agent creation UI and required metadata
-2. create/configure the real RX Guard agent for marketplace publication
+Account access is needed when we are ready to do any of these:
+1. verify the final Prompt Opinion chat/A2A invocation for `RXG-SB-001`
+2. capture the polished marketplace/listing URL or discoverability path
+3. record the final under-3-minute in-platform demo video
 
 ## What to do when that moment comes
 
-1. Create a free Prompt Opinion account
-2. Be ready to share either:
-   - interactive access/session where you can click through, or
-   - screenshots / copied field requirements, if direct interactive tooling is unavailable
-3. Confirm whether RX Guard will be created directly in-platform as an A2A agent or wrapped around an external endpoint
+1. Open the existing RX Guard BYO/A2A agent in Prompt Opinion.
+2. Confirm the agent is chat-selectable and A2A-enabled.
+3. Invoke the synthetic `RXG-SB-001` case using the compact contract.
+4. Capture the final marketplace/listing URL or clear discoverability instructions.
+5. Record the final under-3-minute demo evidence required for submission.
 
-## Immediate next work before account handoff
+## Current no-account path
 
-- finalize wrapper assumptions
-- prepare demo script
-- prepare submission copy
-- optionally add AI explanation layer to the local MVP
+Without Prompt Opinion account access, reviewers can still use:
+- public staging: `https://rx-guard-iota.vercel.app`
+- local clone-to-test guide: `docs/product/LOCAL-TEST-GUIDE.md`
+- staging handoff: `docs/product/STAGING-TEST-GUIDE.md`
+
+These paths are synthetic and Prompt Opinion-compatible, but they are not a substitute for the final in-platform Prompt Opinion recording if the competition requires it.

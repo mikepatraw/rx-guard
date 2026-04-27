@@ -77,23 +77,25 @@ Current repo evidence:
 - `docs/product/SUBMISSION-CHECKLIST.md` selects **Path B: A2A Agent**.
 - `docs/architecture/BYO-A2A-INTEGRATION-PLAN.md` documents the Prompt Opinion BYO Agent / A2A path.
 - `src/api/byo-a2a.ts` and `/byo-a2a/invoke` in `src/api/server.ts` provide a provisional wrapper endpoint for BYO/A2A invocation shaping.
+- `src/cli/local-adapter.ts` maps realistic synthetic encounter fields to the safe `RXG-SB-001` key and produces the compact Prompt Opinion-compatible payload/response contract.
+- `public/` and `docs/product/STAGING-TEST-GUIDE.md` document the live Vercel staging UI at `https://rx-guard-iota.vercel.app` for public workflow review.
 
 ## Compliance review
 
 | Requirement / expectation | Current RX Guard status | Assessment |
 | --- | --- | --- |
-| Use Prompt Opinion platform | Repo docs state RX Guard is published in Prompt Opinion Marketplace and A2A-enabled. | **Appears aligned**, but final end-user invocation should still be revalidated before submission. |
+| Use Prompt Opinion platform | Repo docs state RX Guard is published in Prompt Opinion Marketplace and A2A-enabled; staging docs explain the Prompt Opinion-compatible handoff. | **Appears aligned**, but final in-platform invocation should still be recorded before submission. |
 | Choose MCP Superpower or A2A Agent path | RX Guard clearly chooses the A2A Agent path. | **Aligned.** |
-| Marketplace publication | README and checklist say RX Guard has been published. | **Appears aligned**, pending final marketplace URL/details for submission materials. |
-| Demo under 3 minutes inside Prompt Opinion | Demo script exists and includes under-3-minute guardrails. | **Not complete** until final in-platform recording is captured. |
+| Marketplace publication | README and checklist say RX Guard has been published. | **Appears aligned**, pending final polished marketplace URL/details for submission materials. |
+| Demo under 3 minutes inside Prompt Opinion | Demo script exists; public Vercel staging is ready for partner workflow testing. | **Not complete** until final Prompt Opinion in-platform recording is captured. |
 | SHARP extension specs / healthcare context propagation | Checklist says FHIR context extension is enabled; architecture describes SHARP/FHIR context propagation. Local code has a `source.fhirContext` marker but no full SHARP payload handling. | **Partially aligned.** Needs final evidence from Prompt Opinion configuration and clearer mapping of SHARP context fields used by RX Guard. |
 | FHIR-aware data handling | Repo has `src/fhir/normalize.ts`, FHIR-inspired types, and FHIR-aware architecture docs. | **Directionally aligned**, but current implementation is a simplified FHIR-inspired shape rather than full FHIR resource parsing. This is acceptable for MVP if presented honestly. |
-| FHIR server data | Synthetic local fixtures and PDMP-style sample data are used. | **Acceptable but not maximized.** The challenge recommends FHIR server data but does not require it. |
+| FHIR server data | Synthetic local fixtures and PDMP-style sample data are used; no live prescription/PDMP database is included. | **Acceptable but not maximized.** The challenge recommends FHIR server data but does not require it. This is the right tradeoff for a safe submission MVP. |
 | Synthetic / de-identified data | README, schemas, and docs repeatedly state synthetic/de-identified data only; request schema requires `synthetic: true`. | **Aligned.** Keep all demo screenshots and video synthetic-only. |
-| AI Factor | Docs describe a hybrid rules + AI-style explanation layer; Prompt Opinion model configuration is noted. Local code currently generates deterministic “AI-style” insights in `src/engine/explanations.ts`. | **Potential gap.** For judging, the final Prompt Opinion agent should clearly use generative AI for narrative interpretation or response synthesis, not only deterministic code labeled as AI-style. |
+| AI Factor | Docs describe Prompt Opinion as the agent layer and RX Guard as the clinical data/UI renderer. Local code keeps deterministic fallback output for reliable staging. | **Partially aligned.** The submission should explicitly show Prompt Opinion producing the compact decision-support payload so judges see the model-backed layer. |
 | Human-in-the-loop safety | README and architecture explicitly say RX Guard is not an autonomous prescriber and does not replace clinician judgment. | **Aligned.** |
 | Feasibility / privacy / safety | Narrow scope, synthetic data, no persistent PHI storage, and conservative language are documented. | **Aligned for hackathon MVP.** |
-| A2A implementation readiness | Provisional BYO/A2A adapter exists and local tests pass. | **Partially aligned.** Exact Prompt Opinion BYO/A2A request contract is still documented as an unknown. |
+| A2A implementation readiness | BYO/A2A configuration, local adapter, contract docs, and staging renderer exist; local tests pass. | **Partially aligned.** Final Prompt Opinion chat/A2A invocation evidence still needs to be captured for submission. |
 
 ## Code and repo review findings
 
@@ -105,21 +107,23 @@ Current repo evidence:
 - The TypeScript review path runs locally and returns structured, explainable output.
 - The provisional A2A wrapper keeps Prompt Opinion transport separate from the internal review engine, which is a good interoperability design.
 - The local engine avoids live EHR or live PDMP integration and uses synthetic fixtures, reducing privacy and regulatory risk for the demo.
+- The public staging UI uses a clean patient/DOB/prescription intake flow and hides raw JSON/payload details from partner testers.
+- The documentation now clearly separates Prompt Opinion as the published agent layer from Vercel staging as the low-friction workflow renderer.
 
 ### Gaps to close before final submission
 
-1. **Confirm final Prompt Opinion invocation path.** The repo still notes that clean chat/A2A invocation needs final validation. This is the most important submission-readiness gap.
-2. **Document the actual SHARP context mapping.** The repo should identify which SHARP/FHIR context fields Prompt Opinion passes and how RX Guard uses or safely ignores them.
-3. **Show a real generative AI contribution.** The local repo has deterministic `buildAiStyleInsights()` output. That is useful for demo reliability, but judging criteria ask whether the solution leverages generative AI beyond traditional rules. The final platform demo should show model-backed narrative interpretation or generation.
-4. **Capture marketplace URL/details.** Technical agent URLs are documented, but the Devpost draft still needs the polished marketplace listing URL or final discoverability details.
-5. **Record the under-3-minute in-platform demo.** The script exists; the final video remains a required artifact.
+1. **Record final Prompt Opinion invocation evidence.** The clean chat/A2A path is the most important remaining submission-readiness gap.
+2. **Capture marketplace URL/details.** Technical agent URLs are documented, but the Devpost draft still needs the polished marketplace listing URL or final discoverability details.
+3. **Record the under-3-minute in-platform demo.** The script exists; the final video remains a required artifact.
+4. **Keep the database story scoped.** Do not build a live prescription/PDMP database before submission. RX Guard should describe production data access as future authorized EHR/PDMP/FHIR integration through a secure clinical data layer.
+5. **Show the model-backed layer honestly.** The Vercel staging UI is deterministic and synthetic; the final Prompt Opinion clip should show the published agent producing the compact decision-support payload.
 6. **Keep FHIR claims precise.** RX Guard is currently FHIR-aware / FHIR-inspired. Avoid claiming full FHIR server integration unless that is added and validated.
 
 ## Recommended competition positioning
 
 RX Guard should be submitted as:
 
-> An A2A-enabled Prompt Opinion healthcare agent that reviews synthetic controlled-substance prescribing encounters, combines structured medication context with narrative note review, flags documentation and contextual safety gaps, and returns clinician-support guidance before a prescription is finalized.
+> A Prompt Opinion-compatible A2A healthcare agent workflow for synthetic controlled-substance prescribing review. Prompt Opinion provides the compact decision-support agent output; RX Guard provides the synthetic clinical data adapter and EHR-style workflow renderer that turns that output into clinician-readable risk guidance before a prescription is finalized.
 
 Avoid positioning RX Guard as:
 
@@ -127,12 +131,13 @@ Avoid positioning RX Guard as:
 - a prescribing approval or denial engine
 - a fraud, abuse, or diversion detector
 - a live EHR / PDMP integration unless those integrations are actually demonstrated
+- a Prompt Opinion-hosted prescription database
 - a full FHIR server implementation unless that is added
 
 ## Submission-readiness verdict
 
 RX Guard is **directionally within the competition guidelines** and is well aligned with the A2A Agent path, synthetic-data posture, human-in-the-loop safety framing, and marketplace-oriented workflow.
 
-It is **not fully submission-ready yet** because the final Prompt Opinion chat/A2A invocation, SHARP context evidence, model-backed AI contribution, marketplace URL/details, and under-3-minute demo video still need final validation or capture.
+It is **not fully submission-ready yet** because the final Prompt Opinion chat/A2A invocation evidence, marketplace URL/details, and under-3-minute demo video still need final validation or capture.
 
-The safest path is to present the current implementation as a narrow, feasible, synthetic-data MVP with a Prompt Opinion A2A agent wrapper and explicit clinician-review guardrails.
+The safest path is to present the current implementation as a narrow, feasible, synthetic-data MVP: Prompt Opinion for the published agent/decision-support layer, RX Guard for the synthetic data adapter and EHR-style workflow renderer, and explicit clinician-review guardrails throughout.

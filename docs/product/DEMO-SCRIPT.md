@@ -8,7 +8,8 @@ The demo should clearly show:
 - a real workflow problem
 - healthcare-aware context
 - Prompt Opinion producing compact decision-support output
-- RX Guard rendering a clinician-facing EHR-style workflow
+- RX Guard rendering a clean clinician-facing EHR-style workflow
+- public Vercel staging as a synthetic reviewer surface, not a live Prompt Opinion API integration
 - feasibility, safety, and human-in-the-loop control
 - a believable before/after improvement loop
 
@@ -63,9 +64,9 @@ Suggested narration:
 > Here we have a synthetic medication workflow for Sheila Bankston. In the clinician-facing workflow, the user can start from normal encounter context: name, date of birth, proposed medication, directions, patient-reported history, and whether PDMP review has been documented. For the Prompt Opinion handoff, RX Guard resolves that local synthetic patient to the safe case key RXG-SB-001.
 
 Visuals:
-- synthetic eCW-style medication page
-- realistic encounter fields: patient, DOB, proposed Xanax prescription, directions, patient-reported history, PDMP documentation status
-- Prompt Opinion/RXGuard consult prompt panel using `Synthetic patient key: RXG-SB-001`
+- synthetic eCW-style medication page or staging intake form
+- clean intake fields: patient, DOB, proposed Xanax prescription, and directions
+- note that RX Guard maps the local synthetic intake to `Synthetic patient key: RXG-SB-001` behind the scenes
 
 Keep this fast. Do not over-explain every field.
 
@@ -76,9 +77,9 @@ Suggested narration:
 > Prompt Opinion receives the synthetic consult and returns a compact JSON decision-support payload: risk score, risk level, PDMP match status, flags, recommendation, compliance flag, and chart-ready note language. RX Guard then uses that payload to render the EHR-style modal instead of asking Prompt Opinion to draw the UI or generate the PDMP table.
 
 Visuals:
-- paste or show the Prompt Opinion consult prompt
-- show the compact response shape briefly if it is clean and readable
-- click **Run RXGuard Analysis** in the local UI
+- show Prompt Opinion returning or representing the compact decision-support payload if the in-platform output is clean
+- switch quickly to the RX Guard staging/local UI
+- click **Run RXGuard Analysis** in the clean intake UI
 - show the modal loading or appearing
 
 Important:
@@ -86,6 +87,7 @@ Important:
 - ask Prompt Opinion for `pdmp_summary_status`, not nested PDMP table rows
 - RX Guard owns deterministic synthetic PDMP table rendering locally
 - if Launchpad shows stale template wording, center the demo on the actual selected agent/session behavior and returned output rather than the misleading card copy
+- do not show raw expected JSON or Prompt Opinion-safe payload panels in the RX Guard front-end; those details belong in docs/architecture only
 
 ## 4. Show findings in the EHR modal (1:05 to 1:40)
 
@@ -140,6 +142,18 @@ Visuals:
 - [ ] narration under 3 minutes
 - [ ] final screen includes product name and value proposition
 
+## Public staging path
+
+Use this path for partner UI feedback and as the polished workflow visual:
+
+```text
+https://rx-guard-iota.vercel.app
+```
+
+Describe it accurately:
+
+> This public staging UI uses synthetic data and the Prompt Opinion-compatible agent contract. It is not making a live Prompt Opinion API call.
+
 ## Prompt Opinion live path
 
 Show this if the platform session is clean and stable:
@@ -164,11 +178,11 @@ Do not make raw JSON the hero shot. Use it as a quick proof of the agent contrac
 
 ## If Prompt Opinion access does not work in time
 
-Keep the demo prep ready anyway, but note that final hackathon compliance still requires in-platform functioning. Use the local UI to show the intended rendering/workflow contract honestly, without claiming a live Prompt Opinion invocation if it did not happen.
+Keep the demo prep ready anyway, but note that final hackathon compliance still requires in-platform functioning if the rules demand it. Use the Vercel/local UI to show the intended rendering/workflow contract honestly, without claiming a live Prompt Opinion invocation if it did not happen.
 
 ## Recording tips
 
-- show the prompt being pasted before the results screen appears
+- show the Prompt Opinion invocation briefly before the RX Guard results screen appears
 - use `Synthetic patient key: RXG-SB-001` in Prompt Opinion, not direct name + DOB
 - keep zoom level high enough to read output on mobile and laptop
 - use the Sheila Bankston case, not multiple cases

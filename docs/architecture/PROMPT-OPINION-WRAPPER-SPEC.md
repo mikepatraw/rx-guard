@@ -197,41 +197,41 @@ We cannot confirm exact required fields without platform access, but RX Guard sh
 
 RX Guard is a clinician-support tool for synthetic or de-identified data. It does not autonomously approve or deny prescriptions, replace clinician judgment, or provide legal determinations.
 
-## 14. Wrapper Implementation Plan
+## 14. Wrapper Implementation Status
 
 ### Step 1
-Confirm Prompt Opinion agent creation flow and input/output model.
+Confirm Prompt Opinion agent creation flow and input/output model. **Done for the current BYO/A2A submission path.**
 
 ### Step 2
-Create adapter module that maps platform payloads into `ReviewRequest`.
+Create adapter module that maps realistic synthetic intake into safe Prompt Opinion context. **Done locally in `src/cli/local-adapter.ts`.**
 
 ### Step 3
-Create response mapper for clean in-platform output.
+Create response mapper for compact Prompt Opinion-compatible output. **Done for deterministic local/staging output using `pdmp_summary_status` instead of nested PDMP rows.**
 
 ### Step 4
-Validate one synthetic case end-to-end.
+Validate one synthetic case end-to-end. **Done locally and in public staging for `RXG-SB-001`; final Prompt Opinion in-platform recording remains.**
 
 ### Step 5
-Refine for marketplace publication and demo.
+Refine for marketplace publication and demo. **Marketplace publication/A2A enablement is documented; final polished listing URL and recording remain.**
 
 ## 15. Minimal Technical Deliverable for Wrapper
 
-When account access is available, the smallest acceptable wrapper deliverable is:
+The smallest acceptable wrapper deliverable is:
 - one invokable Prompt Opinion agent
 - one reliable synthetic case input path
-- one successful review response rendered in-platform
-- one marketplace listing
+- one successful compact review response through the Prompt Opinion chat/A2A path
+- one marketplace listing or clear marketplace discoverability path
+- one polished RX Guard workflow renderer showing how the agent output becomes clinician-facing UI
 
-That is enough to satisfy the hackathon structure if the demo is clean.
+The public Vercel staging UI satisfies the renderer/partner-test portion, but the final submission still needs Prompt Opinion in-platform invocation evidence if the rules require it.
 
-## 16. Open Questions Requiring Prompt Opinion Access
+## 16. Remaining Prompt Opinion Validation Questions
 
-These are the questions we cannot fully answer until we can inspect the platform directly:
-- How are structured outputs displayed in the final chat session UX?
-- How are SHARP/FHIR context objects passed into the agent during real Prompt Opinion chat invocation?
-- What exact marketplace listing URL pattern is exposed to end users after publication?
-- Why can Launchpad still show stale native-template-style copy even after a BYO/A2A agent is published and chat-selectable?
-- What is the cleanest user-facing invocation flow for a published BYO/A2A agent from the workspace?
+These should be checked during the final recording pass:
+- How cleanly does the final chat session display the compact JSON/decision-support output?
+- What exact marketplace listing URL or discoverability path should be copied into Devpost?
+- Does the final selected agent/session path avoid stale Launchpad template wording?
+- What is the cleanest visible path from marketplace/chat selection to one successful `RXG-SB-001` invocation?
 
 ## 16.1 Confirmed live Prompt Opinion endpoints
 
@@ -243,6 +243,6 @@ These confirm that Prompt Opinion has provisioned RX Guard as a concrete BYO age
 
 ## 17. Decision
 
-Current platform exploration suggests the final hackathon path should target a stable internal engine plus a thin **BYO Agent / A2A** wrapper, rather than relying on native Po Agent templates alone.
+Current platform exploration supports a stable RX Guard synthetic data/workflow renderer plus a thin **BYO Agent / A2A** Prompt Opinion contract, rather than relying on native Po Agent templates alone.
 
-That keeps the architecture sane and minimizes rework once the final Prompt Opinion publication requirements are confirmed.
+Keep the Vercel staging site framed as a Prompt Opinion-compatible synthetic renderer, not as a live Prompt Opinion API integration or a production prescription database.

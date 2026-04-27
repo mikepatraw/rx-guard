@@ -89,6 +89,7 @@ RX Guard now has:
 - a provisional BYO/A2A wrapper endpoint for local shaping
 - a local CLI adapter that accepts realistic encounter fields, resolves the synthetic case key, and renders Prompt Opinion-style decision support
 - a connected static EHR-style demo UI that reads the local adapter's generated Sheila Bankston payload, renders deterministic PDMP rows, and drives workflow buttons
+- a public Vercel staging UI for low-friction partner testing on phone or desktop: `https://rx-guard-iota.vercel.app`
 
 ## Current MVP status
 
@@ -121,7 +122,20 @@ The repository now includes a working hybrid MVP foundation with:
 - Prompt Opinion chat calibration: `docs/product/PROMPT-OPINION-CHAT-CALIBRATION.md`
 - Prompt Opinion BYO Agent configuration: `docs/product/PROMPT-OPINION-BYO-AGENT-CONFIG.md`
 - Prompt Opinion copy-paste System Prompt: `docs/product/PROMPT-OPINION-SYSTEM-PROMPT.md`
+- Staging test guide: `docs/product/STAGING-TEST-GUIDE.md`
 - Devpost draft: `docs/product/DEVPOST-DRAFT.md`
+
+## Public staging test
+
+Reviewers can test the synthetic RX Guard workflow without cloning the repo:
+
+```text
+https://rx-guard-iota.vercel.app
+```
+
+See `docs/product/STAGING-TEST-GUIDE.md` for partner instructions and synthetic-only safety notes.
+
+The staging site is aligned to the Prompt Opinion A2A/agent contract, but it is not a live Prompt Opinion API integration. It is a public, read-only synthetic workflow renderer generated from the RX Guard local adapter. Prompt Opinion remains the published agent layer for the submission; RX Guard owns the synthetic clinical data adapter and EHR-style workflow UI.
 
 ## Run locally
 
@@ -196,13 +210,15 @@ The current intended live/demo path is:
 5. click the appropriate workflow action for the synthetic case, usually **Do Not Prescribe** for the high-risk Sheila Bankston scenario
 6. reinforce that the output is clinician-support guidance, not an autonomous prescribing decision
 
+The public Vercel staging path uses the same generated static data and can be used for partner UI feedback. It should be described as Prompt Opinion-compatible staging, not as a live Prompt Opinion-connected app.
+
 ## Remaining work
 
-1. Improve normalization for FHIR-like inputs
-2. Replace the local AI-style explanation synthesis with a true model-backed layer when platform/runtime details are finalized
-3. Validate the end-user Prompt Opinion chat invocation flow on a synthetic case through the published **BYO Agent with A2A enabled** path
-4. Capture the final marketplace listing URL/details and fold them into submission materials
-5. Record the final in-platform demo
+1. Validate and record the end-user Prompt Opinion chat/A2A invocation path on the synthetic `RXG-SB-001` case.
+2. Capture the final marketplace listing URL/details and fold them into Devpost materials.
+3. Record the final under-3-minute in-platform demo.
+4. Improve normalization for FHIR-like inputs after submission scope is stable.
+5. Replace the local deterministic explanation synthesis with a production model-backed layer when platform/runtime details are finalized.
 
 ## Current Prompt Opinion findings
 
@@ -214,7 +230,8 @@ Recent platform validation changed the expected integration path:
 - RX Guard is now published in Prompt Opinion Marketplace
 - RX Guard has **A2A enabled** and is intended to be used through the **chat/A2A agent path**, not as a custom MCP-tools surface
 - No custom MCP tools are exposed beyond built-in patient helpers
-- The remaining live validation gap is confirming a clean synthetic-case invocation flow from Prompt Opinion chat, since Launchpad still showed stale template-style copy during browser inspection
+- The Vercel staging UI is public and partner-testable at `https://rx-guard-iota.vercel.app`
+- The remaining live validation gap is recording/confirming a clean synthetic-case invocation flow from Prompt Opinion chat for final submission evidence
 
 Known live endpoints:
 - A2A agent URL: `https://app.promptopinion.ai/api/workspaces/019d881e-b5b2-7bae-b3ef-c1df241d8e01/ai-agents/019d8868-ce0e-78bb-9f77-97a09fae4a8e`
