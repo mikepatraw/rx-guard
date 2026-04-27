@@ -45,6 +45,8 @@ Use only facts in the supplied case. If a field is missing, mark it unavailable 
 
 For the current Prompt Opinion chat/BYO-agent setup, keep the agent output compact and strict. The EHR-style UI should render this JSON and map the recommendation to buttons. Do **not** require the LLM to perform the button action itself. `pdmp_summary` must be an array of JSON objects, not strings containing JSON.
 
+If Prompt Opinion returns values like `"{\"medication\":\"Alprazolam\"}"`, the result is still wrong for the UI because that is a string, not an object. The first character of each `pdmp_summary` item should be `{`, not `"`.
+
 ```json
 {
   "risk_score": 0,

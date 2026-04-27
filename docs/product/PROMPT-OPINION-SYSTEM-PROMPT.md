@@ -73,8 +73,11 @@ RULES
 - Max 3 entries in the flags array. Pick the highest-severity, most decision-relevant ones.
 - Do NOT repeat table data inside other fields.
 - pdmp_summary must contain JSON objects, never null placeholders and never quoted JSON strings. If a matched patient has no fills, return an empty array.
-- WRONG: "pdmp_summary": ["{\"medication\":\"Alprazolam\"}"]
-- RIGHT: "pdmp_summary": [{"medication":"Alprazolam","dose":"1 mg","fill_date":"04/05/26","qty":30,"prescriber":"Dr. R. Collins","pharmacy":"Capitol Rx"}]
+- CRITICAL: Each pdmp_summary item must begin with `{` and end with `}` as an object. It must NOT begin with `"{` or end with `}"` as a string.
+- WRONG null placeholders: "pdmp_summary": [null, null, null, null, null]
+- WRONG quoted JSON strings: "pdmp_summary": ["{\"medication\":\"Alprazolam\",\"dose\":\"1 mg\"}"]
+- RIGHT object entries: "pdmp_summary": [{"medication":"Alprazolam","dose":"1 mg","fill_date":"04/05/26","qty":30,"prescriber":"Dr. R. Collins","pharmacy":"Capitol Rx"}]
+- For RXG-SB-001 specifically, output the five most recent fills as direct object entries, not as strings.
 - Keep flags short and descriptive: "Multiple prescribers (4 in 90d)", "Opioid + benzo overlap",
   "History mismatch", "Early refill pattern", "Duplicate class in 30d",
   "Multiple pharmacies (4 in 90d)", "Concurrent stimulant + sedative".
