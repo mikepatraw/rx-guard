@@ -26,7 +26,7 @@ Keep the database synthetic and de-identified. Do not paste real patient data in
 Review this controlled-substance prescribing encounter as RX Guard.
 
 Return an EHR-modal-ready JSON review with:
-1. PDMP summary
+1. PDMP summary status only, not PDMP table rows
 2. history mismatch warning if patient-reported history conflicts with PDMP or medication data
 3. clinical insights as short flags
 4. risk score from 0 to 100
@@ -43,24 +43,15 @@ Use only facts in the supplied case. If a field is missing, mark it unavailable 
 
 ## Response Format
 
-For the current Prompt Opinion chat/BYO-agent setup, keep the agent output compact and strict. The EHR-style UI should render this JSON and map the recommendation to buttons. Do **not** require the LLM to perform the button action itself. `pdmp_summary` must be an array of JSON objects, not strings containing JSON.
+For the current Prompt Opinion chat/BYO-agent setup, keep the agent output compact and strict. The EHR-style UI should render this JSON and map the recommendation to buttons. Do **not** require the LLM to perform the button action itself.
 
-If Prompt Opinion returns values like `"{\"medication\":\"Alprazolam\"}"`, the result is still wrong for the UI because that is a string, not an object. The first character of each `pdmp_summary` item should be `{`, not `"`.
+Live testing showed Prompt Opinion repeatedly failed nested `pdmp_summary` arrays by returning quoted JSON strings, repeated duplicate keys, or flat key/value arrays. For the demo chat path, do **not** ask Prompt Opinion to return PDMP table rows. Use `pdmp_summary_status` and let the RXGuard UI/local adapter render the table from deterministic synthetic case data.
 
 ```json
 {
   "risk_score": 0,
   "risk_level": "low|moderate|high",
-  "pdmp_summary": [
-    {
-      "medication": "string",
-      "dose": "string",
-      "fill_date": "MM/DD/YY",
-      "qty": 0,
-      "prescriber": "string",
-      "pharmacy": "string"
-    }
-  ],
+  "pdmp_summary_status": "matched|not_found",
   "flags": ["max 3 short labels"],
   "recommendation": "one line",
   "compliance_flag": "string or null",
@@ -71,7 +62,7 @@ If Prompt Opinion returns values like `"{\"medication\":\"Alprazolam\"}"`, the r
 The UI can render this as the modal sections:
 
 - `risk_score` / `risk_level` → Risk Assessment panel
-- `pdmp_summary` → PDMP Summary table
+- `pdmp_summary_status` → whether to render the local synthetic PDMP Summary table
 - `flags` → Key Flags / Clinical Insights
 - `recommendation` → Recommendation panel
 - `compliance_flag` → Compliance Flag panel
@@ -142,16 +133,17 @@ Validate the assistant response for RX Guard.
 
 Pass only if all conditions are true:
 1. The response is valid JSON only, with no markdown fences, preamble, or trailing prose.
-2. The JSON contains exactly these top-level keys: risk_score, risk_level, pdmp_summary, flags, recommendation, compliance_flag, auto_note.
+2. The JSON contains exactly these top-level keys: risk_score, risk_level, pdmp_summary_status, flags, recommendation, compliance_flag, auto_note.
 3. risk_score is an integer from 0 to 100.
 4. risk_level is one of: low, moderate, high.
-5. pdmp_summary is an array of up to 5 entries. Each entry must be a JSON object, not a string, with medication, dose, fill_date, qty, prescriber, and pharmacy.
-6. flags has no more than 3 short labels.
-7. recommendation is one line and does not claim to make the prescribing decision.
-8. auto_note is neutral, chart-ready, and no more than two short sentences.
-9. The response does not use stigmatizing or moralizing terms, including: abuser, addict, shopping, seeker, diversion.
-10. The response does not invent PDMP fills, prescribers, pharmacies, dates, patient reports, or workflow actions not present in the prompt/database.
-11. The response frames output as decision support for a human clinician, not an autonomous prescription approval or denial.
+5. pdmp_summary_status is one of: matched, not_found.
+6. The response does not include a pdmp_summary array or PDMP table rows.
+7. flags has no more than 3 short labels.
+8. recommendation is one line and does not claim to make the prescribing decision.
+9. auto_note is neutral, chart-ready, and no more than two short sentences.
+10. The response does not use stigmatizing or moralizing terms, including: abuser, addict, shopping, seeker, diversion.
+11. The response does not invent PDMP fills, prescribers, pharmacies, dates, patient reports, or workflow actions not present in the prompt/database.
+12. The response frames output as decision support for a human clinician, not an autonomous prescription approval or denial.
 
 If any condition fails, fail the guardrail and request a corrected JSON-only response.
 ```

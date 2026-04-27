@@ -32,7 +32,7 @@ http://localhost:4173
    Directions: 1 tablet PO BID PRN for anxiety
    Patient-reported history: no recent narcotic or controlled substance use
    Encounter: PDMP review not yet documented
-   Task: Run RXGuard controlled-substance risk analysis and return the structured result.
+   Task: Run RXGuard risk analysis. Return risk_score, risk_level, pdmp_summary_status, flags, recommendation, compliance_flag, and auto_note only. Do not return PDMP table rows.
    ```
 
 4. Click **Run RXGuard Analysis**.
