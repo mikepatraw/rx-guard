@@ -5,14 +5,15 @@
   "type": "module",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "npm run build && node dist/engine/rules.test.js && node dist/ui/static-assets.test.js && node dist/cli/local-adapter.test.js",
+    "build:demo-data": "npm run build && node dist/ui/write-demo-data.js",
+    "test": "npm run build:demo-data && node dist/engine/rules.test.js && node dist/ui/static-assets.test.js && node dist/cli/local-adapter.test.js",
     "review:case1": "npm run build && node dist/api/run-case.js data/synthetic/case-01-opioid-benzo-overlap.json",
     "review:case2": "npm run build && node dist/api/run-case.js data/synthetic/case-02-weak-documentation.json",
     "review:case3": "npm run build && node dist/api/run-case.js data/synthetic/case-03-lower-risk-balanced.json",
     "review:case4": "npm run build && node dist/api/run-case.js data/synthetic/case-04-pdmp-crossref-bankston.json",
     "review:local": "npm run build && node dist/cli/run-local.js",
     "start": "npm run build && node dist/api/server.js",
-    "demo:ui": "python3 -m http.server 4173 --directory public"
+    "demo:ui": "npm run build:demo-data && python3 -m http.server 4173 --directory public"
   },
   "devDependencies": {
     "@types/node": "^24.5.2",

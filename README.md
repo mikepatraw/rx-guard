@@ -88,7 +88,7 @@ RX Guard now has:
 - repo docs aligned to the Prompt Opinion chat/A2A path
 - a provisional BYO/A2A wrapper endpoint for local shaping
 - a local CLI adapter that accepts realistic encounter fields, resolves the synthetic case key, and renders Prompt Opinion-style decision support
-- a static EHR-style demo UI with prompt-to-results flow and workflow buttons
+- a connected static EHR-style demo UI that reads the local adapter's generated Sheila Bankston payload, renders deterministic PDMP rows, and drives workflow buttons
 
 ## Current MVP status
 
@@ -177,7 +177,7 @@ Then open:
 http://localhost:4173
 ```
 
-The UI opens on a synthetic eCW-style medication page, shows a Prompt Opinion/RXGuard consult prompt panel, then renders the RXGuard controlled-substance risk modal with Proceed / Proceed with Caution / Do Not Prescribe workflow buttons. See `docs/product/DEMO-UI-WALKTHROUGH.md` for the recording flow.
+The UI opens on a synthetic eCW-style medication page. `npm run demo:ui` first builds `public/demo-data.js` from the same local adapter used by `npm run review:local`, then the page reads that payload to render the Sheila Bankston RXGuard analysis, deterministic local PDMP rows, and Proceed / Proceed with Caution / Do Not Prescribe workflow buttons. See `docs/product/DEMO-UI-WALKTHROUGH.md` for the recording flow.
 
 Then POST a review request to:
 
