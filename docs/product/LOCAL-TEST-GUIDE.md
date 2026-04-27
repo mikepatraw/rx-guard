@@ -1,6 +1,6 @@
-# Run RX Guard locally
+# Local RX Guard test guide
 
-Clone-to-demo guide for macOS and Windows. RX Guard uses synthetic/de-identified demo data only; no live Prompt Opinion API key is needed.
+Clone-to-local-test guide for macOS and Windows. RX Guard uses synthetic/de-identified test data only; no live Prompt Opinion API key is needed.
 
 ## Requirements
 
@@ -27,11 +27,11 @@ npm --version
    ```bash
    npm install
    ```
-4. Run the CLI adapter demo:
+4. Run the CLI adapter local test:
    ```bash
    ./scripts/run-local-demo.sh
    ```
-5. Start the web UI demo:
+5. Start the web UI local test:
    ```bash
    ./scripts/start-ui-demo.sh
    ```
@@ -57,11 +57,11 @@ npm test
    ```powershell
    npm install
    ```
-4. Run the CLI adapter demo:
+4. Run the CLI adapter local test:
    ```powershell
    powershell -ExecutionPolicy Bypass -File .\scripts\run-local-demo.ps1
    ```
-5. Start the web UI demo:
+5. Start the web UI local test:
    ```powershell
    powershell -ExecutionPolicy Bypass -File .\scripts\start-ui-demo.ps1
    ```
@@ -75,7 +75,7 @@ Optional check:
 npm test
 ```
 
-## Expected demo output
+## Expected local test output
 
 The CLI and web UI should show:
 
