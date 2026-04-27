@@ -1,18 +1,44 @@
 # RX Guard Partner Testing Handoff
 
-Use this guide to test RX Guard inside Prompt Opinion and give structured feedback.
+Use this guide to test RX Guard and give structured feedback.
+
+## Primary partner test path
+
+Use the public staging site:
+
+```text
+https://rx-guard-iota.vercel.app
+```
+
+No Prompt Opinion account, GitHub account, Node install, npm install, or local server is required for partner UI testing.
 
 ## Goal
 
-Validate that RX Guard works well as a **Prompt Opinion chat / A2A agent** for synthetic controlled-substance prescribing review.
+Validate that RX Guard's clinician-facing workflow is clear, readable, and useful for a synthetic controlled-substance prescribing review.
 
-This is **not** an MCP-tools test.
+The staging site demonstrates the RX Guard UI and Prompt Opinion-compatible decision-support contract. It does **not** make a live API call into Prompt Opinion. Prompt Opinion remains the published A2A/BYO agent layer for the final submission; the staging site is the low-friction review surface for partners.
+
+## Data safety
+
+Use **synthetic data only**.
+
+Do not enter:
+- real patient names
+- real dates of birth
+- real prescriptions
+- medical record numbers
+- addresses, phone numbers, emails, or other identifiers
+- real clinical notes
+
+The default Sheila Bankston case is synthetic and should be used for the primary test.
 
 ## What RX Guard is supposed to do
 
 RX Guard should:
-- review a synthetic prescribing encounter
-- identify the most important documentation and contextual medication-risk concerns
+- show a simple patient/DOB/prescription/directions intake
+- run a synthetic controlled-substance safety review
+- identify documentation and contextual medication-risk concerns
+- display deterministic PDMP-style evidence rows
 - stay clinician-supportive, precise, and non-punitive
 - avoid unsupported claims or overreaching conclusions
 - suggest concise chart-ready language a clinician could adapt
@@ -20,152 +46,89 @@ RX Guard should:
 
 ## What RX Guard should emphasize most
 
-If the case supports it, RX Guard should focus most strongly on:
-- opioid + benzodiazepine overlap
-- PDMP documentation gaps
-- monitoring or follow-up gaps
-- missing functional goal or treatment objective
-- missing risk discussion or counseling
+For the default case, RX Guard should focus on:
+- patient-reported history mismatch with synthetic PDMP-style evidence
+- recent controlled-substance fills
+- multiple prescribers and pharmacies
+- PDMP documentation gap
+- opioid/benzodiazepine-type risk context when shown by the synthetic evidence
 
 ## What RX Guard should avoid
 
-Please watch for and flag any response that:
+Please watch for and flag any UI copy or result that:
 - sounds accusatory or moralizing
 - implies misuse, diversion, abuse, or wrongdoing without direct evidence
 - sounds like a final prescribing decision instead of clinician-support guidance
 - overstates certainty when the note is incomplete
 - buries the main issue under too much text
-- gives suggested language that is too long, too stiff, or hard to reuse
+- exposes raw JSON, internal Prompt Opinion payloads, or developer-only contract text in the front end
+- is hard to tap or read on mobile
 
-## Test setup
+## Step-by-step staging test flow
 
-Use the published RX Guard agent in Prompt Opinion.
+1. Open `https://rx-guard-iota.vercel.app` on phone or desktop.
+2. Confirm the default synthetic intake fields are visible:
+   - patient name
+   - date of birth
+   - prescription
+   - directions
+3. Leave the default Sheila Bankston synthetic case in place for the primary test.
+4. Select **Run RXGuard Analysis**.
+5. Review the risk score, recommendation, PDMP-style rows, suggested documentation, and workflow buttons.
+6. Try **Do Not Prescribe** and confirm the simulated order/documentation status updates clearly.
+7. Send feedback using the format below.
 
-Test through the **chat / A2A path**, not through MCP tool screens.
+## Optional Prompt Opinion path
 
-Use **synthetic data only**.
+If specifically asked to test Prompt Opinion itself, use the published RX Guard agent through the **chat / A2A path**, not MCP tool screens.
 
-## Step-by-step test flow
+For Prompt Opinion chat testing, use synthetic key `RXG-SB-001` rather than entering direct patient identifiers. The expected compact response contract is:
 
-### 1. Open RX Guard in Prompt Opinion
-- Open the published RX Guard agent
-- Confirm you are using the chat-selectable / agent invocation path
-- Do not test through MCP Playground unless specifically asked
+```json
+{
+  "risk_score": 80,
+  "risk_level": "high",
+  "pdmp_summary_status": "matched",
+  "flags": ["History mismatch", "Multiple prescribers (4 in 90d)", "Multiple pharmacies (4 in 90d)"],
+  "recommendation": "Not recommended — verify with patient before prescribing",
+  "compliance_flag": "PDMP review not documented",
+  "auto_note": "PDMP shows five controlled-substance fills in the past 90 days involving four prescribers and four pharmacies. Patient report of no recent controlled-substance use is inconsistent with recent PDMP-style records."
+}
+```
 
-### 2. Submit a synthetic test case
-Use the existing synthetic case flow if already available.
-
-If manual input is needed, provide a synthetic case that includes:
-- a proposed opioid prescription
-- an active benzodiazepine on the medication list
-- sparse note documentation
-- limited or absent PDMP / monitoring / functional-goal discussion
-
-### 3. Review the first visible output only
-Before reading deeply, ask:
-- Can I tell in 5 to 10 seconds what the main concern is?
-- Is the response clinically readable?
-- Is the headline or summary useful, or too vague?
-
-### 4. Review the actual findings
-Check whether RX Guard correctly prioritizes:
-1. opioid + benzodiazepine overlap
-2. PDMP documentation gap
-3. monitoring / follow-up gap
-4. missing functional goal or risk discussion
-
-### 5. Review tone and safety framing
-Check whether the response:
-- says things were **not documented** instead of assuming they did not happen
-- stays clinically respectful
-- avoids punitive or suspicious language
-- clearly preserves clinician judgment
-
-### 6. Review suggested chart language
-Check whether the suggested language is:
-- concise
-- defensible
-- realistic for clinical documentation
-- easy to adapt without sounding robotic
-
-### 7. Check for overreach
-Look for statements that go beyond the evidence provided.
-
-Examples of overreach:
-- implying misuse without evidence
-- implying noncompliance without evidence
-- implying the prescription should automatically be denied
-- making strong legal or regulatory claims from sparse context
-
-### 8. Record final testing verdict
-After each case, answer:
-- Did the response feel clinically useful?
-- Did it identify the right top concerns?
-- Was any part too aggressive, too vague, or too long?
-- Would this output help a clinician improve the note before signing?
+This JSON is for Prompt Opinion contract validation only. It should not appear as the main front-end UX in the Vercel staging site.
 
 ## Feedback format to send back
 
-Please send feedback in this format for each test:
-
 ```text
-TEST CASE:
-[short name]
+DEVICE/BROWSER:
+[iPhone Safari, Android Chrome, desktop Chrome, etc.]
 
 OVERALL:
 Pass / Needs work
 
 WHAT WORKED:
 - ...
+
+WHAT FELT OFF OR CONFUSING:
 - ...
 
-WHAT FELT OFF:
-- ...
-- ...
+MOBILE READABILITY/TAPPING:
+Good / Mixed / Hard
 
-MAIN ISSUES MISSED OR OVERSTATED:
-- ...
+CLINICAL WORKFLOW:
+Would this help a clinician understand the prescribing concern quickly?
 
 TONE:
 Too aggressive / Good / Too vague
 
-SUGGESTED LANGUAGE:
+SUGGESTED DOCUMENTATION LANGUAGE:
 Usable / Needs tightening / Too long / Too generic
 
-IF I WERE A CLINICIAN:
-[1 to 3 sentences on whether this would actually help]
+ANY RAW JSON OR INTERNAL TECHNICAL OUTPUT VISIBLE IN THE UI:
+No / Yes — [where]
 ```
-
-## Specific things to watch for in chat responses
-
-### Good signs
-- the first line clearly surfaces the main risk
-- opioid + benzo overlap is easy to spot
-- PDMP documentation gap is clearly framed as a documentation issue
-- missing functional goal or risk discussion is called out clearly
-- suggested language is short and adaptable
-- disclaimer or support-tool framing is present
-
-### Bad signs
-- long wall of text before getting to the main point
-- duplicate findings repeated in multiple sections
-- language that sounds judgmental
-- unsupported misuse-risk language
-- recommendations that sound like final prescribing commands
-- awkward chart language that no clinician would actually use
-
-## Suggested scoring rubric
-
-Score each category 1 to 5:
-- **Clarity**
-- **Clinical usefulness**
-- **Safety / non-overreach**
-- **Output conciseness**
-- **Suggested language quality**
-
-Optional total score:
-- **Overall score: /25**
 
 ## One-sentence standard for success
 
-RX Guard passes if it gives a clinician a quick, defensible, non-punitive explanation of the main prescribing documentation risks and offers concise language they could realistically adapt into the chart.
+RX Guard passes if the staging workflow gives a clinician a quick, defensible, non-punitive explanation of the main synthetic prescribing risk and offers concise language they could realistically adapt into the chart.
