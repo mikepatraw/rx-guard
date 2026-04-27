@@ -70,6 +70,7 @@ rx-guard/
 │   └── fixtures/
 ├── src/
 │   ├── api/
+│   ├── cli/
 │   ├── engine/
 │   ├── fhir/
 │   └── types/
@@ -86,6 +87,7 @@ RX Guard now has:
 - free-tier Prompt Opinion model configuration validated
 - repo docs aligned to the Prompt Opinion chat/A2A path
 - a provisional BYO/A2A wrapper endpoint for local shaping
+- a local CLI adapter that accepts realistic encounter fields, resolves the synthetic case key, and renders Prompt Opinion-style decision support
 - a static EHR-style demo UI with prompt-to-results flow and workflow buttons
 
 ## Current MVP status
@@ -100,6 +102,7 @@ The repository now includes a working hybrid MVP foundation with:
 - a simple local HTTP server
 - a provisional BYO/A2A adapter endpoint for shaping external invocation
 - CLI-style case runners for demo review
+- a local CLI adapter for the realistic encounter → synthetic key → Prompt Opinion-safe JSON → RX Guard-rendered PDMP flow
 - basic test coverage for the review core
 - demo script and Devpost draft
 - Prompt Opinion chat/A2A calibration guidance
@@ -139,7 +142,22 @@ npm test
 npm run review:case1
 npm run review:case2
 npm run review:case3
+npm run review:case4
 ```
+
+### Run the local Prompt Opinion adapter demo
+
+```bash
+npm run review:local -- \
+  --name "Sheila Bankston" \
+  --dob "1960-06-13" \
+  --medication "Xanax 1 mg tablet" \
+  --directions "1 tablet PO BID PRN for anxiety" \
+  --history "no recent narcotic or controlled-substance use" \
+  --note "PDMP review not yet documented"
+```
+
+The local adapter demonstrates the intended handoff without requiring a live Prompt Opinion API call: RX Guard accepts realistic EHR-style encounter fields, resolves the synthetic patient to `RXG-SB-001`, sends only the synthetic key and clinical facts through the Prompt Opinion-safe payload, then renders compact decision-support JSON together with deterministic local PDMP rows.
 
 ### Start the local server
 
@@ -176,10 +194,10 @@ http://localhost:8787/health
 ## Prompt Opinion demo path
 
 The current intended live/demo path is:
-1. select or configure RX Guard as the Prompt Opinion BYO/A2A agent
-2. paste the Sheila Bankston synthetic controlled-substance consult prompt
-3. run RXGuard analysis and show the results loading
-4. show the EHR-style controlled-substance risk modal with ranked findings, suggested chart language, and workflow buttons
+1. enter realistic encounter fields locally for the synthetic Sheila Bankston scenario
+2. let the RX Guard CLI/local adapter resolve the encounter to `RXG-SB-001`
+3. send the synthetic key and clinical facts through the Prompt Opinion-safe compact JSON contract
+4. render the deterministic local PDMP rows and EHR-style controlled-substance risk modal in RX Guard
 5. click the appropriate workflow action for the synthetic case, usually **Do Not Prescribe** for the high-risk Sheila Bankston scenario
 6. reinforce that the output is clinician-support guidance, not an autonomous prescribing decision
 
