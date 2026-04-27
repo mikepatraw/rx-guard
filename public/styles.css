@@ -23,11 +23,11 @@ aside h2 { margin: 4px 0 14px; font-size: 18px; color: #0b6d9d; } aside p { padd
 .hidden { display: none !important; }
 .consult-panel { width: min(1060px, 95vw); max-height: calc(100dvh - 48px); display: flex; flex-direction: column; background: #f8fbfd; border-radius: 16px; border: 1px solid #b7d1df; box-shadow: 0 26px 80px #001b2fcc; overflow-y: auto; }
 .consult-head { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; color: #fff; background: linear-gradient(90deg, #0c5270, #167fac); } .consult-head b { font-size: 22px; }
-.handoff-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding: 18px 20px 8px; }
-.handoff-card { padding: 16px; border: 1px solid #d1e4ec; border-radius: 12px; background: #fff; } .handoff-card small, .adapter-card small { display: block; text-transform: uppercase; color: #6c8795; font-weight: 800; letter-spacing: .04em; } .handoff-card strong { display: block; margin: 8px 0 4px; color: #074f76; font-size: 18px; }
-.consult-panel label { display: block; margin: 10px 20px 8px; font-weight: 800; color: #244b5c; }
-#consultPrompt { width: calc(100% - 40px); margin: 0 20px; min-height: 190px; resize: none; padding: 14px; border-radius: 10px; border: 1px solid #bdd3dd; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; line-height: 1.45; }
-.json-preview { margin: 14px 20px; padding: 12px; background: #0d2531; color: #d8f6ff; border-radius: 10px; } .json-preview pre { margin: 8px 0 0; white-space: pre-wrap; font-size: 12px; }
+.intake-form { padding: 22px 24px 24px; }
+.intake-copy { margin-bottom: 18px; } .intake-copy small { display: block; text-transform: uppercase; color: #6c8795; font-weight: 800; letter-spacing: .05em; } .intake-copy h2 { margin: 8px 0 6px; color: #074f76; font-size: 26px; } .intake-copy p { max-width: 720px; color: #456575; font-size: 15px; }
+.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.form-field { display: grid; gap: 7px; color: #244b5c; font-weight: 800; }
+.form-field input { width: 100%; border: 1px solid #bdd3dd; border-radius: 10px; padding: 13px 12px; color: #1d3340; background: #fff; font: inherit; font-weight: 500; }
 .agent-status { margin: 0 20px 12px; padding: 10px 12px; border-radius: 8px; color: #07527b; background: #e1f2fa; font-weight: 700; }
 .analyze-btn { margin: 0 20px 20px; width: calc(100% - 40px); background: #0a719f; color: #fff; padding: 15px; font-size: 17px; }
 .rx-modal { width: min(1180px, 96vw); max-height: 94vh; overflow: hidden; border-radius: 10px; background: #fff; border: 1px solid #cfdde4; box-shadow: 0 22px 80px #001b2fcc; }
@@ -64,14 +64,11 @@ h3 { margin: 15px 0 8px; color: #254b5e; font-size: 14px; letter-spacing: .02em;
   .rx-modal { padding-bottom: 190px; }
   .consult-head, .modal-head { align-items: flex-start; flex-direction: column; gap: 4px; padding: 12px 14px; }
   .consult-head b, .modal-head h2 { font-size: 18px; }
-  .handoff-grid { gap: 8px; padding: 12px 14px 6px; }
-  .handoff-card { padding: 10px 12px; }
-  .handoff-card strong { margin: 4px 0 2px; font-size: 16px; }
-  .consult-panel label { margin: 8px 14px 6px; }
-  #consultPrompt { width: calc(100% - 28px); min-height: 120px; margin: 0 14px; font-size: 12px; }
-  .json-preview { margin: 10px 14px; max-height: 210px; overflow-y: auto; }
-  .json-preview pre { max-height: 160px; overflow-y: auto; font-size: 11px; }
-  .agent-status { margin: 0 14px 10px; }
+  .form-grid { grid-template-columns: 1fr; gap: 10px; }
+  .intake-form { padding: 16px 14px 96px; }
+  .intake-copy { margin-bottom: 14px; }
+  .intake-copy h2 { font-size: 22px; }
+  .agent-status { margin: 14px 0; }
   .analyze-btn { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; width: 100%; margin: 0; border-radius: 0; padding: 16px; box-shadow: 0 -8px 18px rgba(0, 27, 47, .16); }
   .modal-body { display: block; max-height: none; overflow: visible; padding: 12px; }
   .summary { grid-template-columns: 1fr; }
