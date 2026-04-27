@@ -15,9 +15,8 @@ Render a modal with patient/proposed medication, PDMP summary, history mismatch 
 Use the full copy-paste prompt in:
 
 - `docs/product/PROMPT-OPINION-SYSTEM-PROMPT.md`
-- `docs/product/PROMPT-OPINION-SYSTEM-PROMPT.txt` (raw copy-paste version, about 13,161 characters)
 
-That System Prompt includes the synthetic, de-identified `PDMP_DATABASE` directly. Do not split the database into Content for the current demo; keeping it in the System Prompt makes exact name + DOB lookup more reliable in Prompt Opinion chat.
+That System Prompt includes the synthetic, de-identified `PDMP_DATABASE` directly. Do not split the database into Content for the current demo; keeping it in the System Prompt makes synthetic case-key lookup more reliable in Prompt Opinion chat.
 
 Keep the database synthetic and de-identified. Do not paste real patient data into System Prompt, Content, tools, screenshots, or demos.
 

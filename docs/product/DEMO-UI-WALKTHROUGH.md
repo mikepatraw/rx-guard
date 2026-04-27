@@ -27,9 +27,7 @@ http://localhost:4173
 3. Paste or review the clinical consult prompt:
 
    ```text
-   Patient: Sheila Bankston
-   DOB: 06/13/1960
-   MRN: 458293
+   Synthetic patient key: RXG-SB-001
    Proposed medication: Xanax 1 mg tablet
    Directions: 1 tablet PO BID PRN for anxiety
    Patient-reported history: no recent narcotic or controlled substance use
@@ -66,7 +64,7 @@ The current recorded demo clicks **Do Not Prescribe** because the synthetic case
 Use this order for the final short recording:
 
 1. Start on the consult prompt panel.
-2. Paste the Sheila Bankston prompt.
+2. Paste the RXG-SB-001 synthetic case prompt.
 3. Click **Run RXGuard Analysis**.
 4. Let the RXGuard results modal load.
 5. Pause briefly on the risk score, recommendation, documentation, and workflow buttons.
