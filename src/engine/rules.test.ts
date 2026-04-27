@@ -20,4 +20,21 @@ assert.ok(['low', 'moderate'].includes(result3.riskLevel));
 assert.ok(result3.flags.some((flag) => flag.code === 'balanced_case'));
 assert.ok(!result3.flags.some((flag) => flag.code === 'missing_functional_goal_context'));
 
+const case4 = normalizeReviewRequest(loadCase('data/synthetic/case-04-pdmp-crossref-bankston.json'));
+const result4 = reviewEncounter(case4);
+assert.equal(result4.riskLevel, 'high');
+assert.equal(result4.pdmpCrossReference?.matched, true);
+assert.ok(result4.flags.some((flag) => flag.code === 'pdmp_multi_prescriber_pattern'));
+assert.ok(
+  !result4.suggestedLanguage.some((line) => line.toLowerCase().includes('no unexpected recent controlled-substance fills')),
+  'high-risk PDMP matches must not receive reassuring no-unexpected-fills documentation'
+);
+
+const requestSchema = JSON.parse(fs.readFileSync('agent/schemas/request.schema.json', 'utf8'));
+assert.ok(requestSchema.properties.patient.properties.name, 'request schema should allow patient.name for PDMP matching');
+assert.ok(requestSchema.properties.patient.properties.dob, 'request schema should allow patient.dob for PDMP matching');
+
+const responseSchema = JSON.parse(fs.readFileSync('agent/schemas/response.schema.json', 'utf8'));
+assert.ok(responseSchema.properties.pdmpCrossReference, 'response schema should include pdmpCrossReference');
+
 console.log('hybrid review tests passed');

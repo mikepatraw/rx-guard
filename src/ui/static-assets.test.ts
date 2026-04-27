@@ -23,4 +23,14 @@ assert.match(js, /insert_standard_documentation/);
 assert.match(js, /insert_enhanced_risk_documentation/);
 assert.match(js, /cancel_medication_order/);
 
+const patientFixture = JSON.parse(fs.readFileSync('data/synthetic/case-04-pdmp-crossref-bankston.json', 'utf8'));
+const expectedDob = patientFixture.patient.dob;
+const expectedAge = String(patientFixture.patient.age);
+const expectedUiDob = expectedDob.replace(/^(\d{4})-(\d{2})-(\d{2})$/, '$2/$3/$1');
+assert.match(html, new RegExp(`F, ${expectedAge} Y, ${expectedUiDob.replace(/\//g, '\\/')}`));
+assert.match(html, new RegExp(`DOB:<\\/b> ${expectedUiDob.replace(/\//g, '\\/')} \\(${expectedAge}\\)`));
+assert.match(js, new RegExp(`DOB: ${expectedUiDob.replace(/\//g, '\\/')}`));
+assert.doesNotMatch(html, /05\/12\/1984|F, 42 Y/);
+assert.doesNotMatch(js, /05\/12\/1984/);
+
 console.log('static UI asset tests passed');

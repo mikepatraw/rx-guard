@@ -28,7 +28,7 @@ http://localhost:4173
 
    ```text
    Patient: Sheila Bankston
-   DOB: 05/12/1984
+   DOB: 06/13/1960
    MRN: 458293
    Proposed medication: Xanax 1 mg tablet
    Directions: 1 tablet PO BID PRN for anxiety

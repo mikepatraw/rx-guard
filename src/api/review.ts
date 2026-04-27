@@ -3,7 +3,17 @@ import { buildAiStyleInsights, buildNarrativeSummary } from '../engine/explanati
 import { mergeFlags } from '../engine/merge.js';
 import { runPdmpReview } from '../engine/pdmp.js';
 import { deriveRiskLevel, runRuleReview } from '../engine/rules.js';
-import type { ReviewRequest, ReviewResponse } from '../types/review.js';
+import type { ReviewFlag, ReviewRequest, ReviewResponse } from '../types/review.js';
+
+function buildContextAwareSuggestedLanguage(suggestions: string[], pdmpFlags: ReviewFlag[]): string[] {
+  const hasPdmpConcern = pdmpFlags.some((flag) => flag.severity === 'moderate' || flag.severity === 'high');
+  if (!hasPdmpConcern) return suggestions;
+
+  return suggestions.map((line) => {
+    if (!line.toLowerCase().includes('no unexpected recent controlled-substance fills')) return line;
+    return 'Reviewed PDMP today; recent controlled-substance history requires verification and care coordination before finalizing the prescription.';
+  });
+}
 
 export function reviewEncounter(request: ReviewRequest): ReviewResponse {
   const normalized = normalizeReviewRequest(request);
@@ -13,6 +23,7 @@ export function reviewEncounter(request: ReviewRequest): ReviewResponse {
   const flags = mergeFlags(mergeFlags(ruleResult.flags, pdmpResult.flags), aiFlags);
   const riskLevel = deriveRiskLevel(flags);
   const summary = buildNarrativeSummary(normalized, flags, ruleResult.missingDocumentation);
+  const suggestedLanguage = buildContextAwareSuggestedLanguage(ruleResult.suggestedLanguage, pdmpResult.flags);
 
   return {
     status: 'review_complete',
@@ -20,7 +31,7 @@ export function reviewEncounter(request: ReviewRequest): ReviewResponse {
     summary,
     flags,
     missingDocumentation: ruleResult.missingDocumentation,
-    suggestedLanguage: ruleResult.suggestedLanguage,
+    suggestedLanguage,
     pdmpCrossReference: pdmpResult.summary,
     metadata: {
       synthetic: true,

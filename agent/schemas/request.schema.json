@@ -30,7 +30,9 @@
       "properties": {
         "id": { "type": "string", "minLength": 1 },
         "age": { "type": "integer", "minimum": 0, "maximum": 120 },
-        "sex": { "type": "string" }
+        "sex": { "type": "string" },
+        "name": { "type": "string", "minLength": 1 },
+        "dob": { "type": "string", "format": "date" }
       }
     },
     "encounter": {
