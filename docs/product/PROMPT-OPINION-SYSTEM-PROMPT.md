@@ -20,8 +20,10 @@ TASK
    key match. If no match, return a LOW risk JSON noting no PDMP record on file. Do not require
    the clinician to provide direct patient identifiers in chat.
 
-2. Build pdmp_summary: the 5 most recent fills for the matched patient, most recent first.
-   Split "medication" into medication + dose. Use MM/DD/YY for fill_date.
+2. Set pdmp_summary_status to "matched" when the synthetic_patient_key resolves to a PDMP record.
+   Do not output PDMP table rows in Prompt Opinion chat; the RXGuard UI/local adapter renders
+   the table from the synthetic case data because live testing showed nested row objects are
+   not reliable in Prompt Opinion chat output.
 
 3. Analyze the matched record (and anything the clinician said the patient reported) for:
      - Multiple prescribers (≥3 distinct in last 90 days)
@@ -49,10 +51,7 @@ TASK
 {
   "risk_score": <int 0–100>,
   "risk_level": "low" | "moderate" | "high",
-  "pdmp_summary": [
-    { "medication": "", "dose": "", "fill_date": "MM/DD/YY", "qty": <int>, "prescriber": "", "pharmacy": "" }
-  ],
-  // pdmp_summary entries must be real JSON objects, not quoted JSON strings
+  "pdmp_summary_status": "matched" | "not_found",
   "flags": [<max 3 short labels>],
   "recommendation": "<one line>",
   "compliance_flag": "<string or null>",
@@ -71,13 +70,10 @@ If the clinician's prompt does not include patient-reported history, do NOT fire
 RULES
 - Output JSON ONLY. No paragraphs, no markdown, no preface, no trailing text.
 - Max 3 entries in the flags array. Pick the highest-severity, most decision-relevant ones.
-- Do NOT repeat table data inside other fields.
-- pdmp_summary must contain JSON objects, never null placeholders and never quoted JSON strings. If a matched patient has no fills, return an empty array.
-- CRITICAL: Each pdmp_summary item must begin with `{` and end with `}` as an object. It must NOT begin with `"{` or end with `}"` as a string.
-- WRONG null placeholders: "pdmp_summary": [null, null, null, null, null]
-- WRONG quoted JSON strings: "pdmp_summary": ["{\"medication\":\"Alprazolam\",\"dose\":\"1 mg\"}"]
-- RIGHT object entries: "pdmp_summary": [{"medication":"Alprazolam","dose":"1 mg","fill_date":"04/05/26","qty":30,"prescriber":"Dr. R. Collins","pharmacy":"Capitol Rx"}]
-- For RXG-SB-001 specifically, output the five most recent fills as direct object entries, not as strings.
+- Do NOT output PDMP table rows in Prompt Opinion chat.
+- Do NOT include a `pdmp_summary` array.
+- Use `pdmp_summary_status` only: "matched" when a synthetic record is found, "not_found" when no synthetic record is found.
+- The RXGuard UI/local adapter renders the PDMP table for RXG-SB-001 from deterministic synthetic case data.
 - Keep flags short and descriptive: "Multiple prescribers (4 in 90d)", "Opioid + benzo overlap",
   "History mismatch", "Early refill pattern", "Duplicate class in 30d",
   "Multiple pharmacies (4 in 90d)", "Concurrent stimulant + sedative".
