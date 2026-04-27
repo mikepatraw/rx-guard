@@ -27,9 +27,9 @@ const patientFixture = JSON.parse(fs.readFileSync('data/synthetic/case-04-pdmp-c
 const expectedDob = patientFixture.patient.dob;
 const expectedAge = String(patientFixture.patient.age);
 const expectedUiDob = expectedDob.replace(/^(\d{4})-(\d{2})-(\d{2})$/, '$2/$3/$1');
-assert.match(html, new RegExp(`F, ${expectedAge} Y, ${expectedUiDob.replace(/\//g, '\\/')}`));
-assert.match(html, new RegExp(`DOB:<\\/b> ${expectedUiDob.replace(/\//g, '\\/')} \\(${expectedAge}\\)`));
-assert.match(js, new RegExp(`DOB: ${expectedUiDob.replace(/\//g, '\\/')}`));
+assert.ok(html.includes(`F, ${expectedAge} Y, ${expectedUiDob}`));
+assert.ok(html.includes(`DOB:</b> ${expectedUiDob} (${expectedAge})`));
+assert.ok(js.includes(`DOB: ${expectedUiDob}`));
 assert.doesNotMatch(html, /05\/12\/1984|F, 42 Y/);
 assert.doesNotMatch(js, /05\/12\/1984/);
 
