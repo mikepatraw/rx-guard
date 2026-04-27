@@ -16,7 +16,19 @@ Directions: 1 tablet PO BID PRN for anxiety
 Patient-reported history: no recent narcotic or controlled-substance use
 Encounter note: PDMP review not yet documented
 
-Return JSON only using the configured RXGuard response schema:
+Return JSON only using the configured RXGuard response schema.
+
+Important: `pdmp_summary` must be an array of JSON objects, not strings and not nulls. Do not wrap each PDMP fill object in quotes.
+
+Correct `pdmp_summary` example:
+```json
+"pdmp_summary": [
+  {"medication":"Alprazolam","dose":"1 mg","fill_date":"04/05/26","qty":30,"prescriber":"Dr. R. Collins","pharmacy":"Capitol Rx"},
+  {"medication":"Oxycodone","dose":"10 mg","fill_date":"03/28/26","qty":40,"prescriber":"Dr. J. Landry","pharmacy":"Riverbend Pharmacy"}
+]
+```
+
+Required top-level keys:
 - risk_score
 - risk_level
 - pdmp_summary
