@@ -24,7 +24,7 @@ Account access is needed when we are ready to do any of these:
 
 1. Open the existing RX Guard BYO/A2A agent in Prompt Opinion.
 2. Confirm the agent is chat-selectable and A2A-enabled.
-3. Invoke the synthetic `RXG-SB-001` case using the compact contract.
+3. Invoke the synthetic `RXG-SB-001` case using the compact contract from `docs/product/FINAL-SUBMISSION-EVIDENCE.md`.
 4. Capture the final marketplace/listing URL or clear discoverability instructions.
 5. Record the final under-3-minute demo evidence required for submission.
 

@@ -148,7 +148,7 @@ The submission should clearly communicate:
 ## 11. Immediate next steps
 
 ### Before final submission
-- [ ] Run one final Prompt Opinion chat/A2A invocation pass with `RXG-SB-001`
+- [ ] Run one final Prompt Opinion chat/A2A invocation pass with `RXG-SB-001` using `docs/product/FINAL-SUBMISSION-EVIDENCE.md`
 - [ ] Capture the final marketplace/listing URL or clear discoverability instructions
 - [ ] Record the under-3-minute video showing Prompt Opinion invocation plus RX Guard UI rendering
 - [ ] Add the video link to Devpost draft/submission materials
