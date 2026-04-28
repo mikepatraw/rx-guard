@@ -123,6 +123,7 @@ The repository now includes a working hybrid MVP foundation with:
 - Prompt Opinion BYO Agent configuration: `docs/product/PROMPT-OPINION-BYO-AGENT-CONFIG.md`
 - Prompt Opinion copy-paste System Prompt: `docs/product/PROMPT-OPINION-SYSTEM-PROMPT.md`
 - Staging test guide: `docs/product/STAGING-TEST-GUIDE.md`
+- Final submission evidence guide: `docs/product/FINAL-SUBMISSION-EVIDENCE.md`
 - Devpost draft: `docs/product/DEVPOST-DRAFT.md`
 
 ## Public staging test

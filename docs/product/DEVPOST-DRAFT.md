@@ -63,7 +63,7 @@ RX Guard is intentionally narrow. It uses synthetic or de-identified data only, 
 
 ## What’s next
 
-Next steps before final submission are to record the live Prompt Opinion synthetic-case invocation, capture the final marketplace listing URL/details, and attach the under-3-minute demo video. Future production work would replace deterministic synthetic fixtures with authorized EHR/PDMP/FHIR integration through a secure data service.
+Next steps before final submission are to run the live Prompt Opinion synthetic-case invocation from `docs/product/FINAL-SUBMISSION-EVIDENCE.md`, capture the final marketplace listing URL/details, and attach the under-3-minute demo video. Future production work would replace deterministic synthetic fixtures with authorized EHR/PDMP/FHIR integration through a secure data service.
 
 ## Built for
 
