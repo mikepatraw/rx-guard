@@ -31,7 +31,7 @@ Do **not** present raw Prompt Opinion JSON as the main visual artifact. It is th
 
 Target: **2 minutes 15 seconds to 2 minutes 45 seconds**
 
-This leaves room under the 3-minute limit.
+This leaves room under the 3-minute limit. Use `docs/product/FINAL-SUBMISSION-EVIDENCE.md` as the recording-day checklist for the exact Prompt Opinion prompt, marketplace/listing evidence, endpoint checks, and pass/fail criteria.
 
 ## Recommended primary case
 
