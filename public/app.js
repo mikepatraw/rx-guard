@@ -130,8 +130,14 @@ function renderDemo(data) {
 function applyWorkflow(action) {
   const note = document.getElementById('noteBox');
   const status = document.getElementById('workflowStatus');
+  const chartCard = document.getElementById('chartDocumentationCard');
+  const ehrActionStatus = document.getElementById('ehrActionStatus');
+  const insertedChartNote = document.getElementById('insertedChartNote');
   note.value = action.doc;
   status.textContent = `${action.message} (${action.ehrActions.join(', ')})`;
+  chartCard.classList.add('active');
+  ehrActionStatus.textContent = action.message;
+  insertedChartNote.textContent = action.doc;
 }
 
 function showRerunAction() {
