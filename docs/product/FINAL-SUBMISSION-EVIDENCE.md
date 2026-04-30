@@ -29,9 +29,11 @@ Capture these four artifacts before Devpost submission:
 
 3. **RX Guard renderer evidence**
    - Open `https://rx-guard-iota.vercel.app/`.
-   - Show the clean intake form for Sheila Bankston.
-   - Click **Run RXGuard Analysis**.
+   - Show the synthetic medication workflow for Sheila Bankston.
+   - Click **+ Add Medication**, show the `Xanax` search, and select **Xanax 1 mg tablet**.
+   - Show RX Guard starting automatically from the controlled-medication selection.
    - Show the EHR-style modal, risk score, PDMP-style rows, recommendation, and workflow buttons.
+   - Show **Re-run RXGuard** as the manual provider-control option after the automatic review.
    - Click **Do Not Prescribe** after the viewer can read the recommendation.
 
 4. **Safety / submission framing evidence**
@@ -84,7 +86,7 @@ Target length: 2:15 to 2:45.
 | 0:00-0:20 | RX Guard title / Prompt Opinion agent page | Controlled-substance prescribing is high-stakes and documentation-heavy. |
 | 0:20-0:50 | Prompt Opinion RX Guard agent selected | RX Guard is published as a Prompt Opinion BYO/A2A healthcare agent. |
 | 0:50-1:10 | Submit `RXG-SB-001` prompt and show compact JSON response | Prompt Opinion returns compact decision support, not the whole UI. |
-| 1:10-1:55 | Vercel staging intake + modal | RX Guard consumes that contract and renders the clinician workflow with synthetic PDMP-style evidence. |
+| 1:10-1:55 | Vercel medication selection + modal | RX Guard auto-runs from controlled-medication selection and renders the clinician workflow with synthetic PDMP-style evidence. |
 | 1:55-2:20 | Workflow buttons / Do Not Prescribe action | Clinician stays in control; RX Guard packages suggested documentation and simulated workflow action. |
 | 2:20-2:45 | Closing screen / repo + staging link | Synthetic only; human-in-the-loop; production path is authorized EHR/PDMP/FHIR integration. |
 
@@ -96,7 +98,7 @@ Target length: 2:15 to 2:45.
 - [ ] Prompt uses `RXG-SB-001`, not direct name and DOB.
 - [ ] Response has `risk_score`, `risk_level`, `pdmp_summary_status`, `flags`, `recommendation`, `compliance_flag`, and `auto_note`.
 - [ ] Response does not include nested PDMP table rows.
-- [ ] Vercel UI shows clean patient/DOB/prescription/directions intake.
+- [ ] Vercel UI starts from medication selection and auto-triggers RX Guard from Xanax 1 mg tablet.
 - [ ] Vercel UI does not show raw expected JSON or internal Prompt Opinion payload panels.
 - [ ] The demo states staging is synthetic and not live Prompt Opinion-connected.
 - [ ] Devpost includes GitHub URL, staging URL, Prompt Opinion listing/discoverability details, and video URL.

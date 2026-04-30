@@ -57,29 +57,30 @@ Visuals:
 - one-line subtitle
 - synthetic demo disclaimer
 
-## 2. Show input context (0:20 to 0:45)
+## 2. Show prescribing workflow context (0:20 to 0:45)
 
 Suggested narration:
 
-> Here we have a synthetic medication workflow for Sheila Bankston. In the clinician-facing workflow, the user can start from normal encounter context: name, date of birth, proposed medication, directions, patient-reported history, and whether PDMP review has been documented. For the Prompt Opinion handoff, RX Guard resolves that local synthetic patient to the safe case key RXG-SB-001.
+> This starts where providers already work: inside the medication workflow. Here, the synthetic chart is open to Sheila Bankston's medications. The provider clicks Add Medication, searches for Xanax, and selects Xanax 1 mg tablet. RX Guard resolves that synthetic prescribing moment to the safe case key RXG-SB-001 behind the scenes.
 
 Visuals:
-- synthetic eCW-style medication page or staging intake form
-- clean intake fields: patient, DOB, proposed Xanax prescription, and directions
-- note that RX Guard maps the local synthetic intake to `Synthetic patient key: RXG-SB-001` behind the scenes
+- synthetic eCW-style medication page
+- **+ Add Medication** entry point
+- medication search showing `Xanax`
+- dropdown results for `Xanax 1 mg tablet` and `Xanax 0.5 mg tablet`
 
-Keep this fast. Do not over-explain every field.
+Keep this fast. The important point is that the provider is not leaving the prescribing workflow.
 
-## 3. Invoke RX Guard through Prompt Opinion (0:45 to 1:05)
+## 3. Auto-trigger RX Guard from medication selection (0:45 to 1:05)
 
 Suggested narration:
 
-> Prompt Opinion receives the synthetic consult and returns a compact JSON decision-support payload: risk score, risk level, PDMP match status, flags, recommendation, compliance flag, and chart-ready note language. RX Guard then uses that payload to render the EHR-style modal instead of asking Prompt Opinion to draw the UI or generate the PDMP table.
+> Instead of asking providers to run another tool, RX Guard is embedded directly into the prescribing workflow. The moment a controlled medication is selected, it runs automatically and gives a decision-ready output in seconds.
 
 Visuals:
-- show Prompt Opinion returning or representing the compact decision-support payload if the in-platform output is clean
-- switch quickly to the RX Guard staging/local UI
-- click **Run RXGuard Analysis** in the clean intake UI
+- select **Xanax 1 mg tablet**
+- show the controlled-medication transition
+- show RX Guard checking local synthetic PDMP evidence
 - show the modal loading or appearing
 
 Important:
@@ -104,15 +105,16 @@ Visuals:
 
 Focus on clarity. The table is local synthetic demo data; Prompt Opinion only has to say the case matched PDMP-style history.
 
-## 5. Show suggested documentation language and workflow buttons (1:40 to 2:05)
+## 5. Show provider control and documentation (1:40 to 2:05)
 
 Suggested narration:
 
-> RX Guard also produces chart-ready documentation. The clinician stays in control: they can proceed, proceed with caution, or choose not to prescribe. In this high-risk case, selecting Do Not Prescribe cancels the simulated order and inserts the non-prescribing rationale.
+> RX Guard also produces chart-ready documentation. The clinician stays in control: they can proceed, proceed with caution, choose not to prescribe, or re-run the review from the pending medication row. In this high-risk case, selecting Do Not Prescribe cancels the simulated order and inserts the non-prescribing rationale.
 
 Visuals:
 - suggested note language
 - Proceed / Proceed with Caution / Do Not Prescribe buttons
+- visible **Re-run RXGuard** button next to the pending Xanax prescription
 - click **Do Not Prescribe**
 - updated documentation/action status
 
@@ -182,12 +184,13 @@ Keep the demo prep ready anyway, but note that final hackathon compliance still 
 
 ## Recording tips
 
-- show the Prompt Opinion invocation briefly before the RX Guard results screen appears
-- use `Synthetic patient key: RXG-SB-001` in Prompt Opinion, not direct name + DOB
+- start on the medication page, not a separate tools/menu screen
+- show **+ Add Medication** → `Xanax` search → select **Xanax 1 mg tablet**
+- say that RX Guard auto-runs when a controlled medication is selected
 - keep zoom level high enough to read output on mobile and laptop
 - use the Sheila Bankston case, not multiple cases
 - avoid scrolling too much
-- pause briefly on the loaded modal and workflow buttons
+- pause briefly on the loaded modal, workflow buttons, and **Re-run RXGuard** control
 - click **Do Not Prescribe** only after the viewer can see the recommendation and documentation
 - do one full dry run before final recording
 - cut dead time aggressively
