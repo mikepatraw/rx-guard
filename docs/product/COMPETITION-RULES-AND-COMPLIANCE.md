@@ -107,7 +107,7 @@ Current repo evidence:
 - The TypeScript review path runs locally and returns structured, explainable output.
 - The provisional A2A wrapper keeps Prompt Opinion transport separate from the internal review engine, which is a good interoperability design.
 - The local engine avoids live EHR or live PDMP integration and uses synthetic fixtures, reducing privacy and regulatory risk for the demo.
-- The public staging UI uses a clean patient/DOB/prescription intake flow and hides raw JSON/payload details from partner testers.
+- The public staging UI starts from medication selection, auto-triggers RX Guard for the controlled-medication case, and hides raw JSON/payload details from partner testers.
 - The documentation now clearly separates Prompt Opinion as the published agent layer from Vercel staging as the low-friction workflow renderer.
 
 ### Gaps to close before final submission

@@ -31,20 +31,16 @@ http://localhost:4173
 ## Workflow
 
 1. The screen opens on a synthetic eCW-style medication page for Sheila Bankston.
-2. The **RXGuard Consult** panel shows a clean intake form:
-   - patient name
-   - date of birth
-   - prescription
-   - directions
-3. The default synthetic values are prefilled for the canonical case:
-   - Sheila Bankston
-   - 1960-06-13
-   - Xanax 1 mg tablet
-   - 1 tablet PO BID PRN for anxiety
-4. Behind the UI, RX Guard maps that synthetic intake to `RXG-SB-001` and uses the generated Prompt Opinion-compatible review payload.
-5. Click **Run RXGuard Analysis**.
-6. The UI shows a short analysis/loading transition.
-7. The RX Guard results modal renders:
+2. The provider stays in the native medication workflow and clicks **+ Add Medication**.
+3. The medication search shows `Xanax` with two result options:
+   - `Xanax 1 mg tablet`
+   - `Xanax 0.5 mg tablet`
+4. Selecting **Xanax 1 mg tablet** auto-triggers RX Guard because it is a controlled-medication prescribing moment.
+5. The UI shows a short transition:
+   - controlled medication selected
+   - local synthetic PDMP evidence check
+   - RX Guard recommendation preparation
+6. The RX Guard results modal renders:
    - patient and proposed medication summary
    - history mismatch alert
    - deterministic synthetic PDMP-style evidence rows
@@ -55,6 +51,7 @@ http://localhost:4173
    - compliance flag
    - suggested documentation
    - workflow buttons
+7. After the first automatic review, the pending prescription row exposes **Re-run RXGuard** so the provider can manually repeat the safety check without leaving the workflow.
 
 ## Workflow buttons
 
@@ -70,12 +67,12 @@ The recommended demo click is **Do Not Prescribe** because the synthetic case re
 
 Use this order for the final short recording:
 
-1. Briefly show the Prompt Opinion in-platform invocation/output if available and clean.
-2. Switch to the RX Guard staging/local UI as the polished workflow renderer.
-3. Show the clean patient/DOB/prescription/directions intake.
-4. Click **Run RXGuard Analysis**.
-5. Let the RX Guard results modal load.
-6. Pause briefly on the risk score, recommendation, documentation, and workflow buttons.
+1. Open the RX Guard staging/local UI on the medication page.
+2. Click **+ Add Medication** and show the `Xanax` medication search.
+3. Select **Xanax 1 mg tablet**.
+4. Let the automatic RX Guard transition and results modal load.
+5. Pause briefly on the risk score, recommendation, documentation, and workflow buttons.
+6. Show **Re-run RXGuard** beside the pending Xanax prescription as the manual provider-control option.
 7. Click **Do Not Prescribe** to show the documentation/action state.
 
 Keep the video tight. Avoid scrolling and avoid showing setup steps unless needed for Prompt Opinion compliance.

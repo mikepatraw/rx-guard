@@ -187,5 +187,5 @@ As of this refresh:
 - Chat Selectable is available
 - no custom MCP tools are exposed beyond built-in patient helpers
 - public staging is live at `https://rx-guard-iota.vercel.app`
-- the staging UI is clean patient/DOB/prescription intake and does not expose raw JSON/payload panels
+- the staging UI starts from medication selection, auto-triggers RX Guard, and does not expose raw JSON/payload panels
 - the remaining validation gap is final in-platform Prompt Opinion invocation evidence and the under-3-minute submission video

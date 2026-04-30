@@ -36,7 +36,7 @@ npm --version
    ./scripts/start-ui-demo.sh
    ```
 6. Leave Terminal open and browse to `http://localhost:4173`.
-7. Click **Run RXGuard Analysis**, read the risk/PDMP modal, then click **Do Not Prescribe**.
+7. Select **Xanax 1 mg tablet**, read the auto-triggered risk/PDMP modal, then click **Do Not Prescribe**.
 8. Stop the server with `Control+C`.
 
 Optional check:
@@ -66,7 +66,7 @@ npm test
    powershell -ExecutionPolicy Bypass -File .\scripts\start-ui-demo.ps1
    ```
 6. Leave PowerShell open and browse to `http://localhost:4173`.
-7. Click **Run RXGuard Analysis**, read the risk/PDMP modal, then click **Do Not Prescribe**.
+7. Select **Xanax 1 mg tablet**, read the auto-triggered risk/PDMP modal, then click **Do Not Prescribe**.
 8. Stop the server with `Ctrl+C`.
 
 Optional check:
@@ -80,7 +80,7 @@ npm test
 The CLI and web UI should show:
 
 - synthetic key `RXG-SB-001`
-- clean patient/DOB/prescription intake in the web UI
+- medication-selection trigger in the web UI
 - high-risk RX Guard review output
 - deterministic local PDMP rows for Sheila Bankston
 

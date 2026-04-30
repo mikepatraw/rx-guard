@@ -35,8 +35,8 @@ The default Sheila Bankston case is synthetic and should be used for the primary
 ## What RX Guard is supposed to do
 
 RX Guard should:
-- show a simple patient/DOB/prescription/directions intake
-- run a synthetic controlled-substance safety review
+- start from the native medication workflow
+- auto-run a synthetic controlled-substance safety review when a controlled medication is selected
 - identify documentation and contextual medication-risk concerns
 - display deterministic PDMP-style evidence rows
 - stay clinician-supportive, precise, and non-punitive
@@ -67,16 +67,13 @@ Please watch for and flag any UI copy or result that:
 ## Step-by-step staging test flow
 
 1. Open `https://rx-guard-iota.vercel.app` on phone or desktop.
-2. Confirm the default synthetic intake fields are visible:
-   - patient name
-   - date of birth
-   - prescription
-   - directions
-3. Leave the default Sheila Bankston synthetic case in place for the primary test.
-4. Select **Run RXGuard Analysis**.
+2. Confirm the medication page and **+ Add Medication** workflow are visible.
+3. Select **Xanax 1 mg tablet** from the medication search results.
+4. Confirm RX Guard starts automatically without a separate tools menu or module launch.
 5. Review the risk score, recommendation, PDMP-style rows, suggested documentation, and workflow buttons.
-6. Try **Do Not Prescribe** and confirm the simulated order/documentation status updates clearly.
-7. Send feedback using the format below.
+6. Confirm **Re-run RXGuard** appears beside the pending Xanax prescription.
+7. Try **Do Not Prescribe** and confirm the simulated order/documentation status updates clearly.
+8. Send feedback using the format below.
 
 ## Optional Prompt Opinion path
 

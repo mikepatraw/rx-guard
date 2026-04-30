@@ -35,27 +35,28 @@ Important distinction: the staging site is aligned to Prompt Opinion's A2A/agent
 
 ## Default synthetic case
 
-The staging UI is prefilled with the canonical synthetic case:
+The staging UI uses the canonical synthetic case:
 
 | Field | Value |
 | --- | --- |
 | Patient | Sheila Bankston |
-| DOB | 1960-06-13 |
-| Prescription | Xanax 1 mg tablet |
+| Medication search | Xanax |
+| Selected prescription | Xanax 1 mg tablet |
 | Directions | 1 tablet PO BID PRN for anxiety |
 | Synthetic key | RXG-SB-001 |
 
-The RX Guard adapter maps this local clinical-looking intake to the safe synthetic key before building the Prompt Opinion-compatible decision-support payload.
+The RX Guard adapter maps this local prescribing event to the safe synthetic key before building the Prompt Opinion-compatible decision-support payload.
 
 ## Partner test flow
 
 1. Open `https://rx-guard-iota.vercel.app` on phone or desktop.
-2. Confirm the patient name, date of birth, prescription, and directions fields are easy to read.
-3. Leave the default synthetic values in place for the primary test.
-4. Select **Run RXGuard Analysis**.
+2. Confirm the medication page and **+ Add Medication** workflow are easy to understand.
+3. Select **Xanax 1 mg tablet** from the medication search results.
+4. Confirm RX Guard starts automatically without a separate tools menu or module launch.
 5. Review the risk score, recommendation, PDMP-style rows, suggested documentation, and workflow buttons.
-6. Try the workflow buttons, especially **Do Not Prescribe**, and confirm the UI clearly updates the simulated action/documentation status.
-7. Send feedback on anything confusing, too technical, hard to read, or hard to tap.
+6. Confirm **Re-run RXGuard** appears beside the pending Xanax prescription as a manual provider-control option.
+7. Try the workflow buttons, especially **Do Not Prescribe**, and confirm the UI clearly updates the simulated action/documentation status.
+8. Send feedback on anything confusing, too technical, hard to read, or hard to tap.
 
 ## What good feedback looks like
 
@@ -94,10 +95,12 @@ This is synthetic test data only — please don’t enter any real patient infor
 
 Please test the prescribing review flow on phone or desktop:
 1. Open the link.
-2. Confirm the patient name, DOB, prescription, and directions fields are easy to read.
-3. Tap “Run RXGuard Analysis.”
-4. Review the risk score, PDMP-style rows, recommendation, and workflow buttons.
-5. Tell me what feels confusing, too technical, hard to read, or hard to tap.
+2. Click “+ Add Medication.”
+3. Select “Xanax 1 mg tablet.”
+4. Confirm RX Guard starts automatically and the review appears.
+5. Confirm “Re-run RXGuard” is visible after the first review.
+6. Review the risk score, PDMP-style rows, recommendation, and workflow buttons.
+7. Tell me what feels confusing, too technical, hard to read, or hard to tap.
 ```
 
 ## Submission framing
