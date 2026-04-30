@@ -31,7 +31,18 @@
     <section class="page">
       <div class="page-head"><h2>Medications</h2><div><button>+ New Encounter</button><button>Actions ▾</button></div></div>
       <div class="tabs"><b>Current Medications</b><span>Medication History</span><span>eRx</span></div>
-      <div class="card"><h3>Current Medications <button>+ Add Medication</button></h3><div class="med"><b>Adderall 20 mg tablet</b><br>1 tab PO QAM</div><div class="med"><b>Ibuprofen 600 mg tablet</b><br>1 tab PO TID PRN</div><div class="med"><b>Tizanidine 4 mg tablet</b><br>1 tab PO QHS PRN</div></div>
+      <div class="card"><h3>Current Medications <button id="addMedicationBtn" type="button">+ Add Medication</button></h3><div class="med"><b>Adderall 20 mg tablet</b><br>1 tab PO QAM</div><div class="med"><b>Ibuprofen 600 mg tablet</b><br>1 tab PO TID PRN</div><div class="med"><b>Tizanidine 4 mg tablet</b><br>1 tab PO QHS PRN</div></div>
+      <div class="prescribing-card" aria-label="Add medication workflow">
+        <div class="prescribing-head"><h3>Add Medication</h3><span>Controlled medication selected</span></div>
+        <label class="med-search" for="medicationSearch">Search medications
+          <input id="medicationSearch" value="Xanax" autocomplete="off" aria-describedby="rxguardTriggerHelp" />
+        </label>
+        <div class="med-results" role="listbox" aria-label="Medication search results">
+          <button class="med-result selected" type="button" role="option" aria-selected="true"><b>Xanax 1 mg tablet</b><span>RXGuard review starts automatically when selected</span></button>
+          <button class="med-result" type="button" role="option"><b>Xanax 0.5 mg tablet</b><span>alprazolam tablet</span></button>
+        </div>
+        <p id="rxguardTriggerHelp" class="trigger-help">RXGuard runs inside the prescribing workflow—no separate tool menu or module launch.</p>
+      </div>
       <div class="pending"><h3>Pending Prescriptions</h3><b>Xanax 1 mg tablet</b><br>1 tab PO BID PRN for anxiety</div>
       <div class="reminders"><h3>Clinical Reminders</h3><p>PDMP Review <b class="overdue">Overdue</b></p><p>Opioid Risk Assessment ✅</p><p>Pain Agreement ✅</p><p>Urine Drug Screen <b>Due</b></p></div>
     </section>

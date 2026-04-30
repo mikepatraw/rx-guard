@@ -15,10 +15,21 @@ h1 { margin: 0 0 8px; color: #0873a8; font-size: 20px; } p { margin: 3px 0; line
 aside { background: #f4f7f9; border-right: 1px solid #cad7df; padding: 14px; color: #46606e; }
 aside h2 { margin: 4px 0 14px; font-size: 18px; color: #0b6d9d; } aside p { padding: 8px 10px; margin: 2px 0; border-radius: 4px; } aside .selected { background: #d9eef8; color: #005f8c; font-weight: 700; } aside footer { margin-top: 30px; font-size: 11px; color: #7e8d95; }
 .page { padding: 18px; background: #eef4f7; }
-.page-head, .tabs, .card, .pending, .reminders { background: #fff; border: 1px solid #ccd9e0; border-radius: 8px; margin-bottom: 14px; padding: 14px; }
+.page-head, .tabs, .card, .prescribing-card, .pending, .reminders { background: #fff; border: 1px solid #ccd9e0; border-radius: 8px; margin-bottom: 14px; padding: 14px; }
 .page-head { display: flex; justify-content: space-between; align-items: center; } .page-head h2 { margin: 0; color: #145f83; }
 .tabs { display: flex; gap: 28px; padding: 11px 14px; } .tabs b { color: #006da1; }
-.card h3, .pending h3, .reminders h3 { margin: 0 0 10px; color: #304f60; } .med { padding: 11px; border-top: 1px solid #e4edf2; } .pending { border-left: 5px solid #f6b21a; } .overdue { color: #b11226; }
+.card h3, .prescribing-card h3, .pending h3, .reminders h3 { margin: 0 0 10px; color: #304f60; } .med { padding: 11px; border-top: 1px solid #e4edf2; } .pending { border-left: 5px solid #f6b21a; } .overdue { color: #b11226; }
+.prescribing-card { border-left: 5px solid #0a719f; }
+.prescribing-head { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+.prescribing-head span { border-radius: 999px; padding: 5px 9px; color: #07527b; background: #e1f2fa; font-size: 12px; font-weight: 800; }
+.med-search { display: grid; gap: 7px; color: #244b5c; font-weight: 800; }
+.med-search input { width: min(520px, 100%); border: 1px solid #bdd3dd; border-radius: 8px; padding: 11px 12px; color: #1d3340; background: #fff; font: inherit; font-weight: 600; }
+.med-results { width: min(520px, 100%); margin-top: 10px; border: 1px solid #d8e6ed; border-radius: 8px; overflow: hidden; }
+.med-result { width: 100%; display: flex; justify-content: space-between; gap: 12px; align-items: center; border-radius: 0; padding: 12px; color: #244b5c; background: #fff; text-align: left; }
+.med-result + .med-result { border-top: 1px solid #edf3f6; }
+.med-result.selected { color: #074f76; background: #eef8fc; }
+.med-result span { color: #607a87; font-size: 12px; font-weight: 700; }
+.trigger-help { margin-top: 10px; color: #456575; font-weight: 700; }
 .consult-overlay, .overlay { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; padding: 24px; background: rgba(10, 31, 43, .54); overflow-y: auto; }
 .hidden { display: none !important; }
 .consult-panel { width: min(1060px, 95vw); max-height: calc(100dvh - 48px); display: flex; flex-direction: column; background: #f8fbfd; border-radius: 16px; border: 1px solid #b7d1df; box-shadow: 0 26px 80px #001b2fcc; overflow-y: auto; }
@@ -57,7 +68,7 @@ h3 { margin: 15px 0 8px; color: #254b5e; font-size: 14px; letter-spacing: .02em;
   h1 { font-size: 16px; }
   .layout { display: block; min-height: auto; }
   .page { padding: 10px; }
-  .page-head, .tabs { align-items: flex-start; flex-direction: column; gap: 8px; }
+  .page-head, .tabs, .prescribing-head { align-items: flex-start; flex-direction: column; gap: 8px; }
   .consult-overlay, .overlay { display: block; padding: 0; background: rgba(10, 31, 43, .62); }
   .consult-panel, .rx-modal { width: 100%; min-height: 100dvh; max-height: none; border-radius: 0; border: 0; box-shadow: none; }
   .consult-panel { padding-bottom: 64px; }
