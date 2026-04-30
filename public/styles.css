@@ -30,6 +30,8 @@ aside h2 { margin: 4px 0 14px; font-size: 18px; color: #0b6d9d; } aside p { padd
 .med-result.selected { color: #074f76; background: #eef8fc; }
 .med-result span { color: #607a87; font-size: 12px; font-weight: 700; }
 .trigger-help { margin-top: 10px; color: #456575; font-weight: 700; }
+.pending-med { display: flex; justify-content: space-between; gap: 14px; align-items: center; }
+.rerun-btn { color: #fff; background: #0a719f; white-space: nowrap; }
 .consult-overlay, .overlay { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; padding: 24px; background: rgba(10, 31, 43, .54); overflow-y: auto; }
 .hidden { display: none !important; }
 .consult-panel { width: min(1060px, 95vw); max-height: calc(100dvh - 48px); display: flex; flex-direction: column; background: #f8fbfd; border-radius: 16px; border: 1px solid #b7d1df; box-shadow: 0 26px 80px #001b2fcc; overflow-y: auto; }
@@ -68,7 +70,7 @@ h3 { margin: 15px 0 8px; color: #254b5e; font-size: 14px; letter-spacing: .02em;
   h1 { font-size: 16px; }
   .layout { display: block; min-height: auto; }
   .page { padding: 10px; }
-  .page-head, .tabs, .prescribing-head { align-items: flex-start; flex-direction: column; gap: 8px; }
+  .page-head, .tabs, .prescribing-head, .pending-med { align-items: flex-start; flex-direction: column; gap: 8px; }
   .consult-overlay, .overlay { display: block; padding: 0; background: rgba(10, 31, 43, .62); }
   .consult-panel, .rx-modal { width: 100%; min-height: 100dvh; max-height: none; border-radius: 0; border: 0; box-shadow: none; }
   .consult-panel { padding-bottom: 64px; }
