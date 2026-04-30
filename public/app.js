@@ -134,11 +134,16 @@ function applyWorkflow(action) {
   status.textContent = `${action.message} (${action.ehrActions.join(', ')})`;
 }
 
+function showRerunAction() {
+  document.getElementById('rerunRxguardBtn').classList.remove('hidden');
+}
+
 function showAnalysis(event) {
   event?.preventDefault();
   applySelectionToReview(demo);
   const overlay = document.getElementById('consultOverlay');
   const status = document.getElementById('agentStatus');
+  document.getElementById('rxOverlay').classList.add('hidden');
   overlay.classList.remove('hidden');
   status.textContent = 'Controlled medication selected. Checking local synthetic PDMP evidence…';
   setTimeout(() => { status.textContent = 'Reviewing prescription risk and documentation status…'; }, 700);
@@ -146,12 +151,14 @@ function showAnalysis(event) {
   setTimeout(() => {
     overlay.classList.add('hidden');
     document.getElementById('rxOverlay').classList.remove('hidden');
+    showRerunAction();
   }, 2100);
 }
 
 renderDemo(demo);
 document.getElementById('addMedicationBtn').addEventListener('click', () => document.getElementById('medicationSearch').focus());
 document.getElementById('selectXanaxBtn').addEventListener('click', showAnalysis);
+document.getElementById('rerunRxguardBtn').addEventListener('click', showAnalysis);
 document.getElementById('proceedBtn').addEventListener('click', () => applyWorkflow(actions.proceed));
 document.getElementById('cautionBtn').addEventListener('click', () => applyWorkflow(actions.caution));
 document.getElementById('doNotPrescribeBtn').addEventListener('click', () => applyWorkflow(actions.stop));
