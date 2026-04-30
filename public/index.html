@@ -38,7 +38,7 @@
           <input id="medicationSearch" value="Xanax" autocomplete="off" aria-describedby="rxguardTriggerHelp" />
         </label>
         <div class="med-results" role="listbox" aria-label="Medication search results">
-          <button class="med-result selected" type="button" role="option" aria-selected="true"><b>Xanax 1 mg tablet</b><span>RXGuard review starts automatically when selected</span></button>
+          <button id="selectXanaxBtn" class="med-result selected" type="button" role="option" aria-selected="true"><b>Xanax 1 mg tablet</b><span>RXGuard review starts automatically when selected</span></button>
           <button class="med-result" type="button" role="option"><b>Xanax 0.5 mg tablet</b><span>alprazolam tablet</span></button>
         </div>
         <p id="rxguardTriggerHelp" class="trigger-help">RXGuard runs inside the prescribing workflow—no separate tool menu or module launch.</p>
@@ -48,24 +48,17 @@
     </section>
   </main>
 
-  <section id="consultOverlay" class="consult-overlay">
+  <section id="consultOverlay" class="consult-overlay hidden">
     <div class="consult-panel">
-      <div class="consult-head"><span>Controlled-substance safety check</span><b>RXGuard Consult</b></div>
-      <form id="intakeForm" class="intake-form">
+      <div class="consult-head"><span>Controlled medication selected</span><b>RXGuard Review</b></div>
+      <div class="intake-form">
         <div class="intake-copy">
-          <small>Patient lookup</small>
-          <h2>Enter the prescription you want to review.</h2>
-          <p>RX Guard handles the safety payload and synthetic PDMP lookup behind the scenes. The tester only sees the clinical workflow.</p>
+          <small>Embedded prescribing safety check</small>
+          <h2>RXGuard review started automatically.</h2>
+          <p>Checking selected prescription against local synthetic PDMP evidence before the order is finalized.</p>
         </div>
-        <div class="form-grid">
-          <label class="form-field" for="patientName">Patient name<input id="patientName" name="patientName" autocomplete="off" /></label>
-          <label class="form-field" for="patientDob">Date of birth<input id="patientDob" name="patientDob" type="date" /></label>
-          <label class="form-field" for="prescriptionMedication">Prescription<input id="prescriptionMedication" name="prescriptionMedication" autocomplete="off" /></label>
-          <label class="form-field" for="prescriptionDirections">Directions<input id="prescriptionDirections" name="prescriptionDirections" autocomplete="off" /></label>
-        </div>
-        <div id="agentStatus" class="agent-status">Ready to review this prescription.</div>
-        <button id="runAnalysisBtn" class="analyze-btn" type="submit">Run RXGuard Analysis</button>
-      </form>
+        <div id="agentStatus" class="agent-status">Ready for medication selection.</div>
+      </div>
     </div>
   </section>
 

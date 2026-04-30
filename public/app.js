@@ -92,43 +92,14 @@ function insightsFor(data) {
   ];
 }
 
-function input(id) {
-  return document.getElementById(id);
-}
-
-function isoToInputDate(value) {
-  return value?.match(/^\d{4}-\d{2}-\d{2}$/) ? value : '';
-}
-
-function populateIntake(data) {
-  const patient = data?.patient ?? { displayName: 'Sheila Bankston' };
-  const prescription = data?.demoInput ?? { medication: 'Xanax 1 mg tablet', directions: '1 tablet PO BID PRN for anxiety', dob: '1960-06-13' };
-  input('patientName').value = patient.displayName;
-  input('patientDob').value = isoToInputDate(patient.dob ?? prescription.dob);
-  input('prescriptionMedication').value = prescription.medication;
-  input('prescriptionDirections').value = prescription.directions;
-}
-
-function formatInputDate(value) {
-  const match = value?.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  return match ? `${match[2]}/${match[3]}/${match[1]}` : value;
-}
-
-function applyIntakeToReview(data) {
-  const patientName = input('patientName').value.trim() || 'Sheila Bankston';
-  const patientDob = input('patientDob').value;
-  const medication = input('prescriptionMedication').value.trim() || 'Xanax 1 mg tablet';
-  const directions = input('prescriptionDirections').value.trim() || '1 tablet PO BID PRN for anxiety';
-  setField('patient-name', patientName);
-  if (patientDob) setField('patient-dob', formatInputDate(patientDob));
-  setField('medication', medication);
-  setField('directions', directions);
-
-  const patient = data?.patient;
-  if (patientName.toLowerCase() === (patient?.displayName ?? '').toLowerCase()) {
-    setField('patient-dob', `${patient.dobDisplay} (${patient.age})`);
-    setField('mrn', patient.mrn);
-  }
+function applySelectionToReview(data) {
+  const patient = data?.patient ?? { displayName: 'Sheila Bankston', dobDisplay: 'DOB display unavailable', age: 'unknown', mrn: '458293' };
+  const prescription = data?.demoInput ?? { medication: 'Xanax 1 mg tablet', directions: '1 tablet PO BID PRN for anxiety' };
+  setField('patient-name', patient.displayName);
+  setField('patient-dob', `${patient.dobDisplay} (${patient.age})`);
+  setField('mrn', patient.mrn);
+  setField('medication', prescription.medication);
+  setField('directions', prescription.directions);
 }
 
 function renderDemo(data) {
@@ -136,9 +107,6 @@ function renderDemo(data) {
   const patient = data?.patient ?? { displayName: 'Sheila Bankston', dobDisplay: 'DOB display unavailable', age: 'unknown', mrn: '458293' };
   const inputData = data?.demoInput ?? { medication: 'Xanax 1 mg tablet', directions: '1 tablet PO BID PRN for anxiety' };
 
-  populateIntake(data);
-
-  setField('synthetic-key', data?.resolvedSyntheticKey ?? 'RXG-SB-001');
   setField('pdmp-query-date', data?.encounter?.pdmpQueryDate ?? '04/19/2026 10:32 AM');
   setField('patient-name', patient.displayName);
   setField('patient-dob', `${patient.dobDisplay} (${patient.age})`);
@@ -168,19 +136,22 @@ function applyWorkflow(action) {
 
 function showAnalysis(event) {
   event?.preventDefault();
-  applyIntakeToReview(demo);
+  applySelectionToReview(demo);
+  const overlay = document.getElementById('consultOverlay');
   const status = document.getElementById('agentStatus');
-  status.textContent = 'Looking up the patient and checking controlled-substance history…';
+  overlay.classList.remove('hidden');
+  status.textContent = 'Controlled medication selected. Checking local synthetic PDMP evidence…';
   setTimeout(() => { status.textContent = 'Reviewing prescription risk and documentation status…'; }, 700);
-  setTimeout(() => { status.textContent = 'Preparing the RX Guard recommendation…'; }, 1400);
+  setTimeout(() => { status.textContent = 'Preparing the RXGuard recommendation…'; }, 1400);
   setTimeout(() => {
-    document.getElementById('consultOverlay').classList.add('hidden');
+    overlay.classList.add('hidden');
     document.getElementById('rxOverlay').classList.remove('hidden');
   }, 2100);
 }
 
 renderDemo(demo);
-document.getElementById('intakeForm').addEventListener('submit', showAnalysis);
+document.getElementById('addMedicationBtn').addEventListener('click', () => document.getElementById('medicationSearch').focus());
+document.getElementById('selectXanaxBtn').addEventListener('click', showAnalysis);
 document.getElementById('proceedBtn').addEventListener('click', () => applyWorkflow(actions.proceed));
 document.getElementById('cautionBtn').addEventListener('click', () => applyWorkflow(actions.caution));
 document.getElementById('doNotPrescribeBtn').addEventListener('click', () => applyWorkflow(actions.stop));
