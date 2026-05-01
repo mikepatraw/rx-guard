@@ -77,7 +77,7 @@ Please watch for and flag any UI copy or result that:
 
 ## Optional Prompt Opinion path
 
-If specifically asked to test Prompt Opinion itself, use the published RX Guard agent through the **chat / A2A path**, not MCP tool screens.
+If specifically asked to test Prompt Opinion itself, use the published RX Guard agent through the **chat / A2A path**. Once the hosted RXGuard MCP is attached, Prompt Opinion should call the MCP-backed synthetic lookup behind that chat/A2A flow; testers should not evaluate separate MCP tool screens as the product UX.
 
 For Prompt Opinion chat testing, use synthetic key `RXG-SB-001` rather than entering direct patient identifiers. The expected compact response contract is:
 

@@ -68,4 +68,30 @@ await withServer(async (port) => {
   assert.match(body.error.message, /Request body too large/);
 });
 
+await withServer(async (port) => {
+  const response = await request(port, '/mcp', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({
+      jsonrpc: '2.0',
+      id: 2,
+      method: 'tools/call',
+      params: {
+        name: 'lookup_patient_medication_context',
+        arguments: {
+          patient_key: 'RXG-SB-001',
+          proposed_medication: 'Xanax 1 mg tablet'
+        }
+      }
+    })
+  });
+
+  assert.equal(response.status, 200);
+  assertSecurityHeaders(response);
+  const body = await response.json() as { result: { content: [{ text: string }] } };
+  const payload = JSON.parse(body.result.content[0].text) as { display_name: string; recommended_response: { recommendation: string } };
+  assert.equal(payload.display_name, 'Sheila Bankston');
+  assert.equal(payload.recommended_response.recommendation, 'do_not_prescribe');
+});
+
 console.log('local server hardening tests passed');

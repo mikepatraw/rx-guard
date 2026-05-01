@@ -16,7 +16,7 @@ Use the full copy-paste prompt in:
 
 - `docs/product/PROMPT-OPINION-SYSTEM-PROMPT.md`
 
-That System Prompt includes the synthetic, de-identified `PDMP_DATABASE` directly. Do not split the database into Content for the current demo; keeping it in the System Prompt makes synthetic case-key lookup more reliable in Prompt Opinion chat.
+That System Prompt currently includes the synthetic, de-identified `PDMP_DATABASE` directly for backwards-compatible live-chat testing. The MCP migration path is now documented in `docs/product/MCP-MEDICATION-SERVER.md`: once the hosted MCP server is connected in Prompt Opinion, remove the embedded database from the live System Prompt and instruct RX Guard to call the MCP tools for medication/PDMP context.
 
 Keep the database synthetic and de-identified. Do not paste real patient data into System Prompt, Content, tools, screenshots, or demos.
 
@@ -88,17 +88,34 @@ RX Guard is an A2A-enabled Prompt Opinion healthcare agent for controlled-substa
 Primary use case: before a controlled-substance prescription is finalized, RX Guard reviews synthetic/de-identified encounter context, PDMP-style history, medication list, patient-reported history, and documentation status. It returns strict JSON for an EHR-style risk modal with key flags, risk score, recommendation, workflow actions, and chart-ready documentation.
 ```
 
-## Tools
+## Tools / MCP Servers
 
-Prompt Opinion's **Additional Tools / MCP Servers** section is for attaching callable external tools to the agent. For the current demo, the synthetic PDMP database is embedded directly in the System Prompt, so no MCP server is required.
+Prompt Opinion's **Additional Tools / MCP Servers** section is for attaching callable external tools to the agent. RX Guard now has a local synthetic medication/context MCP server documented in:
 
-For the current hackathon/demo setup:
+- `docs/product/MCP-MEDICATION-SERVER.md`
 
-- Keep **Additional Tools / MCP Servers** empty unless the Prompt Opinion account has a deployed RX Guard API or MCP server ready to call.
-- Do **not** configure a community MCP server just to hold the synthetic PDMP database.
-- Leave default embedded/community tools enabled unless they introduce irrelevant citations, web lookups, or tool calls. If the agent starts using unrelated tools instead of the embedded System Prompt database, disable default tools.
+The server owns deterministic lookup for the synthetic medication database, synthetic patient cases, and synthetic PDMP-style context. Prompt Opinion should remain the reasoning/orchestration layer; it should not be used as the database.
 
-Future production-style setup: move `PDMP_DATABASE` out of the System Prompt and expose RX Guard service tools for exact PDMP lookup, deterministic risk scoring, and workflow-decision documentation. Until those tools exist, configuring no MCP servers is correct.
+Current local MCP tools:
+
+- `lookup_medication`
+- `lookup_patient_medication_context`
+- `get_demo_case`
+
+Recommended local command:
+
+```bash
+npm run mcp:medication
+```
+
+For the final Prompt Opinion-hosted path:
+
+1. Deploy the repo server's `POST /mcp` JSON-RPC route behind HTTPS, or add a StreamableHTTP wrapper if Prompt Opinion requires full HTTP MCP session semantics.
+2. Configure Prompt Opinion's **Additional Tools / MCP Servers** with the hosted MCP URL.
+3. Update the RX Guard System Prompt to instruct the agent to call RXGuard MCP tools for medication/PDMP context instead of relying on the embedded `PDMP_DATABASE`.
+4. Keep the response schema compact so the RXGuard UI adapter still owns the EHR modal, workflow buttons, and chart-documentation insertion.
+
+For the current repository state, the MCP contract exists locally and is tested. Do **not** configure a community MCP server just to hold synthetic data. Do **not** connect live patient, pharmacy, PDMP, or medication databases for the submission unless that scope is explicitly approved.
 
 ## Guardrails
 
