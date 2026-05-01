@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { handleHostedMcpRequest } from './hosted-mcp.js';
 
 type MockRequest = {
@@ -38,6 +39,9 @@ async function invoke(req: MockRequest) {
   await handleHostedMcpRequest(req, res);
   return res;
 }
+
+const hostedEntrypoint = readFileSync('api/mcp.ts', 'utf8');
+assert.match(hostedEntrypoint, /\.\.\/src\/api\/hosted-mcp\.js/);
 
 const optionsResponse = await invoke({ method: 'OPTIONS' });
 assert.equal(optionsResponse.statusCode, 204);
