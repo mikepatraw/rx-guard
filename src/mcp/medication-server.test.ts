@@ -76,6 +76,38 @@ const badToolResult = callRxGuardMcpTool('missing_tool', {});
 assert.equal(badToolResult.isError, true);
 assert.match(badToolResult.content[0].text, /Unknown RXGuard MCP tool/);
 
+const initializeResponse = handleJsonRpcMessage(JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'initialize', params: {} })) as {
+  jsonrpc: string;
+  id: number;
+  result: {
+    capabilities: {
+      tools: Record<string, unknown>;
+      resources: Record<string, unknown>;
+      experimental: { fhir: { supported: boolean; fhirVersion: string }; promptOpinion: { fhirExtension: { supported: boolean } } };
+    };
+    _meta: { 'promptopinion.fhir': { supported: boolean } };
+  };
+};
+assert.equal(initializeResponse.result.capabilities.experimental.fhir.supported, true);
+assert.equal(initializeResponse.result.capabilities.experimental.fhir.fhirVersion, 'R4');
+assert.equal(initializeResponse.result.capabilities.experimental.promptOpinion.fhirExtension.supported, true);
+assert.equal(initializeResponse.result._meta['promptopinion.fhir'].supported, true);
+
+const rpcResourceList = handleJsonRpcMessage(JSON.stringify({ jsonrpc: '2.0', id: 11, method: 'resources/list', params: {} })) as {
+  result: { resources: Array<{ uri: string; mimeType: string }> };
+};
+assert.ok(rpcResourceList.result.resources.some((resource) => resource.uri === 'fhir://CapabilityStatement/rxguard-synthetic-demo'));
+assert.ok(rpcResourceList.result.resources.some((resource) => resource.uri === 'fhir://Patient/RXG-SB-001'));
+assert.ok(rpcResourceList.result.resources.every((resource) => resource.mimeType === 'application/fhir+json'));
+
+const rpcResourceRead = handleJsonRpcMessage(
+  JSON.stringify({ jsonrpc: '2.0', id: 12, method: 'resources/read', params: { uri: 'fhir://CapabilityStatement/rxguard-synthetic-demo' } })
+) as unknown as { result: { contents: [{ text: string; mimeType: string }] } };
+assert.equal(rpcResourceRead.result.contents[0].mimeType, 'application/fhir+json');
+const capabilityStatement = JSON.parse(rpcResourceRead.result.contents[0].text) as { resourceType: string; fhirVersion: string };
+assert.equal(capabilityStatement.resourceType, 'CapabilityStatement');
+assert.equal(capabilityStatement.fhirVersion, '4.0.1');
+
 const rpcToolList = handleJsonRpcMessage(JSON.stringify({ jsonrpc: '2.0', id: 2, method: 'tools/list', params: {} })) as {
   jsonrpc: string;
   id: number;
