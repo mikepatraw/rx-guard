@@ -42,6 +42,7 @@ async function invoke(req: MockRequest) {
 const optionsResponse = await invoke({ method: 'OPTIONS' });
 assert.equal(optionsResponse.statusCode, 204);
 assert.equal(optionsResponse.headers['access-control-allow-methods'], 'POST, OPTIONS');
+assert.match(optionsResponse.headers['access-control-allow-headers'], /X-RXGuard-Demo-Key/);
 assert.equal(optionsResponse.headers['x-content-type-options'], 'nosniff');
 
 const listResponse = await invoke({
