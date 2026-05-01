@@ -32,7 +32,18 @@ type JsonRpcRequest = {
   params?: {
     name?: string;
     arguments?: Record<string, unknown>;
+    uri?: string;
   } & Record<string, unknown>;
+};
+
+const promptOpinionFhirExtension = {
+  supported: true,
+  mode: 'synthetic-demo-only',
+  version: '0.1.0',
+  fhirVersion: 'R4',
+  resources: ['Patient', 'MedicationRequest', 'MedicationStatement', 'Observation', 'CapabilityStatement'],
+  operations: ['metadata', 'read', 'search'],
+  privacy: 'No real PHI, EHR, PDMP, pharmacy, or FHIR server is connected.',
 };
 
 export function listRxGuardMcpTools(): McpToolDescription[] {
@@ -260,6 +271,59 @@ function writeFramedResponse(response: unknown): void {
   process.stdout.write(`Content-Length: ${Buffer.byteLength(body, 'utf8')}\r\n\r\n${body}`);
 }
 
+function readSyntheticFhirResource(uri: string) {
+  if (uri === 'fhir://CapabilityStatement/rxguard-synthetic-demo') {
+    return {
+      resourceType: 'CapabilityStatement',
+      id: 'rxguard-synthetic-demo',
+      status: 'active',
+      date: '2026-05-01',
+      kind: 'capability',
+      fhirVersion: '4.0.1',
+      format: ['json'],
+      implementation: {
+        description: 'RXGuard synthetic/demo-only medication context MCP server for Prompt Opinion FHIR extension discovery.',
+        url: 'https://rx-guard-iota.vercel.app/api/mcp',
+      },
+      rest: [
+        {
+          mode: 'server',
+          resource: promptOpinionFhirExtension.resources.map((type) => ({ type, interaction: [{ code: 'read' }, { code: 'search-type' }] })),
+        },
+      ],
+      extension: [
+        {
+          url: 'https://promptopinion.ai/fhir/StructureDefinition/mcp-server-capability',
+          valueString: 'synthetic-demo-only',
+        },
+      ],
+    };
+  }
+
+  const patientKey = uri.startsWith('fhir://Patient/') ? uri.slice('fhir://Patient/'.length).toUpperCase() : '';
+  const demoCase = demoCases.find((candidate) => candidate.patient_key === patientKey);
+  if (!demoCase) return null;
+
+  const [familyName, ...givenParts] = demoCase.display_name.split(' ');
+  return {
+    resourceType: 'Patient',
+    id: demoCase.patient_key,
+    meta: { tag: [{ system: 'https://rxguard.demo/tags', code: 'synthetic-demo-only' }] },
+    identifier: [{ system: 'https://rxguard.demo/synthetic-patient-key', value: demoCase.patient_key }],
+    name: [{ family: familyName, given: givenParts }],
+    extension: [
+      {
+        url: 'https://rxguard.demo/fhir/StructureDefinition/progress-note-summary',
+        valueString: demoCase.progress_note.summary,
+      },
+      {
+        url: 'https://rxguard.demo/fhir/StructureDefinition/recommended-response',
+        valueString: JSON.stringify(demoCase.recommended_response),
+      },
+    ],
+  };
+}
+
 export function handleJsonRpcMessage(message: string) {
   let request: JsonRpcRequest;
   try {
@@ -274,8 +338,23 @@ export function handleJsonRpcMessage(message: string) {
       id: request.id ?? null,
       result: {
         protocolVersion: '2024-11-05',
-        capabilities: { tools: {} },
+        capabilities: {
+          tools: {},
+          resources: { subscribe: false, listChanged: false },
+          experimental: {
+            fhir: promptOpinionFhirExtension,
+            promptOpinion: { fhirExtension: promptOpinionFhirExtension },
+            'promptopinion.fhir': promptOpinionFhirExtension,
+          },
+        },
         serverInfo: { name: 'rxguard-medication-mcp', version: '0.1.0' },
+        _meta: {
+          fhir: promptOpinionFhirExtension,
+          promptOpinion: { fhirExtension: promptOpinionFhirExtension },
+          'promptopinion.fhir': promptOpinionFhirExtension,
+        },
+        instructions:
+          'RXGuard exposes synthetic/demo-only FHIR-style medication and patient context for Prompt Opinion. Do not treat results as real patient, EHR, PDMP, pharmacy, or prescribing data.',
       },
     };
   }
@@ -289,6 +368,42 @@ export function handleJsonRpcMessage(message: string) {
       jsonrpc: '2.0',
       id: request.id ?? null,
       result: { tools: listRxGuardMcpTools() },
+    };
+  }
+
+  if (request.method === 'resources/list') {
+    return {
+      jsonrpc: '2.0',
+      id: request.id ?? null,
+      result: {
+        resources: [
+          {
+            uri: 'fhir://CapabilityStatement/rxguard-synthetic-demo',
+            name: 'RXGuard Synthetic FHIR CapabilityStatement',
+            description: 'Synthetic/demo-only FHIR R4 capability metadata for Prompt Opinion extension discovery.',
+            mimeType: 'application/fhir+json',
+          },
+          ...demoCases.map((demoCase) => ({
+            uri: `fhir://Patient/${demoCase.patient_key}`,
+            name: `Synthetic Patient ${demoCase.patient_key}`,
+            description: `Synthetic/demo-only FHIR-style Patient context for ${demoCase.display_name}.`,
+            mimeType: 'application/fhir+json',
+          })),
+        ],
+      },
+    };
+  }
+
+  if (request.method === 'resources/read') {
+    const uri = typeof request.params?.uri === 'string' ? request.params.uri : '';
+    const payload = readSyntheticFhirResource(uri);
+    if (!payload) return jsonRpcError(request.id ?? null, -32602, `Unknown RXGuard FHIR resource: ${uri || 'missing uri'}`);
+    return {
+      jsonrpc: '2.0',
+      id: request.id ?? null,
+      result: {
+        contents: [{ uri, mimeType: 'application/fhir+json', text: JSON.stringify(payload, null, 2) }],
+      },
     };
   }
 

@@ -162,7 +162,9 @@ The server also accepts newline-delimited JSON-RPC during simple terminal debugg
 
 Expected result:
 
-- `initialize` returns server info for `rxguard-medication-mcp`
+- `initialize` returns server info for `rxguard-medication-mcp`, tool capability metadata, synthetic/demo-only FHIR extension metadata, and FHIR-style resource capability discovery
+- `resources/list` returns a synthetic FHIR CapabilityStatement resource plus one synthetic Patient resource per demo case
+- `resources/read` returns `application/fhir+json` content for the synthetic CapabilityStatement or patient resource
 - `tools/list` returns the three tools above
 - `tools/call` returns matched synthetic context for `RXG-SB-001`
 
@@ -174,11 +176,12 @@ Recommended deployment steps:
 
 1. Keep the local stdio server as the development/test source of truth.
 2. Use the existing `/api/mcp` hosted JSON-RPC function as the hosted transport boundary, or wrap the same functions with a Prompt Opinion-compatible StreamableHTTP adapter if the platform requires the full MCP HTTP session handshake.
-3. Deploy it behind HTTPS.
-4. Add authentication before exposing it outside local/dev use.
-5. Configure Prompt Opinion with the hosted MCP URL.
-6. Update the Prompt Opinion system prompt so RXGuard calls MCP tools instead of relying on the embedded `PDMP_DATABASE`.
-7. Record final evidence showing Prompt Opinion using the hosted MCP-backed lookup and RXGuard UI mapping the response into provider workflow.
+3. Keep the synthetic/demo-only FHIR extension metadata enabled in the `initialize` response so Prompt Opinion can recognize the server as healthcare/FHIR-capable without connecting real FHIR, EHR, PDMP, or pharmacy data.
+4. Deploy it behind HTTPS.
+5. Add authentication before exposing it outside local/dev use.
+6. Configure Prompt Opinion with the hosted MCP URL.
+7. Update the Prompt Opinion system prompt so RXGuard calls MCP tools instead of relying on the embedded `PDMP_DATABASE`.
+8. Record final evidence showing Prompt Opinion using the hosted MCP-backed lookup and RXGuard UI mapping the response into provider workflow.
 
 Do **not** connect live patient, pharmacy, PDMP, or medication databases during the hackathon demo unless that scope is explicitly approved. The hosted MCP should expose only this synthetic dataset for submission.
 
