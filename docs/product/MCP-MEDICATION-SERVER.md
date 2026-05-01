@@ -175,19 +175,18 @@ For the final hosted Prompt Opinion path, deploy an HTTP/StreamableHTTP version 
 Recommended deployment steps:
 
 1. Keep the local stdio server as the development/test source of truth.
-2. Use the existing `/api/mcp` hosted JSON-RPC function as the hosted transport boundary, or wrap the same functions with a Prompt Opinion-compatible StreamableHTTP adapter if the platform requires the full MCP HTTP session handshake.
+2. Use the existing `/api/mcp` hosted JSON-RPC function as the hosted transport boundary.
 3. Keep the synthetic/demo-only FHIR extension metadata enabled in the `initialize` response so Prompt Opinion can recognize the server as healthcare/FHIR-capable without connecting real FHIR, EHR, PDMP, or pharmacy data.
-4. Deploy it behind HTTPS.
-5. Add authentication before exposing it outside local/dev use.
-6. Configure Prompt Opinion with the hosted MCP URL.
-7. Update the Prompt Opinion system prompt so RXGuard calls MCP tools instead of relying on the embedded `PDMP_DATABASE`.
-8. Record final evidence showing Prompt Opinion using the hosted MCP-backed lookup and RXGuard UI mapping the response into provider workflow.
+4. Configure Prompt Opinion with the hosted MCP URL.
+5. Use the MCP-only Prompt Opinion system prompt from `docs/product/PROMPT-OPINION-SYSTEM-PROMPT.md`.
+6. Do not duplicate synthetic PDMP rows, patient records, FHIR resources, or fallback databases in Prompt Opinion System Prompt, Content, or Guardrails.
+7. Record final evidence showing Prompt Opinion using the hosted MCP-backed lookup and RXGuard UI mapping the response into provider workflow.
 
 Do **not** connect live patient, pharmacy, PDMP, or medication databases during the hackathon demo unless that scope is explicitly approved. The hosted MCP should expose only this synthetic dataset for submission.
 
-## Prompt Opinion system prompt direction after hosting
+## Prompt Opinion MCP-only system prompt direction
 
-Once the hosted MCP server is connected, the system prompt should say:
+The live Prompt Opinion system prompt should say:
 
 ```text
 When medication or synthetic PDMP context is needed, call the RXGuard MCP tools.
