@@ -19,7 +19,7 @@ const responseHeaders = {
   'Cache-Control': 'no-store',
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-RXGuard-Demo-Key',
 };
 
 export async function handleHostedMcpRequest(req: HostedMcpRequest, res: HostedMcpResponse): Promise<void> {
