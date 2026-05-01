@@ -2,6 +2,7 @@ import http from 'node:http';
 import { fileURLToPath } from 'node:url';
 import { invokeByoA2aAgent } from './byo-a2a.js';
 import { reviewEncounter } from './review.js';
+import { handleJsonRpcMessage } from '../mcp/medication-server.js';
 import { normalizeReviewRequest } from '../fhir/normalize.js';
 import type { ReviewRequest } from '../types/review.js';
 
@@ -62,6 +63,41 @@ export function createRxGuardServer() {
         writeJson(res, error instanceof RequestBodyTooLargeError ? 413 : 400, {
           status: 'input_error',
           message: error instanceof Error ? error.message : 'Invalid request'
+        });
+        return;
+      }
+    }
+
+    if (req.method === 'OPTIONS' && req.url === '/mcp') {
+      res.writeHead(204, {
+        ...securityHeaders,
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+      });
+      res.end();
+      return;
+    }
+
+    if (req.method === 'POST' && req.url === '/mcp') {
+      try {
+        const parsed = await readJsonBody(req) as unknown;
+        const response = handleJsonRpcMessage(JSON.stringify(parsed));
+        if (response === null) {
+          writeJson(res, 202, { ok: true });
+          return;
+        }
+
+        writeJson(res, 'error' in response ? 400 : 200, response);
+        return;
+      } catch (error) {
+        writeJson(res, error instanceof RequestBodyTooLargeError ? 413 : 400, {
+          jsonrpc: '2.0',
+          id: null,
+          error: {
+            code: error instanceof RequestBodyTooLargeError ? -32001 : -32700,
+            message: error instanceof Error ? error.message : 'Invalid MCP request'
+          }
         });
         return;
       }
