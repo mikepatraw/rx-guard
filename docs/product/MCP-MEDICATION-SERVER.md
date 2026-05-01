@@ -35,13 +35,19 @@ The script compiles TypeScript and starts:
 node dist/mcp/medication-server.js
 ```
 
-For hosted/HTTP planning, the repo server also exposes the same JSON-RPC tool contract at:
+For hosted/HTTP planning, the repo now exposes the same JSON-RPC tool contract through a Vercel-compatible function path:
+
+```text
+POST /api/mcp
+```
+
+The local Node server also exposes a development-only route:
 
 ```text
 POST /mcp
 ```
 
-That endpoint is intended as the thin transport boundary for the Prompt Opinion hosted MCP connection. A later deployment step can put this route behind HTTPS and attach it in Prompt Opinion's **Additional Tools / MCP Servers** UI.
+`/api/mcp` is intended as the hosted transport boundary for the Prompt Opinion hosted MCP connection. A later deployment step can put this route behind HTTPS and attach it in Prompt Opinion's **Additional Tools / MCP Servers** UI.
 
 The implementation lives in:
 
@@ -167,7 +173,7 @@ For the final hosted Prompt Opinion path, deploy an HTTP/StreamableHTTP version 
 Recommended deployment steps:
 
 1. Keep the local stdio server as the development/test source of truth.
-2. Use the existing `POST /mcp` JSON-RPC route as the hosted transport boundary, or wrap the same functions with a Prompt Opinion-compatible StreamableHTTP adapter if the platform requires the full MCP HTTP handshake.
+2. Use the existing `/api/mcp` hosted JSON-RPC function as the hosted transport boundary, or wrap the same functions with a Prompt Opinion-compatible StreamableHTTP adapter if the platform requires the full MCP HTTP session handshake.
 3. Deploy it behind HTTPS.
 4. Add authentication before exposing it outside local/dev use.
 5. Configure Prompt Opinion with the hosted MCP URL.
