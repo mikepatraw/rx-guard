@@ -110,7 +110,7 @@ npm run mcp:medication
 
 For the final Prompt Opinion-hosted path:
 
-1. Deploy the repo server's `POST /mcp` JSON-RPC route behind HTTPS, or add a StreamableHTTP wrapper if Prompt Opinion requires full HTTP MCP session semantics.
+1. Deploy the repo server's `/api/mcp` hosted JSON-RPC function behind HTTPS, or add a StreamableHTTP wrapper if Prompt Opinion requires full HTTP MCP session semantics.
 2. Configure Prompt Opinion's **Additional Tools / MCP Servers** with the hosted MCP URL.
 3. Update the RX Guard System Prompt to instruct the agent to call RXGuard MCP tools for medication/PDMP context instead of relying on the embedded `PDMP_DATABASE`.
 4. Keep the response schema compact so the RXGuard UI adapter still owns the EHR modal, workflow buttons, and chart-documentation insertion.

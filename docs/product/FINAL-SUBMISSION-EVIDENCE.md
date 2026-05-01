@@ -9,7 +9,7 @@ Last checked from the repo workspace on 2026-04-30:
 - Public staging UI: `https://rx-guard-iota.vercel.app/`
 - A2A agent card: `https://app.promptopinion.ai/api/workspaces/019d881e-b5b2-7bae-b3ef-c1df241d8e01/ai-agents/019d8868-ce0e-78bb-9f77-97a09fae4a8e/.well-known/agent-card.json`
 - Local MCP dev command: `npm run mcp:medication`
-- Hosted MCP route to deploy/connect: `POST /mcp` on the hosted RXGuard server
+- Hosted MCP route to deploy/connect: `/api/mcp` on the hosted RXGuard server
 
 The agent card endpoint returned HTTP 200 and identifies the agent as **RX Guard**. The Vercel staging UI returned HTTP 200. The staging UI is still a synthetic public renderer; it is not proof of live Prompt Opinion API invocation.
 

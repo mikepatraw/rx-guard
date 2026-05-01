@@ -160,7 +160,7 @@ The submission should clearly communicate:
 ## 11. Immediate next steps
 
 ### Before final submission
-- [ ] Deploy hosted RXGuard MCP transport and connect it in Prompt Opinion Additional Tools / MCP Servers
+- [ ] Deploy hosted RXGuard MCP transport at `/api/mcp` and connect it in Prompt Opinion Additional Tools / MCP Servers
 - [ ] Update live Prompt Opinion System Prompt to call MCP tools instead of using the embedded synthetic prompt database
 - [ ] Run one final Prompt Opinion chat/A2A + hosted MCP invocation pass with `RXG-SB-001` using `docs/product/FINAL-SUBMISSION-EVIDENCE.md`
 - [ ] Capture the final marketplace/listing URL or clear discoverability instructions
