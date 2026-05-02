@@ -1,0 +1,60 @@
+name: Fred CI Failure Notifier
+
+on:
+  workflow_run:
+    workflows: [CodeQL]
+    types: [completed]
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  notify-fred:
+    name: Notify Fred on failed CI
+    if: >-
+      ${{ github.event.workflow_run.conclusion != 'success' &&
+          github.event.workflow_run.conclusion != 'skipped' &&
+          github.event.workflow_run.name != 'Fred CI Failure Notifier' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send signed failure payload to Fred
+        env:
+          WEBHOOK_URL: https://webhooks.mikepatraw.com/webhooks/github-actions-failures
+          WEBHOOK_SECRET: ${{ secrets.FRED_WEBHOOK_GITHUB_ACTIONS_FAILURES_SECRET }}
+          GITHUB_EVENT_PATH: ${{ github.event_path }}
+          GITHUB_DELIVERY: ${{ github.run_id }}-${{ github.run_attempt }}
+        run: |
+          python3 - <<'PY'
+          import hashlib
+          import hmac
+          import os
+          import pathlib
+          import subprocess
+          import sys
+
+          secret = os.environ.get("WEBHOOK_SECRET", "")
+          if not secret:
+              print("FRED_WEBHOOK_GITHUB_ACTIONS_FAILURES_SECRET is not set", file=sys.stderr)
+              sys.exit(1)
+
+          event_path = pathlib.Path(os.environ["GITHUB_EVENT_PATH"])
+          body = event_path.read_bytes()
+          signature = "sha256=" + hmac.new(secret.encode(), body, hashlib.sha256).hexdigest()
+
+          cmd = [
+              "curl", "--fail-with-body", "--show-error", "--silent",
+              "--request", "POST", os.environ["WEBHOOK_URL"],
+              "--header", "Content-Type: application/json",
+              "--header", "X-GitHub-Event: workflow_run",
+              "--header", f"X-GitHub-Delivery: {os.environ['GITHUB_DELIVERY']}",
+              "--header", f"X-Hub-Signature-256: {signature}",
+              "--data-binary", f"@{event_path}",
+          ]
+          result = subprocess.run(cmd, text=True, capture_output=True)
+          if result.stdout:
+              print(result.stdout)
+          if result.stderr:
+              print(result.stderr, file=sys.stderr)
+          sys.exit(result.returncode)
+          PY
