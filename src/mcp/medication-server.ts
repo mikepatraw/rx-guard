@@ -25,6 +25,15 @@ type DemoCaseInput = {
   patient_key?: unknown;
 };
 
+type FindPatientIdInput = {
+  patient_key?: unknown;
+  patientId?: unknown;
+  patient_id?: unknown;
+  identifier?: unknown;
+  name?: unknown;
+  patientName?: unknown;
+};
+
 type JsonRpcRequest = {
   jsonrpc?: string;
   id?: string | number | null;
@@ -85,6 +94,23 @@ export function listRxGuardMcpTools(): McpToolDescription[] {
           patient_key: { type: 'string', description: 'Synthetic RXGuard patient key, for example RXG-CW-002.' },
         },
         required: ['patient_key'],
+        additionalProperties: false,
+      },
+    },
+    {
+      name: 'FindPatientId',
+      description:
+        'Prompt Opinion FHIR compatibility shim. Resolve a synthetic RXGuard patient key or display name to the same synthetic patient id so the agent does not call external FHIR lookup tools.',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          patient_key: { type: 'string', description: 'Synthetic RXGuard patient key, for example RXG-SB-001.' },
+          patientId: { type: 'string', description: 'Synthetic RXGuard patient id or key.' },
+          patient_id: { type: 'string', description: 'Synthetic RXGuard patient id or key.' },
+          identifier: { type: 'string', description: 'Synthetic RXGuard patient identifier.' },
+          name: { type: 'string', description: 'Synthetic patient display name, for example Sheila Bankston.' },
+          patientName: { type: 'string', description: 'Synthetic patient display name, for example Sheila Bankston.' },
+        },
         additionalProperties: false,
       },
     },
@@ -183,6 +209,39 @@ export function getDemoCase(input: DemoCaseInput) {
   };
 }
 
+export function findPatientId(input: FindPatientIdInput) {
+  const lookupValues = [input.patient_key, input.patientId, input.patient_id, input.identifier]
+    .map(normalizeString)
+    .filter(Boolean);
+  const nameValues = [input.name, input.patientName].map(normalizeString).filter(Boolean);
+
+  const demoCase = demoCases.find((candidate) => {
+    const patientKey = candidate.patient_key.toLowerCase();
+    const displayName = candidate.display_name.toLowerCase();
+    return (
+      lookupValues.some((value) => value === patientKey || value.includes(patientKey) || patientKey.includes(value)) ||
+      nameValues.some((value) => value === displayName || displayName.includes(value) || value.includes(displayName))
+    );
+  });
+
+  if (!demoCase) {
+    return {
+      matched: false,
+      patient_id: null,
+      patient_key: lookupValues[0]?.toUpperCase() ?? null,
+      message: 'Synthetic patient id not found. Use one of the RXGuard demo keys and do not call external/live FHIR patient lookup.',
+    };
+  }
+
+  return {
+    matched: true,
+    patient_id: demoCase.patient_key,
+    patient_key: demoCase.patient_key,
+    display_name: demoCase.display_name,
+    message: 'Synthetic RXGuard patient id matched.',
+  };
+}
+
 export function callRxGuardMcpTool(name: string, args: Record<string, unknown> = {}): ToolTextResult {
   try {
     let payload: unknown;
@@ -192,6 +251,8 @@ export function callRxGuardMcpTool(name: string, args: Record<string, unknown> =
       payload = lookupPatientMedicationContext(args);
     } else if (name === 'get_demo_case') {
       payload = getDemoCase(args);
+    } else if (name === 'FindPatientId') {
+      payload = findPatientId(args);
     } else {
       return textResult(`Unknown RXGuard MCP tool: ${name}`, true);
     }
