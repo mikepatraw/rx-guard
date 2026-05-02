@@ -2,6 +2,9 @@ name: Fred CI Failure Notifier
 
 on:
   workflow_run:
+    # workflow_run requires an explicit upstream workflow list.
+    # rx-guard currently has CodeQL as the actionable upstream check.
+    workflows: [CodeQL]
     types: [completed]
 
 permissions:
