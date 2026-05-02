@@ -58,7 +58,7 @@ assert.equal(listResponse.headers['content-type'], 'application/json');
 const listPayload = JSON.parse(listResponse.body) as { result: { tools: Array<{ name: string }> } };
 assert.deepEqual(
   listPayload.result.tools.map((tool) => tool.name).sort(),
-  ['get_demo_case', 'lookup_medication', 'lookup_patient_medication_context']
+  ['FindPatientId', 'get_demo_case', 'lookup_medication', 'lookup_patient_medication_context']
 );
 
 const callResponse = await invoke({

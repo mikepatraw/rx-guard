@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import {
   listRxGuardMcpTools,
   callRxGuardMcpTool,
+  findPatientId,
   lookupMedication,
   lookupPatientMedicationContext,
   getDemoCase,
@@ -11,8 +12,9 @@ import {
 const tools = listRxGuardMcpTools();
 assert.deepEqual(
   tools.map((tool) => tool.name).sort(),
-  ['get_demo_case', 'lookup_medication', 'lookup_patient_medication_context']
+  ['FindPatientId', 'get_demo_case', 'lookup_medication', 'lookup_patient_medication_context']
 );
+assert.match(tools.find((tool) => tool.name === 'FindPatientId')?.description ?? '', /compatibility shim/i);
 
 const xanax = lookupMedication({ query: 'Xanax' });
 assert.equal(xanax.matched, true);
@@ -63,6 +65,14 @@ assert.equal(charlieCase.case?.display_name, 'Charlie Williams');
 assert.match(charlieCase.case?.progress_note.hpi ?? '', /lower back pain/i);
 assert.ok(charlieCase.case?.current_medications.some((med) => med.name.includes('Trazodone')));
 
+const patientIdByName = findPatientId({ patientName: 'Sheila Bankston' });
+assert.equal(patientIdByName.matched, true);
+assert.equal(patientIdByName.patient_id, 'RXG-SB-001');
+
+const patientIdByIdentifier = findPatientId({ identifier: 'RXG-CW-002' });
+assert.equal(patientIdByIdentifier.matched, true);
+assert.equal(patientIdByIdentifier.display_name, 'Charlie Williams');
+
 const toolResult = callRxGuardMcpTool('lookup_patient_medication_context', {
   patient_key: 'RXG-GK-003',
   proposed_medication: 'Oxycodone oral solution 5 mg/5 mL',
@@ -75,6 +85,11 @@ assert.equal(parsedToolResult.recommended_response.recommendation, 'proceed_with
 const badToolResult = callRxGuardMcpTool('missing_tool', {});
 assert.equal(badToolResult.isError, true);
 assert.match(badToolResult.content[0].text, /Unknown RXGuard MCP tool/);
+
+const compatibilityToolResult = callRxGuardMcpTool('FindPatientId', { name: 'Sheila Bankston' });
+assert.equal(compatibilityToolResult.isError, false);
+const parsedCompatibilityToolResult = JSON.parse(compatibilityToolResult.content[0].text);
+assert.equal(parsedCompatibilityToolResult.patient_id, 'RXG-SB-001');
 
 const initializeResponse = handleJsonRpcMessage(JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'initialize', params: {} })) as {
   jsonrpc: string;
@@ -115,7 +130,7 @@ const rpcToolList = handleJsonRpcMessage(JSON.stringify({ jsonrpc: '2.0', id: 2,
 };
 assert.equal(rpcToolList.jsonrpc, '2.0');
 assert.equal(rpcToolList.id, 2);
-assert.equal(rpcToolList.result.tools.length, 3);
+assert.equal(rpcToolList.result.tools.length, 4);
 
 const rpcToolCall = handleJsonRpcMessage(
   JSON.stringify({
