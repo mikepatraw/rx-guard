@@ -2,6 +2,9 @@ name: Fred CI Failure Notifier
 
 on:
   workflow_run:
+    workflows:
+      - CodeQL
+      - Fred Merged PR Changelog Notifier
     types: [completed]
 
 permissions:
