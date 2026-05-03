@@ -18,7 +18,7 @@ Use the full copy-paste prompt in:
 
 That System Prompt is now the MCP-only live configuration. It does not embed synthetic PDMP rows or a local database. Prompt Opinion should call the hosted RXGuard MCP server for patient, medication, PDMP-style, and synthetic FHIR-style context, then return only the compact reasoning JSON.
 
-For Gemini free-tier testing, keep the path to one model answer and one MCP data lookup. The free tier reports quota errors at 5 `generate_content` requests per minute for `gemini-3-flash`, so repeated chat retries, custom guardrail retries, or optional extra tool calls can exhaust the minute-level quota even when the MCP server is healthy.
+For Gemini free-tier testing, keep the path to one model answer and one MCP data lookup. Gemini free-tier quota errors can be either minute-level or day-level: observed `gemini-3-flash` limits include 5 `generate_content` requests per minute and 20 `generate_content` requests per day. Repeated chat retries, custom guardrail retries, or optional extra tool calls can exhaust quota even when the MCP server is healthy. Once the daily quota is hit, cooldown retries will not make the demo reliable; switch to a non-free-tier provider/key or wait for the daily quota reset.
 
 Keep all data synthetic and de-identified. Do not paste real patient data into System Prompt, Content, tools, screenshots, or demos. Do not duplicate synthetic PDMP rows in Prompt Opinion fields; the MCP server and RXGuard UI/local adapter own deterministic evidence rows.
 

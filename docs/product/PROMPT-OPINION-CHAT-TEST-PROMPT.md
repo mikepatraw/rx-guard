@@ -38,6 +38,8 @@ No markdown. No explanation.
 
 Ultra-short free-tier smoke prompt:
 
+> Gemini free tier can fail on either request-per-minute or request-per-day quota. If the error says `GenerateRequestsPerDayPerProjectPerModel-FreeTier` / `limit: 20`, stop Prompt Opinion retesting on that Gemini key for the day; cooldown retries will keep burning attempts and will not make the demo reliable.
+
 ```text
 RXGuard smoke test. Synthetic patient key RXG-SB-001. Proposed medication Xanax 1 mg tablet. Patient says no recent controlled-substance use. PDMP review not documented.
 
