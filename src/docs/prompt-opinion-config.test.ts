@@ -33,7 +33,7 @@ assert.doesNotMatch(systemPrompt, /lookup_patient_medication_context/);
 
 assert.match(byoConfig, /native FHIR-style patient context/);
 assert.match(byoConfig, /PDMP_PRESCRIPTION_HISTORY_OVERLAY/);
-assert.match(byoConfig, /do not attach RXGuard MCP/i);
+assert.match(byoConfig, /do not attach PreSignRx MCP/i);
 assert.match(byoConfig, /Do not rely on patient search or patient-ID lookup/);
 assert.match(byoConfig, /FindPatientId/);
 assert.match(byoConfig, /selected Prompt Opinion Patient\/Data Scope context/);
@@ -44,12 +44,12 @@ assert.match(byoConfig, /EHR Auto-Note Draft/);
 assert.match(byoConfig, /Human-in-the-loop: never autonomous prescribing/);
 assert.doesNotMatch(byoConfig, /synthetic, de-identified `PDMP_DATABASE` directly/);
 assert.doesNotMatch(byoConfig, /MCP-only/i);
-assert.doesNotMatch(byoConfig, /hosted RXGuard MCP server/i);
+assert.doesNotMatch(byoConfig, /hosted PreSignRx MCP server/i);
 assert.doesNotMatch(byoConfig, /20 `generate_content` requests per day/);
 
 assert.match(chatTestPrompt, /current selected Prompt Opinion Patient\/Data Scope context/);
 assert.match(chatTestPrompt, /Do not call or retry FindPatientId/);
-assert.match(chatTestPrompt, /PO_PATIENT_SHEILA_BANKSTON/);
+assert.match(chatTestPrompt, /PO_PATIENT_TAMERA_WISOZK/);
 assert.doesNotMatch(chatTestPrompt, /HIGH_RISK|MODERATE_RISK|LOW_RISK/);
 assert.match(chatTestPrompt, /Proposed medication: Xanax 1 mg tablet/);
 assert.match(chatTestPrompt, /Patient-reported history: no recent narcotic or controlled-substance use/);

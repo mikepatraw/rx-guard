@@ -88,7 +88,7 @@ function insightsFor(data) {
     `${crossRef.pharmacyCount90d} different pharmacies used in the last 90 days.`,
     'Recent opioid and benzodiazepine fills appear in the local synthetic PDMP record.',
     'Patient-reported history conflicts with the deterministic local PDMP evidence.',
-    'RX Guard matched the patient to local synthetic PDMP evidence and prepared this workflow.'
+    'PreSignRx matched the patient to local synthetic PDMP evidence and prepared this workflow.'
   ];
 }
 
@@ -153,7 +153,7 @@ function showAnalysis(event) {
   overlay.classList.remove('hidden');
   status.textContent = 'Controlled medication selected. Checking local synthetic PDMP evidence…';
   setTimeout(() => { status.textContent = 'Reviewing prescription risk and documentation status…'; }, 700);
-  setTimeout(() => { status.textContent = 'Preparing the RXGuard recommendation…'; }, 1400);
+  setTimeout(() => { status.textContent = 'Preparing the PreSignRx recommendation…'; }, 1400);
   setTimeout(() => {
     overlay.classList.add('hidden');
     document.getElementById('rxOverlay').classList.remove('hidden');

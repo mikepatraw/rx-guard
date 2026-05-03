@@ -1,6 +1,6 @@
 # Prompt Opinion BYO Agent Configuration
 
-Use this guide as the single source of truth for configuring RX Guard in Prompt Opinion’s BYO Agent fields and driving an EHR-style controlled-substance review modal. Product-tone and demo calibration live in `docs/product/PROMPT-OPINION-CHAT-CALIBRATION.md`.
+Use this guide as the single source of truth for configuring PreSignRx in Prompt Opinion’s BYO Agent fields and driving an EHR-style controlled-substance review modal. Product-tone and demo calibration live in `docs/product/PROMPT-OPINION-CHAT-CALIBRATION.md`.
 
 ## Goal UI
 
@@ -16,14 +16,14 @@ Use the full copy-paste prompt in:
 
 - `docs/product/PROMPT-OPINION-SYSTEM-PROMPT.md`
 
-That System Prompt uses Prompt Opinion native patient context for chart/EHR facts when available, then adds a synthetic, de-identified `PDMP_PRESCRIPTION_HISTORY_OVERLAY` containing prescription history only. The overlay is keyed to existing Prompt Opinion patient display names for the demo (`Sheila Bankston`, `Charlie Williams`, `Grover Keeling`) so the review can combine native patient context and RXGuard PDMP-style fills. Overlay names do not encode risk; the agent determines risk level from prescription rows, clinician prompt, and native chart context. Do not invent full synthetic patients, demographics, diagnoses, labs, allergies, or entire medical histories in the RX Guard prompt.
+That System Prompt uses Prompt Opinion native patient context for chart/EHR facts when available, then adds a synthetic, de-identified `PDMP_PRESCRIPTION_HISTORY_OVERLAY` containing prescription history only. The overlay is keyed to existing Prompt Opinion patient display names for the demo (`Tamera164 Wisozk929`, `Lincoln623 Bednar518`, `Grover Keeling`) so the review can combine native patient context and RXGuard PDMP-style fills. Overlay names do not encode risk; the agent determines risk level from prescription rows, clinician prompt, and native chart context. Do not invent full synthetic patients, demographics, diagnoses, labs, allergies, or entire medical histories in the RX Guard prompt.
 
 Keep the prescription-history overlay synthetic and de-identified. Do not paste real patient data into System Prompt, Content, tools, screenshots, or demos.
 
 ## Consult Prompt
 
 ```text
-Review this controlled-substance prescribing encounter as RX Guard.
+Review this controlled-substance prescribing encounter as PreSignRx.
 
 Return an EHR-modal-ready JSON review with:
 1. native patient context status (`used` when Prompt Opinion chart context is available, otherwise `unavailable`)
@@ -45,7 +45,7 @@ Use only facts in the supplied case. If a field is missing, mark it unavailable 
 
 For the current Prompt Opinion chat/BYO-agent setup, keep the agent output compact and strict. The EHR-style UI should render this JSON and map the recommendation to buttons. Do **not** require the LLM to perform the button action itself.
 
-Live testing showed Prompt Opinion repeatedly failed nested `pdmp_summary` arrays by returning quoted JSON strings, repeated duplicate keys, or flat key/value arrays. For the demo chat path, do **not** ask Prompt Opinion to return PDMP table rows. Use `pdmp_summary_status` and let the RXGuard UI/local adapter render the table from deterministic synthetic case data.
+Live testing showed Prompt Opinion repeatedly failed nested `pdmp_summary` arrays by returning quoted JSON strings, repeated duplicate keys, or flat key/value arrays. For the demo chat path, do **not** ask Prompt Opinion to return PDMP table rows. Use `pdmp_summary_status` and let the PreSignRx UI/local adapter render the table from deterministic synthetic case data.
 
 ```json
 {
@@ -85,55 +85,55 @@ If the UI needs explicit button metadata, add it in the UI adapter layer rather 
 Use the Content field only for short product context. Do not put the prescription-history overlay here for the current demo; it belongs in the System Prompt file above.
 
 ```text
-RX Guard is an A2A-enabled Prompt Opinion healthcare agent for controlled-substance prescribing safety review.
+PreSignRx is an A2A-enabled Prompt Opinion healthcare agent for controlled-substance prescribing safety review.
 
-Primary use case: before a controlled-substance prescription is finalized, RX Guard reviews Prompt Opinion native FHIR-style patient context when available, patient-reported history, documentation status, and a synthetic PDMP-style prescription-history overlay. It returns strict JSON for an EHR-style risk modal with key flags, risk score, recommendation, workflow actions, and chart-ready documentation.
+Primary use case: before a controlled-substance prescription is finalized, PreSignRx reviews Prompt Opinion native FHIR-style patient context when available, patient-reported history, documentation status, and a synthetic PDMP-style prescription-history overlay. It returns strict JSON for an EHR-style risk modal with key flags, risk score, recommendation, workflow actions, and chart-ready documentation.
 ```
 
 ## Tools
 
-Prompt Opinion's **Additional Tools / MCP Servers** section is for attaching callable external tools to the agent. For the current demo, do not attach RXGuard MCP. Use the selected Prompt Opinion Patient/Data Scope already present in the chat for chart data when available, and keep RXGuard's PDMP/prescription-history overlay in the System Prompt.
+Prompt Opinion's **Additional Tools / MCP Servers** section is for attaching callable external tools to the agent. For the current demo, do not attach PreSignRx MCP. Use the selected Prompt Opinion Patient/Data Scope already present in the chat for chart data when available, and keep RXGuard's PDMP/prescription-history overlay in the System Prompt.
 
 For the current hackathon/demo setup:
 
-- Keep **Additional Tools / MCP Servers** empty so RXGuard remains a Prompt Opinion A2A/BYO agent, not an MCP Superpower submission.
-- Do not rely on patient search or patient-ID lookup during the live demo. If Prompt Opinion surfaces a `FindPatientId` failure, stop that path instead of retrying; repeated retries can spend the Gemini/free-tier quota before RXGuard returns JSON.
+- Keep **Additional Tools / MCP Servers** empty so PreSignRx remains a Prompt Opinion A2A/BYO agent, not an MCP Superpower submission.
+- Do not rely on patient search or patient-ID lookup during the live demo. If Prompt Opinion surfaces a `FindPatientId` failure, stop that path instead of retrying; repeated retries can spend the Gemini/free-tier quota before PreSignRx returns JSON.
 - Leave selected Prompt Opinion Patient/Data Scope context available so the agent can use native FHIR-style chart context without resolving a patient ID itself.
 - Do **not** configure a community MCP server just to hold the synthetic PDMP prescription-history overlay.
 - If selected patient context is unavailable in a chat/session, the agent should continue with `native_patient_context_status: "unavailable"` and avoid inventing chart facts.
 
-Future production-style setup: move the PDMP overlay out of the System Prompt and expose a production PDMP/EHR integration through approved APIs/tools. Until those tools exist, configuring no RXGuard MCP server is correct for the final A2A demo.
+Future production-style setup: move the PDMP overlay out of the System Prompt and expose a production PDMP/EHR integration through approved APIs/tools. Until those tools exist, configuring no PreSignRx MCP server is correct for the final A2A demo.
 
 ## Guardrails
 
 Prompt Opinion guardrails validate or constrain the agent's behavior. They are separate from the System Prompt:
 
-- The **System Prompt** tells RX Guard how to perform the clinical review.
-- The **Response Format** tells RX Guard what JSON shape to return.
+- The **System Prompt** tells PreSignRx how to perform the clinical review.
+- The **Response Format** tells PreSignRx what JSON shape to return.
 - The **Guardrail** checks whether the output is safe, valid, and on-policy.
 
 Recommended guardrail setup for this demo: **leave custom guardrails disabled during live chat testing unless Prompt Opinion lets you scope the guardrail to assistant output only**.
 
-Important platform behavior discovered during testing: Prompt Opinion may run the Agent guardrail against the **user's chat prompt** before RXGuard responds. If the JSON validator below is attached in that mode, a normal consult prompt such as `Synthetic patient key: RXG-SB-001 ...` fails before the agent can answer because the user prompt is not the final JSON response. If this happens, remove/disable the custom guardrail for the demo and rely on the System Prompt + Response Format instead.
+Important platform behavior discovered during testing: Prompt Opinion may run the Agent guardrail against the **user's chat prompt** before PreSignRx responds. If the JSON validator below is attached in that mode, a normal consult prompt such as `Synthetic patient key: RXG-SB-001 ...` fails before the agent can answer because the user prompt is not the final JSON response. If this happens, remove/disable the custom guardrail for the demo and rely on the System Prompt + Response Format instead.
 
 Use the Agent guardrail below only when it can inspect the assistant response after generation, because it validates the final JSON shape, prohibited language, and clinical-safety framing. HTTP or code-based guardrails are better later when a stable validator endpoint or code hook exists.
 
 Recommended guardrail name:
 
 ```text
-RX Guard JSON and Safety Validator
+PreSignRx JSON and Safety Validator
 ```
 
 Recommended guardrail description:
 
 ```text
-Validates that RX Guard returns JSON-only controlled-substance decision support, does not act as an autonomous prescriber, avoids stigmatizing language, and does not invent PDMP or patient facts.
+Validates that PreSignRx returns JSON-only controlled-substance decision support, does not act as an autonomous prescriber, avoids stigmatizing language, and does not invent PDMP or patient facts.
 ```
 
 Recommended validation instruction:
 
 ```text
-Validate the assistant response for RX Guard.
+Validate the assistant response for PreSignRx.
 
 Pass only if all conditions are true:
 1. The response is valid JSON only, with no markdown fences, preamble, or trailing prose.
