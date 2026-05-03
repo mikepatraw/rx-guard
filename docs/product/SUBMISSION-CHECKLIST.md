@@ -2,7 +2,7 @@
 
 This checklist translates the **Agents Assemble: The Healthcare AI Endgame** requirements into concrete work for RX Guard.
 
-Last refreshed: 2026-04-30.
+Last refreshed: 2026-05-02.
 
 ## Current submission strategy
 
@@ -10,7 +10,7 @@ RX Guard should stay on the **A2A Agent** path:
 
 ```text
 Prompt Opinion published A2A/BYO agent
-  -> hosted RXGuard MCP medication/context lookup (planned final Prompt Opinion connection)
+  -> hosted RXGuard MCP medication/context lookup at /api/mcp
   -> compact decision-support contract
   -> RX Guard synthetic clinical data adapter
   -> RX Guard EHR-style workflow renderer
@@ -22,7 +22,7 @@ The public Vercel site is a partner-testable staging renderer, not a live Prompt
 https://rx-guard-iota.vercel.app
 ```
 
-Do not build a live prescription/PDMP database before submission. For this submission, deterministic synthetic fixtures are safer, faster, and easier to explain. RX Guard now has a local MCP medication/context server for those synthetic fixtures, with a hosted MCP connection planned for Prompt Opinion. In production, RX Guard would connect to authorized EHR/PDMP/FHIR services through a secure clinical data layer and expose only minimum necessary structured context to the Prompt Opinion agent.
+Do not build a live prescription/PDMP database before submission. For this submission, deterministic synthetic fixtures are safer, faster, and easier to explain. RX Guard now has local and hosted MCP medication/context tools for those synthetic fixtures, and the hosted `/api/mcp` endpoint has been attached to the active Prompt Opinion agent for the final smoke path. In production, RX Guard would connect to authorized EHR/PDMP/FHIR services through a secure clinical data layer and expose only minimum necessary structured context to the Prompt Opinion agent.
 
 ## 1. Eligibility and compliance
 
@@ -41,7 +41,8 @@ Decision check:
 - [x] Use A2A as the primary submission artifact
 - [x] Configure/publish RX Guard as a Prompt Opinion BYO/A2A agent
 - [x] Add local RXGuard MCP medication/context server for deterministic synthetic lookup
-- [ ] Host the RXGuard MCP server and connect it to Prompt Opinion Additional Tools / MCP Servers
+- [x] Host the RXGuard MCP server and connect it to Prompt Opinion Additional Tools / MCP Servers
+- [x] Confirm active Prompt Opinion agent can invoke hosted MCP and return matched/high `RXG-SB-001` output
 - [ ] Record final Prompt Opinion in-platform invocation evidence for the Devpost video
 
 ## 3. Prompt Opinion account and platform setup
@@ -65,11 +66,11 @@ Decision check:
 - [x] Enable FHIR context extension on the BYO/A2A agent
 - [x] Add local MCP tools for `lookup_medication`, `lookup_patient_medication_context`, and `get_demo_case`
 - [x] Add tests for medication lookup, patient-context lookup, full demo-case lookup, unknown-safe behavior, and tool-call dispatch
-- [ ] Deploy hosted MCP transport for Prompt Opinion
-- [ ] Configure Prompt Opinion to call the hosted RXGuard MCP server
-- [ ] Update the live Prompt Opinion System Prompt to prefer MCP lookup over the embedded prompt database after hosted MCP is connected
-- [ ] Confirm agent can be invoked from Prompt Opinion successfully through the final **chat/A2A + hosted MCP path** during the final recording pass
-- [ ] Confirm Prompt Opinion output is clean enough to show briefly before switching to the RX Guard UI renderer
+- [x] Deploy hosted MCP transport for Prompt Opinion
+- [x] Configure Prompt Opinion to call the hosted RXGuard MCP server
+- [x] Update the live Prompt Opinion System Prompt to prefer MCP lookup over the embedded prompt database after hosted MCP is connected
+- [x] Confirm agent can be invoked from Prompt Opinion successfully through the final **chat/A2A + hosted MCP path** during the final recording pass
+- [x] Confirm Prompt Opinion output is clean enough to show briefly before switching to the RX Guard UI renderer
 
 ## 5. Healthcare context requirements
 
@@ -108,8 +109,8 @@ The rules require a video under 3 minutes showing the project functioning within
 - [x] Verify staging UI is usable on iPhone-sized Safari/Chromium viewport
 - [x] Ensure no real patient data appears on screen
 - [x] Record current no-title-card workflow video with patient lookup, progress notes, medication selection, split-screen Prompt Opinion interworking, RXGuard decisions, and chart documentation insertion
-- [ ] Finalize hosted-MCP-backed Prompt Opinion invocation footage
-- [ ] Confirm in-platform Prompt Opinion invocation path is reliable enough to record
+- [x] Finalize hosted-MCP-backed Prompt Opinion invocation footage readiness
+- [x] Confirm in-platform Prompt Opinion invocation path is reliable enough to record
 - [ ] Record the platform flow from invocation to result
 - [ ] Keep final video under 3 minutes
 
@@ -160,9 +161,9 @@ The submission should clearly communicate:
 ## 11. Immediate next steps
 
 ### Before final submission
-- [ ] Deploy hosted RXGuard MCP transport at `/api/mcp` and connect it in Prompt Opinion Additional Tools / MCP Servers
-- [ ] Update live Prompt Opinion System Prompt to call MCP tools instead of using the embedded synthetic prompt database
-- [ ] Run one final Prompt Opinion chat/A2A + hosted MCP invocation pass with `RXG-SB-001` using `docs/product/FINAL-SUBMISSION-EVIDENCE.md`
+- [x] Deploy hosted RXGuard MCP transport at `/api/mcp` and connect it in Prompt Opinion Additional Tools / MCP Servers
+- [x] Update live Prompt Opinion System Prompt to call MCP tools instead of using the embedded synthetic prompt database
+- [x] Run one final Prompt Opinion chat/A2A + hosted MCP invocation pass with `RXG-SB-001` using the MCP-only smoke prompt
 - [ ] Capture the final marketplace/listing URL or clear discoverability instructions
 - [ ] Record the under-3-minute video showing Prompt Opinion invocation plus RX Guard UI rendering
 - [ ] Add the video link to Devpost draft/submission materials
@@ -200,8 +201,9 @@ As of this refresh:
 - RX Guard is configured as a BYO Agent with A2A enabled
 - Chat Selectable is available
 - local RXGuard MCP medication/context tools exist for synthetic fixture lookup
-- hosted MCP transport and Prompt Opinion MCP attachment remain open
+- hosted MCP transport and Prompt Opinion MCP attachment are complete for the active agent
+- hosted MCP-backed Prompt Opinion smoke output matched the expected high-risk `RXG-SB-001` JSON: `risk_score: 80`, `risk_level: high`, `pdmp_summary_status: matched`, multiple prescriber/pharmacy flags, and PDMP documentation gap
 - public staging is live at `https://rx-guard-iota.vercel.app`
 - the staging UI starts from medication selection, auto-triggers RX Guard, and does not expose raw JSON/payload panels
 - the latest demo evidence shows patient lookup, non-blank progress notes, three medication-selection workflows, split-screen Prompt Opinion interworking, provider actions, and chart-documentation insertion
-- the remaining validation gap is final hosted-MCP-backed Prompt Opinion invocation evidence and the under-3-minute submission video
+- the remaining validation gap is recording final in-platform hosted-MCP invocation evidence and the under-3-minute submission video
