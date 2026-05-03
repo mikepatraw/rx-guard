@@ -84,9 +84,8 @@ Visuals:
 - show the modal loading or appearing
 
 Important:
-- treat RX Guard as an **A2A/chat agent path backed by MCP lookup**, not as a standalone MCP-tool demo
+- treat RX Guard as an **A2A/chat agent path using embedded synthetic medication records**, not as a standalone MCP-tool demo
 - ask Prompt Opinion for compact decision-support fields, not nested PDMP table rows
-- hosted MCP owns deterministic synthetic medication/PDMP context once connected
 - RX Guard owns deterministic synthetic PDMP table rendering locally
 - if Launchpad shows stale template wording, center the demo on the actual selected agent/session behavior and returned output rather than the misleading card copy
 - do not show raw expected JSON or Prompt Opinion-safe payload panels in the RX Guard front-end; those details belong in docs/architecture only

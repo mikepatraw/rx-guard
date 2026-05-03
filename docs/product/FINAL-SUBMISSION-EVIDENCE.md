@@ -1,6 +1,6 @@
 # RX Guard Final Submission Evidence Guide
 
-Use this guide for the last Prompt Opinion / Devpost pass. It is intentionally narrow: capture proof that RX Guard is published/invocable in Prompt Opinion, that Prompt Opinion can use the hosted RXGuard MCP medication/context lookup, then show the polished RX Guard workflow renderer.
+Use this guide for the last Prompt Opinion / Devpost pass. It is intentionally narrow: capture proof that RX Guard is published/invocable as a Prompt Opinion A2A/BYO agent using the embedded synthetic medication-record prompt, then show the polished RX Guard workflow renderer.
 
 ## Current verified public endpoints
 
@@ -8,8 +8,8 @@ Last checked from the repo workspace on 2026-04-30:
 
 - Public staging UI: `https://rx-guard-iota.vercel.app/`
 - A2A agent card: `https://app.promptopinion.ai/api/workspaces/019d881e-b5b2-7bae-b3ef-c1df241d8e01/ai-agents/019d8868-ce0e-78bb-9f77-97a09fae4a8e/.well-known/agent-card.json`
-- Local MCP dev command: `npm run mcp:medication`
-- Hosted MCP route to deploy/connect: `/api/mcp` on the hosted RXGuard server
+- Local MCP dev command, if future supporting-tool work is revisited: `npm run mcp:medication`
+- Hosted MCP route, if future supporting-tool work is revisited: `/api/mcp` on the hosted RXGuard server
 
 The agent card endpoint returned HTTP 200 and identifies the agent as **RX Guard**. The Vercel staging UI returned HTTP 200. The staging UI is still a synthetic public renderer; it is not proof of live Prompt Opinion API invocation.
 
@@ -25,7 +25,8 @@ Capture these four artifacts before Devpost submission:
 
 2. **Prompt Opinion invocation evidence**
    - Published RX Guard agent selected in Prompt Opinion chat or A2A flow.
-   - Hosted RXGuard MCP server attached in Additional Tools / MCP Servers.
+   - RX Guard System Prompt restored to the embedded synthetic `PDMP_DATABASE` version.
+   - RXGuard MCP server removed/disabled from the active agent for the final A2A submission recording.
    - Synthetic prompt submitted with `Synthetic patient key: RXG-SB-001`.
    - JSON-only response visible with the compact contract.
    - `pdmp_summary_status` should be `"matched"` for the Sheila case.
@@ -98,7 +99,8 @@ Target length: 2:15 to 2:45.
 - [ ] Video is under 3 minutes.
 - [ ] No real PHI appears.
 - [ ] Prompt Opinion selected agent is RX Guard.
-- [ ] Hosted RXGuard MCP server is attached/available to the selected Prompt Opinion agent.
+- [ ] Prompt Opinion System Prompt uses the embedded synthetic `PDMP_DATABASE` prompt.
+- [ ] RXGuard MCP is removed/disabled for the active agent during the final A2A recording.
 - [ ] Prompt uses `RXG-SB-001`, not direct name and DOB.
 - [ ] Response has `risk_score`, `risk_level`, `pdmp_summary_status`, `flags`, `recommendation`, `compliance_flag`, and `auto_note`.
 - [ ] Response does not include nested PDMP table rows.

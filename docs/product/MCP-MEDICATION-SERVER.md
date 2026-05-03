@@ -168,25 +168,15 @@ Expected result:
 - `tools/list` returns the three tools above
 - `tools/call` returns matched synthetic context for `RXG-SB-001`
 
-## Prompt Opinion hosted MCP plan
+## Prompt Opinion status
 
-For the final hosted Prompt Opinion path, deploy an HTTP/StreamableHTTP version of this same contract and connect it in Prompt Opinion's **Additional Tools / MCP Servers** area.
+The MCP server is retained as supporting implementation research and a future production-style integration option. It is **not** the final Prompt Opinion submission path. For the current A2A/BYO submission, use the embedded synthetic-record System Prompt in `docs/product/PROMPT-OPINION-SYSTEM-PROMPT.md` and leave RXGuard MCP disabled/removed from the active Prompt Opinion agent.
 
-Recommended deployment steps:
+Do **not** connect live patient, pharmacy, PDMP, or medication databases during the hackathon demo unless that scope is explicitly approved. This server should expose only synthetic data when used for future experiments.
 
-1. Keep the local stdio server as the development/test source of truth.
-2. Use the existing `/api/mcp` hosted JSON-RPC function as the hosted transport boundary.
-3. Keep the exact Prompt Opinion FHIR context extension declaration in the `initialize` response so Prompt Opinion can recognize the server as healthcare/FHIR-capable. RXGuard requests no SMART scopes in the hackathon demo because it uses synthetic data and does not connect real FHIR, EHR, PDMP, or pharmacy systems.
-4. Configure Prompt Opinion with the hosted MCP URL.
-5. Use the MCP-only Prompt Opinion system prompt from `docs/product/PROMPT-OPINION-SYSTEM-PROMPT.md`.
-6. Do not duplicate synthetic PDMP rows, patient records, FHIR resources, or fallback databases in Prompt Opinion System Prompt, Content, or Guardrails.
-7. Record final evidence showing Prompt Opinion using the hosted MCP-backed lookup and RXGuard UI mapping the response into provider workflow.
+## Historical MCP-only system prompt direction
 
-Do **not** connect live patient, pharmacy, PDMP, or medication databases during the hackathon demo unless that scope is explicitly approved. The hosted MCP should expose only this synthetic dataset for submission.
-
-## Prompt Opinion MCP-only system prompt direction
-
-The live Prompt Opinion system prompt should say:
+If future work re-enables MCP as a supporting data path, the live Prompt Opinion system prompt would need language like:
 
 ```text
 When medication or synthetic PDMP context is needed, call the RXGuard MCP tools.

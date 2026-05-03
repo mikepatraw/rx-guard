@@ -16,11 +16,9 @@ Use the full copy-paste prompt in:
 
 - `docs/product/PROMPT-OPINION-SYSTEM-PROMPT.md`
 
-That System Prompt is now the MCP-only live configuration. It does not embed synthetic PDMP rows or a local database. Prompt Opinion should call the hosted RXGuard MCP server for patient, medication, PDMP-style, and synthetic FHIR-style context, then return only the compact reasoning JSON.
+That System Prompt includes the synthetic, de-identified `PDMP_DATABASE` directly. Do not split the database into Content for the current demo; keeping it in the System Prompt makes synthetic case-key lookup more reliable in Prompt Opinion chat.
 
-For Gemini free-tier testing, keep the path to one model answer and one MCP data lookup. Gemini free-tier quota errors can be either minute-level or day-level: observed `gemini-3-flash` limits include 5 `generate_content` requests per minute and 20 `generate_content` requests per day. Repeated chat retries, custom guardrail retries, or optional extra tool calls can exhaust quota even when the MCP server is healthy. Once the daily quota is hit, cooldown retries will not make the demo reliable; switch to a non-free-tier provider/key or wait for the daily quota reset.
-
-Keep all data synthetic and de-identified. Do not paste real patient data into System Prompt, Content, tools, screenshots, or demos. Do not duplicate synthetic PDMP rows in Prompt Opinion fields; the MCP server and RXGuard UI/local adapter own deterministic evidence rows.
+Keep the database synthetic and de-identified. Do not paste real patient data into System Prompt, Content, tools, screenshots, or demos.
 
 ## Consult Prompt
 
@@ -82,7 +80,7 @@ If the UI needs explicit button metadata, add it in the UI adapter layer rather 
 
 ## Content
 
-Use the Content field only for short product context. Do not put synthetic patient records, PDMP rows, FHIR resources, or fallback databases here. Those belong in the connected RXGuard MCP server so Prompt Opinion does not double-dip conflicting context.
+Use the Content field only for short product context. Do not put `PDMP_DATABASE` here for the current demo; it belongs in the System Prompt file above.
 
 ```text
 RX Guard is an A2A-enabled Prompt Opinion healthcare agent for controlled-substance prescribing safety review.
@@ -90,34 +88,17 @@ RX Guard is an A2A-enabled Prompt Opinion healthcare agent for controlled-substa
 Primary use case: before a controlled-substance prescription is finalized, RX Guard reviews synthetic/de-identified encounter context, PDMP-style history, medication list, patient-reported history, and documentation status. It returns strict JSON for an EHR-style risk modal with key flags, risk score, recommendation, workflow actions, and chart-ready documentation.
 ```
 
-## Tools / MCP Servers
+## Tools
 
-Prompt Opinion's **Additional Tools / MCP Servers** section is for attaching callable external tools to the agent. RX Guard now has a local synthetic medication/context MCP server documented in:
+Prompt Opinion's **Additional Tools / MCP Servers** section is for attaching callable external tools to the agent. For the current demo, the synthetic PDMP database is embedded directly in the System Prompt, so no MCP server is required.
 
-- `docs/product/MCP-MEDICATION-SERVER.md`
+For the current hackathon/demo setup:
 
-The server owns deterministic lookup for the synthetic medication database, synthetic patient cases, and synthetic PDMP-style context. Prompt Opinion should remain the reasoning/orchestration layer; it should not be used as the database.
+- Keep **Additional Tools / MCP Servers** empty unless the Prompt Opinion account has a deployed RX Guard API or MCP server ready to call.
+- Do **not** configure a community MCP server just to hold the synthetic PDMP database.
+- Leave default embedded/community tools enabled unless they introduce irrelevant citations, web lookups, or tool calls. If the agent starts using unrelated tools instead of the embedded System Prompt database, disable default tools.
 
-Current local MCP tools:
-
-- `lookup_medication`
-- `lookup_patient_medication_context`
-- `get_demo_case`
-
-Recommended local command:
-
-```bash
-npm run mcp:medication
-```
-
-For the final Prompt Opinion-hosted path:
-
-1. Configure Prompt Opinion's **Additional Tools / MCP Servers** with the hosted MCP URL from `docs/product/MCP-MEDICATION-SERVER.md`.
-2. Use the MCP-only RX Guard System Prompt from `docs/product/PROMPT-OPINION-SYSTEM-PROMPT.md`.
-3. Do not paste synthetic PDMP records, FHIR resources, or fallback databases into System Prompt, Content, or Guardrails.
-4. Keep the response schema compact so the RXGuard UI adapter still owns the EHR modal, workflow buttons, deterministic PDMP table rendering, and chart-documentation insertion.
-
-For the current repository state, the MCP contract is implemented for local stdio, local HTTP, and hosted `/api/mcp`, including the exact Prompt Opinion FHIR context extension declaration and synthetic/demo-only FHIR-style resource metadata for Prompt Opinion validation. RXGuard requests no SMART scopes in the hackathon demo because it uses synthetic data and does not connect live patient, pharmacy, PDMP, medication, EHR, or FHIR databases. Do **not** configure a community MCP server just to hold synthetic data. Do **not** connect live patient, pharmacy, PDMP, or medication databases for the submission unless that scope is explicitly approved.
+Future production-style setup: move `PDMP_DATABASE` out of the System Prompt and expose RX Guard service tools for exact PDMP lookup, deterministic risk scoring, and workflow-decision documentation. Until those tools exist, configuring no MCP servers is correct.
 
 ## Guardrails
 
@@ -128,8 +109,6 @@ Prompt Opinion guardrails validate or constrain the agent's behavior. They are s
 - The **Guardrail** checks whether the output is safe, valid, and on-policy.
 
 Recommended guardrail setup for this demo: **leave custom guardrails disabled during live chat testing unless Prompt Opinion lets you scope the guardrail to assistant output only**.
-
-This is also the recommended Gemini free-tier setup. A pre-response or retrying guardrail can consume additional Gemini generation requests and trigger `GenerateRequestsPerMinutePerProjectPerModel-FreeTier` before RX Guard returns the final JSON.
 
 Important platform behavior discovered during testing: Prompt Opinion may run the Agent guardrail against the **user's chat prompt** before RXGuard responds. If the JSON validator below is attached in that mode, a normal consult prompt such as `Synthetic patient key: RXG-SB-001 ...` fails before the agent can answer because the user prompt is not the final JSON response. If this happens, remove/disable the custom guardrail for the demo and rely on the System Prompt + Response Format instead.
 
