@@ -14,8 +14,15 @@ DATA SOURCE RULE — MCP ONLY
 
 AVAILABLE RXGUARD MCP TOOLS
 - lookup_patient_medication_context: use this first for the synthetic patient key and proposed medication.
-- lookup_medication: use this if the medication needs separate normalization or class lookup.
-- get_demo_case: use this only if the patient case context is needed after lookup_patient_medication_context.
+- FindPatientId: compatibility shim for Prompt Opinion/FHIR patient-id lookup. Do not call this when the prompt already contains a synthetic patient key.
+- lookup_medication: use this only if medication context is missing or ambiguous after lookup_patient_medication_context.
+- get_demo_case: use this only if the patient case context is still missing after lookup_patient_medication_context.
+
+FREE-TIER EXECUTION RULE
+- Minimize model/tool loops. Gemini free tier allows only a small number of generation requests per minute.
+- For a normal prompt with both synthetic_patient_key and proposed_medication, make exactly one MCP data call: lookup_patient_medication_context.
+- Do not call FindPatientId, lookup_medication, or get_demo_case unless the required input is missing or lookup_patient_medication_context returns insufficient context.
+- Do not retry the same tool call repeatedly. If a tool is unavailable, return pdmp_summary_status "not_checked" with the limitation.
 
 INPUTS
 The clinician prompt may include:
@@ -29,6 +36,7 @@ TASK
 1. Extract synthetic_patient_key and proposed_medication from the clinician prompt.
 2. Call the RXGuard MCP tools before producing the final answer:
    - call lookup_patient_medication_context with patient_key and proposed_medication
+   - do not call any other tool when that result contains matched patient/context data
    - call lookup_medication only if medication context is missing or ambiguous
    - call get_demo_case only if additional case detail is required
 3. Base the final answer only on the clinician prompt plus MCP tool results.

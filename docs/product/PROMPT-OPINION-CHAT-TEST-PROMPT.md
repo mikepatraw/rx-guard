@@ -4,6 +4,8 @@ Use this exact prompt in Prompt Opinion chat with the published **RX Guard** age
 
 Before testing: disable RXGuard's custom Agent guardrail unless Prompt Opinion clearly scopes it to assistant output only. A JSON-shape guardrail attached to the user-input path will reject this consult prompt before RXGuard can respond.
 
+Gemini free-tier note: wait at least 60 seconds between Prompt Opinion chat attempts. The free tier can return quota errors after only a few internal generation/retry calls in one minute.
+
 This version intentionally uses a synthetic patient key instead of direct patient identifiers so Prompt Opinion guardrails do not treat the test input as real PHI.
 
 This version also intentionally does **not** ask Prompt Opinion to return PDMP table rows. The Prompt Opinion agent should call the RXGuard MCP tools, return risk/recommendation status, and leave table rendering to the RXGuard UI/local adapter.
@@ -20,6 +22,8 @@ Encounter note: PDMP review not yet documented
 
 Use the attached RXGuard MCP tools for patient, medication, and PDMP-style context. Do not use embedded or remembered patient/PDMP examples.
 
+Free-tier constraint: make one MCP data lookup only. Use lookup_patient_medication_context with RXG-SB-001 and Xanax 1 mg tablet. Do not call FindPatientId, lookup_medication, or get_demo_case unless that single lookup fails.
+
 Return JSON only using exactly these top-level keys:
 risk_score, risk_level, pdmp_summary_status, flags, recommendation, compliance_flag, auto_note.
 
@@ -29,6 +33,16 @@ Do not include quoted JSON strings.
 Set pdmp_summary_status to "matched" if the MCP lookup resolves the synthetic case key.
 Do not make the prescribing decision. Provide clinician-support guidance only.
 No markdown. No explanation.
+
+---
+
+Ultra-short free-tier smoke prompt:
+
+```text
+RXGuard smoke test. Synthetic patient key RXG-SB-001. Proposed medication Xanax 1 mg tablet. Patient says no recent controlled-substance use. PDMP review not documented.
+
+Use exactly one MCP data lookup: lookup_patient_medication_context. Do not call FindPatientId, lookup_medication, or get_demo_case unless lookup_patient_medication_context fails. Return JSON only with keys risk_score, risk_level, pdmp_summary_status, flags, recommendation, compliance_flag, auto_note.
+```
 
 ---
 

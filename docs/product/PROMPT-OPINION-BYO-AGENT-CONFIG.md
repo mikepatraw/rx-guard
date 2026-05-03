@@ -18,6 +18,8 @@ Use the full copy-paste prompt in:
 
 That System Prompt is now the MCP-only live configuration. It does not embed synthetic PDMP rows or a local database. Prompt Opinion should call the hosted RXGuard MCP server for patient, medication, PDMP-style, and synthetic FHIR-style context, then return only the compact reasoning JSON.
 
+For Gemini free-tier testing, keep the path to one model answer and one MCP data lookup. The free tier reports quota errors at 5 `generate_content` requests per minute for `gemini-3-flash`, so repeated chat retries, custom guardrail retries, or optional extra tool calls can exhaust the minute-level quota even when the MCP server is healthy.
+
 Keep all data synthetic and de-identified. Do not paste real patient data into System Prompt, Content, tools, screenshots, or demos. Do not duplicate synthetic PDMP rows in Prompt Opinion fields; the MCP server and RXGuard UI/local adapter own deterministic evidence rows.
 
 ## Consult Prompt
@@ -126,6 +128,8 @@ Prompt Opinion guardrails validate or constrain the agent's behavior. They are s
 - The **Guardrail** checks whether the output is safe, valid, and on-policy.
 
 Recommended guardrail setup for this demo: **leave custom guardrails disabled during live chat testing unless Prompt Opinion lets you scope the guardrail to assistant output only**.
+
+This is also the recommended Gemini free-tier setup. A pre-response or retrying guardrail can consume additional Gemini generation requests and trigger `GenerateRequestsPerMinutePerProjectPerModel-FreeTier` before RX Guard returns the final JSON.
 
 Important platform behavior discovered during testing: Prompt Opinion may run the Agent guardrail against the **user's chat prompt** before RXGuard responds. If the JSON validator below is attached in that mode, a normal consult prompt such as `Synthetic patient key: RXG-SB-001 ...` fails before the agent can answer because the user prompt is not the final JSON response. If this happens, remove/disable the custom guardrail for the demo and rely on the System Prompt + Response Format instead.
 
