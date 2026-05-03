@@ -162,11 +162,33 @@ Keep these core System Prompt guardrails as well:
 
 ## A2A & Skills
 
+Use this marketplace description:
+
 ```text
-Controlled-substance prescribing risk review. RX Guard accepts synthetic/de-identified encounter context, proposed medication details, PDMP-style history, and documentation status. It returns a structured EHR-modal-ready risk review with clinical insights, risk score, recommendation, compliance flags, suggested documentation, and workflow actions for Proceed, Proceed with Caution, and Do NOT Prescribe.
+Controlled-substance pre-sign safety agent for synthetic prescribing encounters. Checks patient-reported history against embedded PDMP-style records, flags documentation gaps and contextual risk factors, and returns EHR-ready JSON with risk score, recommendation, compliance flag, and chart-ready auto-note. Human-in-the-loop: never autonomous prescribing.
 ```
 
-Suggested tags: `healthcare`, `prescribing-safety`, `controlled-substances`, `PDMP`, `FHIR`, `SHARP`, `A2A`, `clinician-support`, `documentation`.
+Publish these skills so the marketplace listing reads as clinician workflow capability instead of implementation plumbing:
+
+### Controlled-Substance Safety Review
+
+```text
+Reviews synthetic controlled-substance prescribing encounters before signing. Compares proposed medication, patient-reported history, embedded PDMP-style records, and documentation status to return risk_score, risk_level, flags, recommendation, compliance_flag, and auto_note.
+```
+
+### PDMP Documentation Gap Check
+
+```text
+Identifies missing PDMP documentation and patient-history mismatches in synthetic cases. Highlights recent controlled-substance fills, multi-prescriber or multi-pharmacy patterns, and chart-ready compliance language for clinician review.
+```
+
+### EHR Auto-Note Draft
+
+```text
+Drafts concise, neutral, chart-ready documentation for the selected prescribing safety posture. Supports Proceed, Proceed with Caution, and Do NOT Prescribe workflows without claiming to execute EHR side effects.
+```
+
+Suggested tags: `healthcare`, `prescribing-safety`, `controlled-substances`, `PDMP`, `A2A`, `clinician-support`, `documentation`, `EHR-workflow`.
 
 ## Button workflow contract
 
