@@ -12,7 +12,7 @@ This version intentionally does **not** ask Prompt Opinion to return PDMP table 
 
 Review this controlled-substance prescribing encounter as RXGuard.
 
-Use the current selected Prompt Opinion patient context if available.
+Use the current selected Prompt Opinion Patient/Data Scope context if already visible in this chat. Do not call or retry FindPatientId.
 Preferred test patient: Sheila Bankston selected in Prompt Opinion Patient scope.
 PDMP overlay: resolve by current patient display name; expected mapping is PO_PATIENT_SHEILA_BANKSTON. The overlay name does not encode risk; calculate risk from prescription rows.
 Proposed medication: Xanax 1 mg tablet
@@ -41,7 +41,7 @@ Expected output shape:
   "native_patient_context_status": "used|unavailable",
   "flags": ["History mismatch", "Multiple prescribers (4 in 90d)", "Multiple pharmacies (4 in 90d)"],
   "recommendation": "Not recommended — verify with patient before prescribing",
-  "compliance_flag": "PDMP review not documented",
+  "compliance_flag": "PDMP review not charted",
   "auto_note": "Synthetic PDMP-style prescription history shows five recent controlled-substance fills involving multiple prescribers and pharmacies. Patient report of no recent controlled-substance use is inconsistent with the prescription-history overlay."
 }
 ```
@@ -52,5 +52,5 @@ Expected high-level themes in a good response:
 - risk level and recommendation are derived from the prescription rows, patient report, documentation status, and native chart context
 - multiple prescribers/pharmacies in the recent PDMP-style prescription history
 - patient-reported history mismatch
-- missing PDMP documentation
+- absent PDMP review documentation in the encounter note
 - chart-ready language that preserves clinician judgment
