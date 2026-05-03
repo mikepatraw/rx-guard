@@ -63,6 +63,39 @@ const promptOpinionFhirExtension = {
   privacy: 'No real PHI, EHR, PDMP, pharmacy, or FHIR server is connected.',
 };
 
+function buildPromptOpinionSummary(demoCase: (typeof demoCases)[number]) {
+  const prescriberCount = new Set(demoCase.pdmp_records.map((record) => record.prescriber)).size;
+  const pharmacyCount = new Set(demoCase.pdmp_records.map((record) => record.pharmacy)).size;
+  const flags = [...demoCase.risk_factors];
+
+  if (prescriberCount > 1) {
+    flags.push(`multiple prescribers (${prescriberCount})`);
+  }
+
+  if (pharmacyCount > 1) {
+    flags.push(`multiple pharmacies (${pharmacyCount})`);
+  }
+
+  const recommendation =
+    demoCase.recommended_response.recommendation === 'do_not_prescribe'
+      ? 'Not recommended — verify with patient before prescribing'
+      : demoCase.recommended_response.recommendation === 'proceed_with_caution'
+        ? 'Proceed with caution — document risk review and mitigation plan'
+        : 'Proceed — document routine review';
+
+  return {
+    risk_score: demoCase.recommended_response.risk_score,
+    risk_level: demoCase.recommended_response.risk_level,
+    flags,
+    recommendation,
+    compliance_flag: demoCase.documentation_flags.includes('PDMP review') ? 'PDMP review not documented' : demoCase.documentation_flags.join('; '),
+    auto_note:
+      demoCase.pdmp_records.length > 0
+        ? `MCP-backed PDMP-style context shows ${demoCase.pdmp_records.length} recent record(s) involving ${prescriberCount} prescriber(s) and ${pharmacyCount} pharmacy/pharmacies. Patient-reported history should be reconciled against the synthetic MCP record.`
+        : 'MCP-backed PDMP-style context did not include recent controlled-substance records for this synthetic case.',
+  };
+}
+
 export function listRxGuardMcpTools(): McpToolDescription[] {
   return [
     {
@@ -195,12 +228,20 @@ export function lookupPatientMedicationContext(input: PatientMedicationContextIn
     };
   }
 
+  const promptOpinionSummary = buildPromptOpinionSummary(demoCase);
+
   return {
     matched: true,
     patient_key: demoCase.patient_key,
     display_name: demoCase.display_name,
     medication: medicationLookup.medication,
     pdmp_summary_status: demoCase.pdmp_summary_status,
+    risk_score: promptOpinionSummary.risk_score,
+    risk_level: promptOpinionSummary.risk_level,
+    flags: promptOpinionSummary.flags,
+    recommendation: promptOpinionSummary.recommendation,
+    compliance_flag: promptOpinionSummary.compliance_flag,
+    auto_note: promptOpinionSummary.auto_note,
     progress_note_summary: demoCase.progress_note.summary,
     recent_controlled_substances: demoCase.pdmp_records,
     risk_factors: demoCase.risk_factors,
