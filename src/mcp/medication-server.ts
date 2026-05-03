@@ -63,6 +63,10 @@ const promptOpinionFhirExtension = {
   privacy: 'No real PHI, EHR, PDMP, pharmacy, or FHIR server is connected.',
 };
 
+const promptOpinionFhirContextExtension = {
+  scopes: [],
+};
+
 function buildPromptOpinionSummary(demoCase: (typeof demoCases)[number]) {
   const prescriberCount = new Set(demoCase.pdmp_records.map((record) => record.prescriber)).size;
   const pharmacyCount = new Set(demoCase.pdmp_records.map((record) => record.pharmacy)).size;
@@ -473,6 +477,9 @@ export function handleJsonRpcMessage(message: string) {
         capabilities: {
           tools: {},
           resources: { subscribe: false, listChanged: false },
+          extensions: {
+            'ai.promptopinion/fhir-context': promptOpinionFhirContextExtension,
+          },
           experimental: {
             fhir: promptOpinionFhirExtension,
             promptOpinion: { fhirExtension: promptOpinionFhirExtension },

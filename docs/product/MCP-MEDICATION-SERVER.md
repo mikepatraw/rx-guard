@@ -162,7 +162,7 @@ The server also accepts newline-delimited JSON-RPC during simple terminal debugg
 
 Expected result:
 
-- `initialize` returns server info for `rxguard-medication-mcp`, tool capability metadata, synthetic/demo-only FHIR extension metadata, and FHIR-style resource capability discovery
+- `initialize` returns server info for `rxguard-medication-mcp`, tool capability metadata, the exact Prompt Opinion FHIR context extension declaration at `capabilities.extensions["ai.promptopinion/fhir-context"]`, synthetic/demo-only FHIR metadata, and FHIR-style resource capability discovery
 - `resources/list` returns a synthetic FHIR CapabilityStatement resource plus one synthetic Patient resource per demo case
 - `resources/read` returns `application/fhir+json` content for the synthetic CapabilityStatement or patient resource
 - `tools/list` returns the three tools above
@@ -176,7 +176,7 @@ Recommended deployment steps:
 
 1. Keep the local stdio server as the development/test source of truth.
 2. Use the existing `/api/mcp` hosted JSON-RPC function as the hosted transport boundary.
-3. Keep the synthetic/demo-only FHIR extension metadata enabled in the `initialize` response so Prompt Opinion can recognize the server as healthcare/FHIR-capable without connecting real FHIR, EHR, PDMP, or pharmacy data.
+3. Keep the exact Prompt Opinion FHIR context extension declaration in the `initialize` response so Prompt Opinion can recognize the server as healthcare/FHIR-capable. RXGuard requests no SMART scopes in the hackathon demo because it uses synthetic data and does not connect real FHIR, EHR, PDMP, or pharmacy systems.
 4. Configure Prompt Opinion with the hosted MCP URL.
 5. Use the MCP-only Prompt Opinion system prompt from `docs/product/PROMPT-OPINION-SYSTEM-PROMPT.md`.
 6. Do not duplicate synthetic PDMP rows, patient records, FHIR resources, or fallback databases in Prompt Opinion System Prompt, Content, or Guardrails.

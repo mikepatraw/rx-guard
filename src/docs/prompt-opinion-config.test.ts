@@ -25,6 +25,8 @@ assert.match(byoConfig, /5 `generate_content` requests per minute/);
 assert.match(byoConfig, /20 `generate_content` requests per day/);
 assert.match(byoConfig, /daily quota reset/);
 assert.match(byoConfig, /recommended Gemini free-tier setup/);
+assert.match(byoConfig, /exact Prompt Opinion FHIR context extension declaration/);
+assert.match(byoConfig, /requests no SMART scopes/);
 
 assert.match(chatTestPrompt, /MCP tools/i);
 assert.match(chatTestPrompt, /pdmp_summary_status/);
