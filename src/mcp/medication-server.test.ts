@@ -112,6 +112,7 @@ const initializeResponse = handleJsonRpcMessage(JSON.stringify({ jsonrpc: '2.0',
     capabilities: {
       tools: Record<string, unknown>;
       resources: Record<string, unknown>;
+      extensions: { 'ai.promptopinion/fhir-context': { scopes: Array<{ name: string; required?: boolean }> } };
       experimental: { fhir: { supported: boolean; fhirVersion: string }; promptOpinion: { fhirExtension: { supported: boolean } } };
     };
     _meta: { 'promptopinion.fhir': { supported: boolean } };
@@ -119,6 +120,7 @@ const initializeResponse = handleJsonRpcMessage(JSON.stringify({ jsonrpc: '2.0',
 };
 assert.equal(initializeResponse.result.capabilities.experimental.fhir.supported, true);
 assert.equal(initializeResponse.result.capabilities.experimental.fhir.fhirVersion, 'R4');
+assert.deepEqual(initializeResponse.result.capabilities.extensions['ai.promptopinion/fhir-context'], { scopes: [] });
 assert.equal(initializeResponse.result.capabilities.experimental.promptOpinion.fhirExtension.supported, true);
 assert.equal(initializeResponse.result._meta['promptopinion.fhir'].supported, true);
 

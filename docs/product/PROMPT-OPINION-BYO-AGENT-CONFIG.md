@@ -117,7 +117,7 @@ For the final Prompt Opinion-hosted path:
 3. Do not paste synthetic PDMP records, FHIR resources, or fallback databases into System Prompt, Content, or Guardrails.
 4. Keep the response schema compact so the RXGuard UI adapter still owns the EHR modal, workflow buttons, deterministic PDMP table rendering, and chart-documentation insertion.
 
-For the current repository state, the MCP contract is implemented for local stdio, local HTTP, and hosted `/api/mcp`, including synthetic/demo-only FHIR extension metadata for Prompt Opinion validation. Do **not** configure a community MCP server just to hold synthetic data. Do **not** connect live patient, pharmacy, PDMP, or medication databases for the submission unless that scope is explicitly approved.
+For the current repository state, the MCP contract is implemented for local stdio, local HTTP, and hosted `/api/mcp`, including the exact Prompt Opinion FHIR context extension declaration and synthetic/demo-only FHIR-style resource metadata for Prompt Opinion validation. RXGuard requests no SMART scopes in the hackathon demo because it uses synthetic data and does not connect live patient, pharmacy, PDMP, medication, EHR, or FHIR databases. Do **not** configure a community MCP server just to hold synthetic data. Do **not** connect live patient, pharmacy, PDMP, or medication databases for the submission unless that scope is explicitly approved.
 
 ## Guardrails
 

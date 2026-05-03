@@ -63,7 +63,7 @@ Decision check:
 - [x] Confirm the current compact request/response payload shape expected for the demo contract
 - [x] Keep Prompt Opinion output compact: `risk_score`, `risk_level`, `pdmp_summary_status`, `flags`, `recommendation`, `compliance_flag`, `auto_note`
 - [x] Keep deterministic PDMP rows in RX Guard/local synthetic data instead of asking Prompt Opinion to generate nested table data
-- [x] Enable FHIR context extension on the BYO/A2A agent
+- [x] Declare Prompt Opinion's FHIR context extension in hosted MCP `initialize` response with no SMART scopes requested for the synthetic-only demo
 - [x] Add local MCP tools for `lookup_medication`, `lookup_patient_medication_context`, and `get_demo_case`
 - [x] Add tests for medication lookup, patient-context lookup, full demo-case lookup, unknown-safe behavior, and tool-call dispatch
 - [x] Deploy hosted MCP transport for Prompt Opinion
