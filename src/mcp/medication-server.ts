@@ -18,7 +18,15 @@ type MedicationLookupInput = {
 
 type PatientMedicationContextInput = {
   patient_key?: unknown;
+  synthetic_patient_key?: unknown;
+  syntheticPatientKey?: unknown;
+  patientKey?: unknown;
+  patient_id?: unknown;
+  patientId?: unknown;
   proposed_medication?: unknown;
+  proposedMedication?: unknown;
+  medication?: unknown;
+  medication_name?: unknown;
 };
 
 type DemoCaseInput = {
@@ -78,9 +86,16 @@ export function listRxGuardMcpTools(): McpToolDescription[] {
         type: 'object',
         properties: {
           patient_key: { type: 'string', description: 'Synthetic RXGuard patient key, for example RXG-SB-001.' },
+          synthetic_patient_key: { type: 'string', description: 'Alias for patient_key used by Prompt Opinion chat prompts.' },
+          syntheticPatientKey: { type: 'string', description: 'CamelCase alias for patient_key.' },
+          patientKey: { type: 'string', description: 'CamelCase alias for patient_key.' },
+          patient_id: { type: 'string', description: 'Alias for patient_key or FindPatientId output.' },
+          patientId: { type: 'string', description: 'CamelCase alias for patient_key or FindPatientId output.' },
           proposed_medication: { type: 'string', description: 'Selected medication name from the EHR prescribing workflow.' },
+          proposedMedication: { type: 'string', description: 'CamelCase alias for proposed_medication.' },
+          medication: { type: 'string', description: 'Alias for proposed_medication.' },
+          medication_name: { type: 'string', description: 'Alias for proposed_medication.' },
         },
-        required: ['patient_key', 'proposed_medication'],
         additionalProperties: false,
       },
     },
@@ -149,8 +164,15 @@ export function lookupMedication(input: MedicationLookupInput) {
 }
 
 export function lookupPatientMedicationContext(input: PatientMedicationContextInput) {
-  const patientKey = normalizeString(input.patient_key).toUpperCase();
-  const proposedMedication = normalizeString(input.proposed_medication);
+  const patientKey = firstNormalizedString(
+    input.patient_key,
+    input.synthetic_patient_key,
+    input.syntheticPatientKey,
+    input.patientKey,
+    input.patient_id,
+    input.patientId
+  ).toUpperCase();
+  const proposedMedication = firstNormalizedString(input.proposed_medication, input.proposedMedication, input.medication, input.medication_name);
   const demoCase = demoCases.find((candidate) => candidate.patient_key === patientKey);
   const medicationLookup = lookupMedication({ query: proposedMedication });
 
@@ -165,11 +187,11 @@ export function lookupPatientMedicationContext(input: PatientMedicationContextIn
       documentation_flags: [],
       recommended_response: {
         risk_score: 0,
-        risk_level: 'low',
+        risk_level: 'unknown',
         recommendation: 'not_found',
         documentation: 'unavailable',
       },
-      message: 'Synthetic patient key not found. Do not invent patient or PDMP facts.',
+      message: 'Synthetic patient key not found or missing. Do not invent patient, medication, or PDMP facts; return pdmp_summary_status "not_found" or "not_checked".',
     };
   }
 
@@ -272,6 +294,14 @@ function textResult(text: string, isError = false): ToolTextResult {
 
 function normalizeString(value: unknown): string {
   return typeof value === 'string' ? value.trim().toLowerCase() : '';
+}
+
+function firstNormalizedString(...values: unknown[]): string {
+  for (const value of values) {
+    const normalized = normalizeString(value);
+    if (normalized) return normalized;
+  }
+  return '';
 }
 
 async function runStdioServer(): Promise<void> {

@@ -42,6 +42,15 @@ assert.equal(sheilaContext.recommended_response.recommendation, 'do_not_prescrib
 assert.ok((sheilaContext.documentation_flags as string[]).includes('nonprescribing_rationale'));
 assert.ok(sheilaContext.recent_controlled_substances.length >= 3);
 
+const sheilaContextWithPromptOpinionAliases = lookupPatientMedicationContext({
+  synthetic_patient_key: 'RXG-SB-001',
+  proposedMedication: 'Xanax 1 mg tablet',
+});
+assert.equal(sheilaContextWithPromptOpinionAliases.matched, true);
+assert.equal(sheilaContextWithPromptOpinionAliases.patient_key, 'RXG-SB-001');
+assert.equal(sheilaContextWithPromptOpinionAliases.pdmp_summary_status, 'matched');
+assert.equal(sheilaContextWithPromptOpinionAliases.recommended_response.risk_level, 'high');
+
 const groverContext = lookupPatientMedicationContext({
   patient_key: 'RXG-GK-003',
   proposed_medication: 'Oxycodone oral solution 5 mg/5 mL',
