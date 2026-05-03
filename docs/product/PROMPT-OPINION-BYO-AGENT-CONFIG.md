@@ -92,14 +92,15 @@ Primary use case: before a controlled-substance prescription is finalized, RX Gu
 
 ## Tools
 
-Prompt Opinion's **Additional Tools / MCP Servers** section is for attaching callable external tools to the agent. For the current demo, do not attach RXGuard MCP. Use Prompt Opinion's native embedded patient-context tools for chart data when available, and keep RXGuard's PDMP/prescription-history overlay in the System Prompt.
+Prompt Opinion's **Additional Tools / MCP Servers** section is for attaching callable external tools to the agent. For the current demo, do not attach RXGuard MCP. Use the selected Prompt Opinion Patient/Data Scope already present in the chat for chart data when available, and keep RXGuard's PDMP/prescription-history overlay in the System Prompt.
 
 For the current hackathon/demo setup:
 
 - Keep **Additional Tools / MCP Servers** empty so RXGuard remains a Prompt Opinion A2A/BYO agent, not an MCP Superpower submission.
-- Leave Prompt Opinion embedded patient tools enabled so the agent can use native FHIR-style chart context.
+- Do not rely on patient search or patient-ID lookup during the live demo. If Prompt Opinion surfaces a `FindPatientId` failure, stop that path instead of retrying; repeated retries can spend the Gemini/free-tier quota before RXGuard returns JSON.
+- Leave selected Prompt Opinion Patient/Data Scope context available so the agent can use native FHIR-style chart context without resolving a patient ID itself.
 - Do **not** configure a community MCP server just to hold the synthetic PDMP prescription-history overlay.
-- If embedded patient tools are unavailable in a chat/session, the agent should continue with `native_patient_context_status: "unavailable"` and avoid inventing chart facts.
+- If selected patient context is unavailable in a chat/session, the agent should continue with `native_patient_context_status: "unavailable"` and avoid inventing chart facts.
 
 Future production-style setup: move the PDMP overlay out of the System Prompt and expose a production PDMP/EHR integration through approved APIs/tools. Until those tools exist, configuring no RXGuard MCP server is correct for the final A2A demo.
 
@@ -182,7 +183,7 @@ Reviews controlled-substance prescribing encounters before signing. Combines Pro
 ### PDMP Documentation Gap Check
 
 ```text
-Identifies missing PDMP documentation and patient-history mismatches. Highlights recent synthetic controlled-substance fills, multi-prescriber or multi-pharmacy patterns, and chart-ready compliance language for clinician review while leaving native chart context to Prompt Opinion.
+Identifies absent PDMP review documentation and patient-history mismatches. Highlights recent synthetic controlled-substance fills, multi-prescriber or multi-pharmacy patterns, and chart-ready compliance language for clinician review while leaving native chart context to Prompt Opinion.
 ```
 
 ### EHR Auto-Note Draft
