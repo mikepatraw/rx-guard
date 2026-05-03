@@ -13,7 +13,8 @@ This version intentionally does **not** ask Prompt Opinion to return PDMP table 
 Review this controlled-substance prescribing encounter as RXGuard.
 
 Use the current selected Prompt Opinion patient context if available.
-PDMP overlay case: PO_CURRENT_PATIENT_HIGH_RISK
+Preferred test patient: Sheila Bankston selected in Prompt Opinion Patient scope.
+PDMP overlay: resolve by current patient display name; expected mapping is PO_PATIENT_SHEILA_BANKSTON_HIGH_RISK.
 Proposed medication: Xanax 1 mg tablet
 Directions: 1 tablet PO BID PRN for anxiety
 Patient-reported history: no recent narcotic or controlled-substance use
