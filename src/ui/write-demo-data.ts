@@ -2,8 +2,8 @@ import fs from 'node:fs';
 import { buildLocalCliReview } from '../cli/local-adapter.js';
 
 const demoInput = {
-  name: 'Sheila Bankston',
-  dob: '1960-06-13',
+  name: 'Tamera164 Wisozk929',
+  dob: '1980-02-03',
   medication: 'Xanax 1 mg tablet',
   directions: '1 tablet PO BID PRN for anxiety',
   history: 'no recent narcotic or controlled-substance use',
@@ -30,12 +30,12 @@ const uiDemoData = {
   },
   localPdmpRows: review.pdmpRows,
   patient: {
-    displayName: 'Sheila Bankston',
-    chartName: 'BANKSTON, SHEILA',
-    dobDisplay: '06/13/1960',
-    age: 65,
-    mrn: '458293',
-    patientId: '284756',
+    displayName: 'Tamera164 Wisozk929',
+    chartName: 'WISOZK, TAMERA164',
+    dobDisplay: '02/03/1980',
+    age: 46,
+    mrn: '903184',
+    patientId: '617290',
     sex: 'F'
   },
   encounter: {

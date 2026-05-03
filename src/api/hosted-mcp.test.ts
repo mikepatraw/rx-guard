@@ -70,7 +70,7 @@ const callResponse = await invoke({
     params: {
       name: 'lookup_patient_medication_context',
       arguments: {
-        patient_key: 'RXG-SB-001',
+        patient_key: 'RXG-TW-001',
         proposed_medication: 'Xanax 1 mg tablet',
       },
     },
@@ -82,7 +82,7 @@ const contextPayload = JSON.parse(callPayload.result.content[0].text) as {
   display_name: string;
   recommended_response: { recommendation: string };
 };
-assert.equal(contextPayload.display_name, 'Sheila Bankston');
+assert.equal(contextPayload.display_name, 'Tamera164 Wisozk929');
 assert.equal(contextPayload.recommended_response.recommendation, 'do_not_prescribe');
 
 const badMethodResponse = await invoke({ method: 'GET' });

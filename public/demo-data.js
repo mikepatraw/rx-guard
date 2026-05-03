@@ -1,16 +1,16 @@
 window.RXGUARD_LOCAL_DEMO = {
   "generatedFrom": "src/cli/local-adapter.ts",
   "demoInput": {
-    "name": "Sheila Bankston",
-    "dob": "1960-06-13",
+    "name": "Tamera164 Wisozk929",
+    "dob": "1980-02-03",
     "medication": "Xanax 1 mg tablet",
     "directions": "1 tablet PO BID PRN for anxiety",
     "history": "no recent narcotic or controlled-substance use",
     "note": "PDMP review not yet documented"
   },
-  "resolvedSyntheticKey": "RXG-SB-001",
+  "resolvedSyntheticKey": "RXG-TW-001",
   "promptOpinionPayload": {
-    "synthetic_patient_key": "RXG-SB-001",
+    "synthetic_patient_key": "RXG-TW-001",
     "proposed_medication": "Xanax 1 mg tablet",
     "directions": "1 tablet PO BID PRN for anxiety",
     "patient_reported_history": "no recent narcotic or controlled-substance use",
@@ -71,8 +71,8 @@ window.RXGUARD_LOCAL_DEMO = {
     ],
     "pdmpCrossReference": {
       "matched": true,
-      "name": "Sheila Bankston",
-      "dob": "1960-06-13",
+      "name": "Tamera164 Wisozk929",
+      "dob": "1980-02-03",
       "totalPrescriptions": 5,
       "prescriberCount90d": 4,
       "pharmacyCount90d": 4,
@@ -128,12 +128,12 @@ window.RXGUARD_LOCAL_DEMO = {
     }
   ],
   "patient": {
-    "displayName": "Sheila Bankston",
-    "chartName": "BANKSTON, SHEILA",
-    "dobDisplay": "06/13/1960",
-    "age": 65,
-    "mrn": "458293",
-    "patientId": "284756",
+    "displayName": "Tamera164 Wisozk929",
+    "chartName": "WISOZK, TAMERA164",
+    "dobDisplay": "02/03/1980",
+    "age": 46,
+    "mrn": "903184",
+    "patientId": "617290",
     "sex": "F"
   },
   "encounter": {
