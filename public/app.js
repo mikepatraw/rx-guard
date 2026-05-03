@@ -93,7 +93,7 @@ function insightsFor(data) {
 }
 
 function applySelectionToReview(data) {
-  const patient = data?.patient ?? { displayName: 'Sheila Bankston', dobDisplay: 'DOB display unavailable', age: 'unknown', mrn: '458293' };
+  const patient = data?.patient ?? { displayName: 'Tamera164 Wisozk929', dobDisplay: 'DOB display unavailable', age: 'unknown', mrn: '903184' };
   const prescription = data?.demoInput ?? { medication: 'Xanax 1 mg tablet', directions: '1 tablet PO BID PRN for anxiety' };
   setField('patient-name', patient.displayName);
   setField('patient-dob', `${patient.dobDisplay} (${patient.age})`);
@@ -104,7 +104,7 @@ function applySelectionToReview(data) {
 
 function renderDemo(data) {
   const response = data?.promptOpinionResponse ?? fallbackResponse;
-  const patient = data?.patient ?? { displayName: 'Sheila Bankston', dobDisplay: 'DOB display unavailable', age: 'unknown', mrn: '458293' };
+  const patient = data?.patient ?? { displayName: 'Tamera164 Wisozk929', dobDisplay: 'DOB display unavailable', age: 'unknown', mrn: '903184' };
   const inputData = data?.demoInput ?? { medication: 'Xanax 1 mg tablet', directions: '1 tablet PO BID PRN for anxiety' };
 
   setField('pdmp-query-date', data?.encounter?.pdmpQueryDate ?? '04/19/2026 10:32 AM');

@@ -122,7 +122,7 @@ export function listRxGuardMcpTools(): McpToolDescription[] {
       inputSchema: {
         type: 'object',
         properties: {
-          patient_key: { type: 'string', description: 'Synthetic RXGuard patient key, for example RXG-SB-001.' },
+          patient_key: { type: 'string', description: 'Synthetic RXGuard patient key, for example RXG-TW-001.' },
           synthetic_patient_key: { type: 'string', description: 'Alias for patient_key used by Prompt Opinion chat prompts.' },
           syntheticPatientKey: { type: 'string', description: 'CamelCase alias for patient_key.' },
           patientKey: { type: 'string', description: 'CamelCase alias for patient_key.' },
@@ -143,7 +143,7 @@ export function listRxGuardMcpTools(): McpToolDescription[] {
       inputSchema: {
         type: 'object',
         properties: {
-          patient_key: { type: 'string', description: 'Synthetic RXGuard patient key, for example RXG-CW-002.' },
+          patient_key: { type: 'string', description: 'Synthetic RXGuard patient key, for example RXG-LB-002.' },
         },
         required: ['patient_key'],
         additionalProperties: false,
@@ -156,12 +156,12 @@ export function listRxGuardMcpTools(): McpToolDescription[] {
       inputSchema: {
         type: 'object',
         properties: {
-          patient_key: { type: 'string', description: 'Synthetic RXGuard patient key, for example RXG-SB-001.' },
+          patient_key: { type: 'string', description: 'Synthetic RXGuard patient key, for example RXG-TW-001.' },
           patientId: { type: 'string', description: 'Synthetic RXGuard patient id or key.' },
           patient_id: { type: 'string', description: 'Synthetic RXGuard patient id or key.' },
           identifier: { type: 'string', description: 'Synthetic RXGuard patient identifier.' },
-          name: { type: 'string', description: 'Synthetic patient display name, for example Sheila Bankston.' },
-          patientName: { type: 'string', description: 'Synthetic patient display name, for example Sheila Bankston.' },
+          name: { type: 'string', description: 'Synthetic patient display name, for example Tamera164 Wisozk929.' },
+          patientName: { type: 'string', description: 'Synthetic patient display name, for example Tamera164 Wisozk929.' },
         },
         additionalProperties: false,
       },

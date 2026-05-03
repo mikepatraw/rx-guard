@@ -4,7 +4,9 @@ import type { ReviewRequest, ReviewResponse, RiskLevel } from '../types/review.j
 import { reviewEncounter } from '../api/review.js';
 
 const SYNTHETIC_PATIENT_KEYS = new Map<string, string>([
-  ['sheila bankston|1960-06-13', 'RXG-SB-001']
+  ['tamera164 wisozk929|1980-02-03', 'RXG-TW-001'],
+  ['lincoln623 bednar518|1993-11-08', 'RXG-LB-002'],
+  ['grover keeling|2013-12-10', 'RXG-GK-003']
 ]);
 
 export interface LocalCliInput {

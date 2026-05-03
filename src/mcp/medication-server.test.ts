@@ -30,11 +30,11 @@ assert.equal(unknownMedication.medication, null);
 assert.match(unknownMedication.message, /not found/i);
 
 const sheilaContext = lookupPatientMedicationContext({
-  patient_key: 'RXG-SB-001',
+  patient_key: 'RXG-TW-001',
   proposed_medication: 'Xanax 1 mg tablet',
 });
 assert.equal(sheilaContext.matched, true);
-assert.equal(sheilaContext.patient_key, 'RXG-SB-001');
+assert.equal(sheilaContext.patient_key, 'RXG-TW-001');
 assert.equal(sheilaContext.medication?.generic_name, 'alprazolam');
 assert.equal(sheilaContext.pdmp_summary_status, 'matched');
 assert.equal(sheilaContext.recommended_response.risk_level, 'high');
@@ -43,11 +43,11 @@ assert.ok((sheilaContext.documentation_flags as string[]).includes('nonprescribi
 assert.ok(sheilaContext.recent_controlled_substances.length >= 3);
 
 const sheilaContextWithPromptOpinionAliases = lookupPatientMedicationContext({
-  synthetic_patient_key: 'RXG-SB-001',
+  synthetic_patient_key: 'RXG-TW-001',
   proposedMedication: 'Xanax 1 mg tablet',
 });
 assert.equal(sheilaContextWithPromptOpinionAliases.matched, true);
-assert.equal(sheilaContextWithPromptOpinionAliases.patient_key, 'RXG-SB-001');
+assert.equal(sheilaContextWithPromptOpinionAliases.patient_key, 'RXG-TW-001');
 assert.equal(sheilaContextWithPromptOpinionAliases.pdmp_summary_status, 'matched');
 assert.equal(sheilaContextWithPromptOpinionAliases.risk_score, 80);
 assert.equal(sheilaContextWithPromptOpinionAliases.risk_level, 'high');
@@ -73,19 +73,19 @@ assert.equal(unknownContext.matched, false);
 assert.equal(unknownContext.pdmp_summary_status, 'not_found');
 assert.equal(unknownContext.recent_controlled_substances.length, 0);
 
-const charlieCase = getDemoCase({ patient_key: 'RXG-CW-002' });
+const charlieCase = getDemoCase({ patient_key: 'RXG-LB-002' });
 assert.equal(charlieCase.matched, true);
-assert.equal(charlieCase.case?.display_name, 'Charlie Williams');
+assert.equal(charlieCase.case?.display_name, 'Lincoln623 Bednar518');
 assert.match(charlieCase.case?.progress_note.hpi ?? '', /lower back pain/i);
 assert.ok(charlieCase.case?.current_medications.some((med) => med.name.includes('Trazodone')));
 
-const patientIdByName = findPatientId({ patientName: 'Sheila Bankston' });
+const patientIdByName = findPatientId({ patientName: 'Tamera164 Wisozk929' });
 assert.equal(patientIdByName.matched, true);
-assert.equal(patientIdByName.patient_id, 'RXG-SB-001');
+assert.equal(patientIdByName.patient_id, 'RXG-TW-001');
 
-const patientIdByIdentifier = findPatientId({ identifier: 'RXG-CW-002' });
+const patientIdByIdentifier = findPatientId({ identifier: 'RXG-LB-002' });
 assert.equal(patientIdByIdentifier.matched, true);
-assert.equal(patientIdByIdentifier.display_name, 'Charlie Williams');
+assert.equal(patientIdByIdentifier.display_name, 'Lincoln623 Bednar518');
 
 const toolResult = callRxGuardMcpTool('lookup_patient_medication_context', {
   patient_key: 'RXG-GK-003',
@@ -100,10 +100,10 @@ const badToolResult = callRxGuardMcpTool('missing_tool', {});
 assert.equal(badToolResult.isError, true);
 assert.match(badToolResult.content[0].text, /Unknown RXGuard MCP tool/);
 
-const compatibilityToolResult = callRxGuardMcpTool('FindPatientId', { name: 'Sheila Bankston' });
+const compatibilityToolResult = callRxGuardMcpTool('FindPatientId', { name: 'Tamera164 Wisozk929' });
 assert.equal(compatibilityToolResult.isError, false);
 const parsedCompatibilityToolResult = JSON.parse(compatibilityToolResult.content[0].text);
-assert.equal(parsedCompatibilityToolResult.patient_id, 'RXG-SB-001');
+assert.equal(parsedCompatibilityToolResult.patient_id, 'RXG-TW-001');
 
 const initializeResponse = handleJsonRpcMessage(JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'initialize', params: {} })) as {
   jsonrpc: string;
@@ -128,7 +128,7 @@ const rpcResourceList = handleJsonRpcMessage(JSON.stringify({ jsonrpc: '2.0', id
   result: { resources: Array<{ uri: string; mimeType: string }> };
 };
 assert.ok(rpcResourceList.result.resources.some((resource) => resource.uri === 'fhir://CapabilityStatement/rxguard-synthetic-demo'));
-assert.ok(rpcResourceList.result.resources.some((resource) => resource.uri === 'fhir://Patient/RXG-SB-001'));
+assert.ok(rpcResourceList.result.resources.some((resource) => resource.uri === 'fhir://Patient/RXG-TW-001'));
 assert.ok(rpcResourceList.result.resources.every((resource) => resource.mimeType === 'application/fhir+json'));
 
 const rpcResourceRead = handleJsonRpcMessage(

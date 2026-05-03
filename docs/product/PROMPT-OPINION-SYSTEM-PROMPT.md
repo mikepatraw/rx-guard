@@ -29,8 +29,8 @@ NATIVE PATIENT CONTEXT TASK
 
 SYNTHETIC PDMP/PRESCRIPTION-HISTORY OVERLAY TASK
 1. Select the PDMP overlay by the current Prompt Opinion patient display name when available:
-   - Sheila Bankston → PO_PATIENT_SHEILA_BANKSTON
-   - Charlie Williams → PO_PATIENT_CHARLIE_WILLIAMS
+   - Tamera164 Wisozk929 → PO_PATIENT_TAMERA_WISOZK
+   - Lincoln623 Bednar518 → PO_PATIENT_LINCOLN_BEDNAR
    - Grover Keeling → PO_PATIENT_GROVER_KEELING
 2. If the current patient display name is unavailable, select the overlay by explicit pdmp_overlay_case.
 3. Overlay names must not encode risk level. Determine risk only from the prescription rows, clinician prompt, and native chart context.
@@ -104,14 +104,14 @@ CLASS TOKENS
 PDMP_PRESCRIPTION_HISTORY_OVERLAY
 Synthetic, de-identified prescription-history overlays only. These overlays contain prescription-fill patterns keyed to the current Prompt Opinion patient display name. They are not complete patient charts and contain no demographics/diagnoses/labs/allergies. Pair them with Prompt Opinion native patient context for chart facts.
 
-PO_PATIENT_SHEILA_BANKSTON:
+PO_PATIENT_TAMERA_WISOZK:
 - 2026-04-05 | Alprazolam 1 mg | qty 30 | 10 days | Dr. R. Collins | Capitol Rx
 - 2026-03-28 | Oxycodone 10 mg | qty 40 | 5 days | Dr. J. Landry | Riverbend Pharmacy
 - 2026-03-21 | Adderall 20 mg | qty 60 | 30 days | Dr. K. Holt | QuickFill Pharmacy
 - 2026-03-10 | Lorazepam 1 mg | qty 20 | 7 days | Dr. R. Collins | Capitol Rx
 - 2026-03-02 | Hydrocodone/APAP | qty 30 | 5 days | Dr. M. Bell | St. Anne Pharmacy
 
-PO_PATIENT_CHARLIE_WILLIAMS:
+PO_PATIENT_LINCOLN_BEDNAR:
 - 2026-04-02 | Hydrocodone/APAP 5-325 mg | qty 60 | 30 days | Dr. E. Thompson | Central Pharmacy
 - 2026-03-03 | Hydrocodone/APAP 5-325 mg | qty 60 | 30 days | Dr. E. Thompson | Central Pharmacy
 - 2026-02-01 | Hydrocodone/APAP 5-325 mg | qty 60 | 30 days | Dr. E. Thompson | Central Pharmacy

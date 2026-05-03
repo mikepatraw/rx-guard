@@ -141,18 +141,18 @@ export const medications: SyntheticMedication[] = [
 
 export const demoCases: SyntheticDemoCase[] = [
   {
-    patient_key: 'RXG-SB-001',
-    display_name: 'Sheila Bankston',
-    dob: '06/13/1960',
+    patient_key: 'RXG-TW-001',
+    display_name: 'Tamera164 Wisozk929',
+    dob: '02/03/1980',
     progress_note: {
       visit: 'New Patient – Primary Care · 04/19/2026',
       chief_complaint: 'Grief, panic attacks, difficulty focusing.',
       hpi:
-        '65-year-old female with grief and anxiety after the death of her husband 2 months ago. Reports panic episodes with heart racing and feeling overwhelmed. Requests rapid-onset medication and is reluctant to start SSRI therapy. Also reports difficulty concentrating and completing tasks; denies suicidal ideation.',
+        '46-year-old female with Prompt Opinion chart context including substance-use screening signals and anxiety symptoms. Reports panic episodes with heart racing and feeling overwhelmed. Requests rapid-onset medication and is reluctant to start SSRI therapy. Also reports difficulty concentrating and completing tasks; denies suicidal ideation.',
       assessment:
         'Acute grief reaction; generalized anxiety / panic symptoms; attention and concentration deficit; elevated blood pressure.',
       summary:
-        'New-patient progress note documents acute grief, panic attacks, request for rapid-onset medication, reluctance to start SSRI therapy, and elevated vitals.',
+        'Demo progress note pairs native Prompt Opinion chart context with a high-risk synthetic controlled-substance overlay.',
     },
     current_medications: [],
     proposed_medication: 'Xanax 1 mg tablet',
@@ -173,17 +173,17 @@ export const demoCases: SyntheticDemoCase[] = [
     },
   },
   {
-    patient_key: 'RXG-CW-002',
-    display_name: 'Charlie Williams',
-    dob: '11/01/1989',
+    patient_key: 'RXG-LB-002',
+    display_name: 'Lincoln623 Bednar518',
+    dob: '11/08/1993',
     progress_note: {
       visit: 'Established Patient – Primary Care · 04/14/2026',
       chief_complaint: 'Lower back pain.',
       hpi:
-        '36-year-old male with lower back pain for approximately 2 weeks, likely related to frequent bending and lifting at work. Pain is dull/aching, 5/10, lumbar, no radiation; aggravated by bending and prolonged standing; relieved by rest. Denies numbness, tingling, or weakness.',
+        '32-year-old male with lower back pain for approximately 2 weeks, likely related to frequent bending and lifting at work. Pain is dull/aching, 5/10, lumbar, no radiation; aggravated by bending and prolonged standing; relieved by rest. Denies numbness, tingling, or weakness.',
       assessment: 'Low back pain likely musculoskeletal strain; tobacco use disorder; alcohol use; history of substance abuse.',
       summary:
-        'Progress note documents musculoskeletal low back pain without neurologic deficit, tobacco use, daily alcohol use, history of substance abuse, and sedating nighttime medications.',
+        'Demo progress note pairs native Prompt Opinion chart screenings with a moderate-risk synthetic controlled-substance overlay.',
     },
     current_medications: [
       { name: 'Trazodone 150 mg nightly' },

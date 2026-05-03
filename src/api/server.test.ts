@@ -79,7 +79,7 @@ await withServer(async (port) => {
       params: {
         name: 'lookup_patient_medication_context',
         arguments: {
-          patient_key: 'RXG-SB-001',
+          patient_key: 'RXG-TW-001',
           proposed_medication: 'Xanax 1 mg tablet'
         }
       }
@@ -90,7 +90,7 @@ await withServer(async (port) => {
   assertSecurityHeaders(response);
   const body = await response.json() as { result: { content: [{ text: string }] } };
   const payload = JSON.parse(body.result.content[0].text) as { display_name: string; recommended_response: { recommendation: string } };
-  assert.equal(payload.display_name, 'Sheila Bankston');
+  assert.equal(payload.display_name, 'Tamera164 Wisozk929');
   assert.equal(payload.recommended_response.recommendation, 'do_not_prescribe');
 });
 
