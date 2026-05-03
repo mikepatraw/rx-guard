@@ -16,9 +16,9 @@ Use the full copy-paste prompt in:
 
 - `docs/product/PROMPT-OPINION-SYSTEM-PROMPT.md`
 
-That System Prompt includes the synthetic, de-identified `PDMP_DATABASE` directly. Do not split the database into Content for the current demo; keeping it in the System Prompt makes synthetic case-key lookup more reliable in Prompt Opinion chat.
+That System Prompt uses Prompt Opinion native patient context for chart/EHR facts when available, then adds a synthetic, de-identified `PDMP_PRESCRIPTION_HISTORY_OVERLAY` containing prescription history only. Do not invent full synthetic patients, demographics, diagnoses, labs, allergies, or entire medical histories in the RX Guard prompt.
 
-Keep the database synthetic and de-identified. Do not paste real patient data into System Prompt, Content, tools, screenshots, or demos.
+Keep the prescription-history overlay synthetic and de-identified. Do not paste real patient data into System Prompt, Content, tools, screenshots, or demos.
 
 ## Consult Prompt
 
@@ -26,7 +26,7 @@ Keep the database synthetic and de-identified. Do not paste real patient data in
 Review this controlled-substance prescribing encounter as RX Guard.
 
 Return an EHR-modal-ready JSON review with:
-1. PDMP summary status only, not PDMP table rows
+1. native patient context status (`used` when Prompt Opinion chart context is available, otherwise `unavailable`)
 2. history mismatch warning if patient-reported history conflicts with PDMP or medication data
 3. clinical insights as short flags
 4. risk score from 0 to 100
@@ -52,6 +52,7 @@ Live testing showed Prompt Opinion repeatedly failed nested `pdmp_summary` array
   "risk_score": 0,
   "risk_level": "low|moderate|high",
   "pdmp_summary_status": "matched|not_found",
+  "native_patient_context_status": "used|unavailable",
   "flags": ["max 3 short labels"],
   "recommendation": "one line",
   "compliance_flag": "string or null",
@@ -62,6 +63,7 @@ Live testing showed Prompt Opinion repeatedly failed nested `pdmp_summary` array
 The UI can render this as the modal sections:
 
 - `risk_score` / `risk_level` → Risk Assessment panel
+- `native_patient_context_status` → whether Prompt Opinion native FHIR-style patient context was used
 - `pdmp_summary_status` → whether to render the local synthetic PDMP Summary table
 - `flags` → Key Flags / Clinical Insights
 - `recommendation` → Recommendation panel
@@ -80,25 +82,26 @@ If the UI needs explicit button metadata, add it in the UI adapter layer rather 
 
 ## Content
 
-Use the Content field only for short product context. Do not put `PDMP_DATABASE` here for the current demo; it belongs in the System Prompt file above.
+Use the Content field only for short product context. Do not put the prescription-history overlay here for the current demo; it belongs in the System Prompt file above.
 
 ```text
 RX Guard is an A2A-enabled Prompt Opinion healthcare agent for controlled-substance prescribing safety review.
 
-Primary use case: before a controlled-substance prescription is finalized, RX Guard reviews synthetic/de-identified encounter context, PDMP-style history, medication list, patient-reported history, and documentation status. It returns strict JSON for an EHR-style risk modal with key flags, risk score, recommendation, workflow actions, and chart-ready documentation.
+Primary use case: before a controlled-substance prescription is finalized, RX Guard reviews Prompt Opinion native FHIR-style patient context when available, patient-reported history, documentation status, and a synthetic PDMP-style prescription-history overlay. It returns strict JSON for an EHR-style risk modal with key flags, risk score, recommendation, workflow actions, and chart-ready documentation.
 ```
 
 ## Tools
 
-Prompt Opinion's **Additional Tools / MCP Servers** section is for attaching callable external tools to the agent. For the current demo, the synthetic PDMP database is embedded directly in the System Prompt, so no MCP server is required.
+Prompt Opinion's **Additional Tools / MCP Servers** section is for attaching callable external tools to the agent. For the current demo, do not attach RXGuard MCP. Use Prompt Opinion's native embedded patient-context tools for chart data when available, and keep RXGuard's PDMP/prescription-history overlay in the System Prompt.
 
 For the current hackathon/demo setup:
 
-- Keep **Additional Tools / MCP Servers** empty unless the Prompt Opinion account has a deployed RX Guard API or MCP server ready to call.
-- Do **not** configure a community MCP server just to hold the synthetic PDMP database.
-- Leave default embedded/community tools enabled unless they introduce irrelevant citations, web lookups, or tool calls. If the agent starts using unrelated tools instead of the embedded System Prompt database, disable default tools.
+- Keep **Additional Tools / MCP Servers** empty so RXGuard remains a Prompt Opinion A2A/BYO agent, not an MCP Superpower submission.
+- Leave Prompt Opinion embedded patient tools enabled so the agent can use native FHIR-style chart context.
+- Do **not** configure a community MCP server just to hold the synthetic PDMP prescription-history overlay.
+- If embedded patient tools are unavailable in a chat/session, the agent should continue with `native_patient_context_status: "unavailable"` and avoid inventing chart facts.
 
-Future production-style setup: move `PDMP_DATABASE` out of the System Prompt and expose RX Guard service tools for exact PDMP lookup, deterministic risk scoring, and workflow-decision documentation. Until those tools exist, configuring no MCP servers is correct.
+Future production-style setup: move the PDMP overlay out of the System Prompt and expose a production PDMP/EHR integration through approved APIs/tools. Until those tools exist, configuring no RXGuard MCP server is correct for the final A2A demo.
 
 ## Guardrails
 
@@ -133,7 +136,7 @@ Validate the assistant response for RX Guard.
 
 Pass only if all conditions are true:
 1. The response is valid JSON only, with no markdown fences, preamble, or trailing prose.
-2. The JSON contains exactly these top-level keys: risk_score, risk_level, pdmp_summary_status, flags, recommendation, compliance_flag, auto_note.
+2. The JSON contains exactly these top-level keys: risk_score, risk_level, pdmp_summary_status, native_patient_context_status, flags, recommendation, compliance_flag, auto_note.
 3. risk_score is an integer from 0 to 100.
 4. risk_level is one of: low, moderate, high.
 5. pdmp_summary_status is one of: matched, not_found.
@@ -165,7 +168,7 @@ Keep these core System Prompt guardrails as well:
 Use this marketplace description:
 
 ```text
-Controlled-substance pre-sign safety agent for synthetic prescribing encounters. Checks patient-reported history against embedded PDMP-style records, flags documentation gaps and contextual risk factors, and returns EHR-ready JSON with risk score, recommendation, compliance flag, and chart-ready auto-note. Human-in-the-loop: never autonomous prescribing.
+Controlled-substance pre-sign safety agent for Prompt Opinion patient-context reviews. Uses native FHIR-style chart context when available, checks patient-reported history against synthetic PDMP-style prescription-history overlays, flags documentation gaps and contextual risk factors, and returns EHR-ready JSON with risk score, recommendation, compliance flag, and chart-ready auto-note. Human-in-the-loop: never autonomous prescribing.
 ```
 
 Publish these skills so the marketplace listing reads as clinician workflow capability instead of implementation plumbing:
@@ -173,13 +176,13 @@ Publish these skills so the marketplace listing reads as clinician workflow capa
 ### Controlled-Substance Safety Review
 
 ```text
-Reviews synthetic controlled-substance prescribing encounters before signing. Compares proposed medication, patient-reported history, embedded PDMP-style records, and documentation status to return risk_score, risk_level, flags, recommendation, compliance_flag, and auto_note.
+Reviews controlled-substance prescribing encounters before signing. Combines Prompt Opinion native FHIR-style patient context when available, proposed medication, patient-reported history, synthetic PDMP-style prescription-history overlay, and documentation status to return risk_score, risk_level, flags, recommendation, compliance_flag, native_patient_context_status, and auto_note.
 ```
 
 ### PDMP Documentation Gap Check
 
 ```text
-Identifies missing PDMP documentation and patient-history mismatches in synthetic cases. Highlights recent controlled-substance fills, multi-prescriber or multi-pharmacy patterns, and chart-ready compliance language for clinician review.
+Identifies missing PDMP documentation and patient-history mismatches. Highlights recent synthetic controlled-substance fills, multi-prescriber or multi-pharmacy patterns, and chart-ready compliance language for clinician review while leaving native chart context to Prompt Opinion.
 ```
 
 ### EHR Auto-Note Draft
