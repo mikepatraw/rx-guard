@@ -1,20 +1,20 @@
-# RX Guard Prompt Opinion Chat Test Prompt
+# PreSignRx Prompt Opinion Chat Test Prompt
 
-Use this exact prompt in Prompt Opinion chat with the published **RX Guard** agent selected.
+Use this exact prompt in Prompt Opinion chat with the published **PreSignRx** agent selected.
 
-Before testing: disable RXGuard's custom Agent guardrail unless Prompt Opinion clearly scopes it to assistant output only. A JSON-shape guardrail attached to the user-input path will reject this consult prompt before RXGuard can respond.
+Before testing: disable PreSignRx custom Agent guardrail unless Prompt Opinion clearly scopes it to assistant output only. A JSON-shape guardrail attached to the user-input path will reject this consult prompt before PreSignRx can respond.
 
-This version uses Prompt Opinion native patient context for chart/EHR facts when available. RXGuard contributes only a synthetic PDMP-style prescription-history overlay; do not paste a full invented patient or complete medical history into chat.
+This version uses Prompt Opinion native patient context for chart/EHR facts when available. PreSignRx contributes only a synthetic PDMP-style prescription-history overlay; do not paste a full invented patient or complete medical history into chat.
 
-This version intentionally does **not** ask Prompt Opinion to return PDMP table rows. Live testing showed Prompt Opinion repeatedly transformed nested PDMP row objects into invalid repeated flat arrays. The Prompt Opinion agent should return risk/recommendation status; the RXGuard UI/local adapter owns table rendering for the synthetic overlay.
+This version intentionally does **not** ask Prompt Opinion to return PDMP table rows. Live testing showed Prompt Opinion repeatedly transformed nested PDMP row objects into invalid repeated flat arrays. The Prompt Opinion agent should return risk/recommendation status; the PreSignRx UI/local adapter owns table rendering for the synthetic overlay.
 
 ---
 
-Review this controlled-substance prescribing encounter as RXGuard.
+Review this controlled-substance prescribing encounter as PreSignRx.
 
 Use the current selected Prompt Opinion Patient/Data Scope context if already visible in this chat. Do not call or retry FindPatientId.
-Preferred test patient: Sheila Bankston selected in Prompt Opinion Patient scope.
-PDMP overlay: resolve by current patient display name; expected mapping is PO_PATIENT_SHEILA_BANKSTON. The overlay name does not encode risk; calculate risk from prescription rows.
+Preferred test patient: Tamera164 Wisozk929 selected in Prompt Opinion Patient scope.
+PDMP overlay: resolve by current patient display name; expected mapping is PO_PATIENT_TAMERA_WISOZK. The overlay name does not encode risk; calculate risk from prescription rows.
 Proposed medication: Xanax 1 mg tablet
 Directions: 1 tablet PO BID PRN for anxiety
 Patient-reported history: no recent narcotic or controlled-substance use
