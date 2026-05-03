@@ -22,6 +22,8 @@ assert.doesNotMatch(byoConfig, /currently includes the synthetic, de-identified 
 assert.doesNotMatch(byoConfig, /remove the embedded database from the live System Prompt/);
 assert.match(byoConfig, /do not duplicate synthetic PDMP rows/i);
 assert.match(byoConfig, /5 `generate_content` requests per minute/);
+assert.match(byoConfig, /20 `generate_content` requests per day/);
+assert.match(byoConfig, /daily quota reset/);
 assert.match(byoConfig, /recommended Gemini free-tier setup/);
 
 assert.match(chatTestPrompt, /MCP tools/i);
