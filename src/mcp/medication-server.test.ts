@@ -49,6 +49,11 @@ const sheilaContextWithPromptOpinionAliases = lookupPatientMedicationContext({
 assert.equal(sheilaContextWithPromptOpinionAliases.matched, true);
 assert.equal(sheilaContextWithPromptOpinionAliases.patient_key, 'RXG-SB-001');
 assert.equal(sheilaContextWithPromptOpinionAliases.pdmp_summary_status, 'matched');
+assert.equal(sheilaContextWithPromptOpinionAliases.risk_score, 80);
+assert.equal(sheilaContextWithPromptOpinionAliases.risk_level, 'high');
+assert.ok((sheilaContextWithPromptOpinionAliases.flags as string[]).includes('history mismatch'));
+assert.match(sheilaContextWithPromptOpinionAliases.recommendation, /verify with patient/i);
+assert.equal(sheilaContextWithPromptOpinionAliases.compliance_flag, 'PDMP review not documented');
 assert.equal(sheilaContextWithPromptOpinionAliases.recommended_response.risk_level, 'high');
 
 const groverContext = lookupPatientMedicationContext({
