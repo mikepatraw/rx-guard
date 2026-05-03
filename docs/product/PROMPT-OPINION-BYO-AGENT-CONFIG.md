@@ -16,7 +16,7 @@ Use the full copy-paste prompt in:
 
 - `docs/product/PROMPT-OPINION-SYSTEM-PROMPT.md`
 
-That System Prompt uses Prompt Opinion native patient context for chart/EHR facts when available, then adds a synthetic, de-identified `PDMP_PRESCRIPTION_HISTORY_OVERLAY` containing prescription history only. The overlay is keyed to existing Prompt Opinion patient display names for the demo (`Sheila Bankston`, `Charlie Williams`, `Grover Keeling`) so the review can combine native patient context and RXGuard PDMP-style fills. Do not invent full synthetic patients, demographics, diagnoses, labs, allergies, or entire medical histories in the RX Guard prompt.
+That System Prompt uses Prompt Opinion native patient context for chart/EHR facts when available, then adds a synthetic, de-identified `PDMP_PRESCRIPTION_HISTORY_OVERLAY` containing prescription history only. The overlay is keyed to existing Prompt Opinion patient display names for the demo (`Sheila Bankston`, `Charlie Williams`, `Grover Keeling`) so the review can combine native patient context and RXGuard PDMP-style fills. Overlay names do not encode risk; the agent determines risk level from prescription rows, clinician prompt, and native chart context. Do not invent full synthetic patients, demographics, diagnoses, labs, allergies, or entire medical histories in the RX Guard prompt.
 
 Keep the prescription-history overlay synthetic and de-identified. Do not paste real patient data into System Prompt, Content, tools, screenshots, or demos.
 

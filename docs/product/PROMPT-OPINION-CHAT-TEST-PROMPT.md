@@ -14,7 +14,7 @@ Review this controlled-substance prescribing encounter as RXGuard.
 
 Use the current selected Prompt Opinion patient context if available.
 Preferred test patient: Sheila Bankston selected in Prompt Opinion Patient scope.
-PDMP overlay: resolve by current patient display name; expected mapping is PO_PATIENT_SHEILA_BANKSTON_HIGH_RISK.
+PDMP overlay: resolve by current patient display name; expected mapping is PO_PATIENT_SHEILA_BANKSTON. The overlay name does not encode risk; calculate risk from prescription rows.
 Proposed medication: Xanax 1 mg tablet
 Directions: 1 tablet PO BID PRN for anxiety
 Patient-reported history: no recent narcotic or controlled-substance use
@@ -49,7 +49,7 @@ Expected output shape:
 Expected high-level themes in a good response:
 - the synthetic PDMP overlay resolves to matched
 - native patient context is used if available, otherwise explicitly marked unavailable
-- high risk or equivalent not-recommended recommendation
+- risk level and recommendation are derived from the prescription rows, patient report, documentation status, and native chart context
 - multiple prescribers/pharmacies in the recent PDMP-style prescription history
 - patient-reported history mismatch
 - missing PDMP documentation
