@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PreSignRx EHR Demo</title>
+  <title>RXsignal EHR Demo</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -16,7 +16,7 @@
   <section class="patient-strip">
     <div class="photo">TW</div>
     <div><h1>WISOZK, TAMERA164 <span>⚠</span></h1><p>F, 46 Y, 02/03/1980</p><p><b>MRN:</b> 903184 &nbsp; <b>PT ID:</b> 617290</p></div>
-    <div><p><b>Contact:</b> (555) 826-0485 (H)</p><p>(555) 397-1120 (M)</p><p><b>Email:</b> synthetic.demo@example.com</p></div>
+    <div><p><b>Visit Type:</b> Follow-up</p><p><b>Chief Concern:</b> Anxiety / medication request</p><p><b>Email:</b> synthetic.demo@example.com</p></div>
     <div><p><b>Insurance:</b> Commercial Plan</p><p><b>Plan:</b> PPO</p><p><b>PCP:</b> Not Assigned</p></div>
     <div class="allergy"><p><b>Allergies:</b> No Known Allergies</p><p><b>Pharmacy:</b> Riverside Pharmacy<br><em>Preferred</em></p></div>
     <div class="provider">Smith, John DC<br><b>Advanced Pain &amp; Spine</b></div>
@@ -24,29 +24,30 @@
 
   <main class="layout">
     <aside>
-      <h2>Chart</h2><p>Summary</p><p>Progress Notes</p><p>Labs</p><p>Imaging</p><p>Procedures</p><p class="selected">Medications</p><p>Allergies</p><p>Vitals</p><p>Flowsheets</p><p>Health Maintenance</p><p>Documents</p><p>Problem List</p><p>History</p>
+      <h2>Chart</h2><p>Summary</p><p>Progress Note</p><p class="selected">Medications</p><p>Orders</p><p>Documents</p><p>Labs</p><p>Imaging</p><p>Allergies</p><p>Vitals</p><p>Problem List</p><p>History</p>
       <footer>© eClinicalWorks 2026<br>Version 11.6.1</footer>
     </aside>
 
     <section class="page">
       <div class="page-head"><h2>Medications</h2><div><button>+ New Encounter</button><button>Actions ▾</button></div></div>
-      <div class="tabs"><b>Current Medications</b><span>Medication History</span><span>eRx</span></div>
-      <div class="card"><h3>Current Medications <button id="addMedicationBtn" type="button">+ Add Medication</button></h3><div class="med"><b>Adderall 20 mg tablet</b><br>1 tab PO QAM</div><div class="med"><b>Ibuprofen 600 mg tablet</b><br>1 tab PO TID PRN</div><div class="med"><b>Tizanidine 4 mg tablet</b><br>1 tab PO QHS PRN</div></div>
+      <div class="tabs"><span>Summary</span><span>Progress Note</span><span class="active">Medications</span><span>Orders</span><span>Documents</span></div>
+      <div class="card"><h3>Current Medications <button id="addMedicationBtn" type="button">+ Add Medication</button></h3><div class="med"><b>Sertraline 50 mg daily</b><br>Take 1 tablet PO daily</div><div class="med"><b>Ibuprofen 800 mg PRN</b><br>Take 1 tablet PO TID PRN pain</div><div class="med"><b>Lisinopril 10 mg daily</b><br>Take 1 tablet PO daily</div></div>
       <div class="prescribing-card" aria-label="Add medication workflow">
         <div class="prescribing-head"><h3>Add Medication</h3><span>Controlled medication selected</span></div>
-        <label class="med-search" for="medicationSearch">Search medications
-          <input id="medicationSearch" value="Xanax" autocomplete="off" aria-describedby="rxguardTriggerHelp" />
+        <label class="med-search" for="medicationSearch">Search medication
+          <input id="medicationSearch" value="Xanax" autocomplete="off" aria-describedby="rxsignalTriggerHelp" />
         </label>
         <div class="med-results" role="listbox" aria-label="Medication search results">
-          <button id="selectXanaxBtn" class="med-result selected" type="button" role="option" aria-selected="true"><b>Xanax 1 mg tablet</b><span>PreSignRx review starts automatically when selected</span></button>
           <button class="med-result" type="button" role="option"><b>Xanax 0.5 mg tablet</b><span>alprazolam tablet</span></button>
+          <button id="selectXanaxBtn" class="med-result selected" type="button" role="option" aria-selected="true"><b>Xanax 1 mg tablet</b><span>Selecting Xanax 1 mg tablet automatically triggers RXsignal</span></button>
+          <button class="med-result" type="button" role="option"><b>Alprazolam 1 mg tablet</b><span>generic equivalent</span></button>
         </div>
-        <p id="rxguardTriggerHelp" class="trigger-help">PreSignRx runs inside the prescribing workflow—no separate tool menu or module launch.</p>
+        <p id="rxsignalTriggerHelp" class="trigger-help">Instead of asking providers to run another tool, RXsignal is embedded directly into the prescribing workflow. The moment a controlled medication is selected, it runs automatically and gives a decision-ready output in seconds.</p>
       </div>
-      <div class="pending"><h3>Pending Prescriptions</h3><div class="pending-med"><div><b>Xanax 1 mg tablet</b><br>1 tab PO BID PRN for anxiety</div><button id="rerunRxguardBtn" class="rerun-btn hidden" type="button">Re-run PreSignRx</button></div></div>
+      <div class="pending"><h3>Pending Prescriptions</h3><div class="pending-med"><div><b>Xanax 1 mg tablet</b><br>1 tablet PO BID PRN for anxiety</div><button id="rerunRxsignalBtn" class="rerun-btn hidden" type="button">Re-run RXsignal</button></div></div>
       <div id="chartDocumentationCard" class="chart-doc-card" aria-live="polite">
         <div class="chart-doc-head"><h3>Chart Documentation Updated</h3><span id="ehrActionStatus">Awaiting provider action</span></div>
-        <p id="insertedChartNote" class="inserted-note">PreSignRx will insert the selected provider rationale into the encounter note after a workflow action is chosen.</p>
+        <p id="insertedChartNote" class="inserted-note">RXsignal will insert the selected provider rationale into the encounter note after a workflow action is chosen.</p>
       </div>
       <div class="reminders"><h3>Clinical Reminders</h3><p>PDMP Review <b class="overdue">Overdue</b></p><p>Opioid Risk Assessment ✅</p><p>Pain Agreement ✅</p><p>Urine Drug Screen <b>Due</b></p></div>
     </section>
@@ -54,11 +55,11 @@
 
   <section id="consultOverlay" class="consult-overlay hidden">
     <div class="consult-panel">
-      <div class="consult-head"><span>Controlled medication selected</span><b>PreSignRx Review</b></div>
+      <div class="consult-head"><span>Controlled medication selected</span><b>RXsignal Review</b></div>
       <div class="intake-form">
         <div class="intake-copy">
           <small>Embedded prescribing safety check</small>
-          <h2>PreSignRx review started automatically.</h2>
+          <h2>RXsignal review started automatically.</h2>
           <p>Checking selected prescription against local synthetic PDMP evidence before the order is finalized.</p>
         </div>
         <div id="agentStatus" class="agent-status">Ready for medication selection.</div>
@@ -68,7 +69,7 @@
 
   <section id="rxOverlay" class="overlay hidden">
     <div class="rx-modal">
-      <div class="modal-head"><h2>🛡 PreSignRx – Controlled Substance Risk Analysis</h2><span>PDMP Query Date: <b data-rx-field="pdmp-query-date">04/19/2026 10:32 AM</b> &nbsp; ✕</span></div>
+      <div class="modal-head"><h2>🛡 RXsignal Controlled Substance Review</h2><span>Status: PDMP automatically reviewed &nbsp; <b data-rx-field="pdmp-query-date">04/19/2026 10:32 AM</b> &nbsp; ✕</span></div>
       <div class="modal-body">
         <div class="left-col">
           <div class="summary">
@@ -82,15 +83,15 @@
           <h3>CLINICAL INSIGHTS</h3><ul class="insights" data-rx-list="insights"></ul>
         </div>
         <div class="right-col">
-          <div class="adapter-card"><small>Review source</small><b>PreSignRx matched the patient locally and prepared the safety review.</b><code data-rx-field="contract-status">Synthetic PDMP evidence matched</code></div>
-          <h3>RISK ASSESSMENT</h3><div class="risk-box"><div><small>RISK SCORE</small><strong class="risk-score" data-rx-field="risk-score">80</strong><span>/100</span></div><div><small>RISK LEVEL</small><b class="risk-level" data-rx-field="risk-level">HIGH</b></div></div>
+          <div class="adapter-card"><small>Review source</small><b>RXsignal is embedded directly in the prescribing workflow and prepared the safety review automatically.</b><code data-rx-field="contract-status">Synthetic PDMP evidence matched</code></div>
+          <h3>RISK ASSESSMENT</h3><div class="risk-box"><div><small>RISK SCORE</small><strong class="risk-score" data-rx-field="risk-score">82</strong><span>/100</span></div><div><small>RISK LEVEL</small><b class="risk-level" data-rx-field="risk-level">HIGH</b></div></div>
           <h3>KEY FLAGS (Top 3)</h3><ul class="flags" data-rx-list="flags"></ul>
-          <h3>RECOMMENDATION</h3><div class="rec"><b data-rx-field="recommendation-title">NOT RECOMMENDED</b><br><span data-rx-field="recommendation">Verify history and coordinate care before prescribing.</span></div>
-          <h3>COMPLIANCE FLAG</h3><div class="compliance" data-rx-field="compliance">⚠ PDMP review not documented in this encounter.</div>
+          <h3>RECOMMENDATION</h3><div class="rec"><b data-rx-field="recommendation-title">NOT RECOMMENDED</b><br><span data-rx-field="recommendation">Not recommended — verify history and coordinate care before prescribing.</span></div>
+          <h3>SAFETY FRAMING</h3><div class="compliance">RXsignal does not prescribe independently. It supports the provider’s decision and moves the medication to the eRx review step, where the provider remains responsible for final signature.</div>
           <h3>SUGGESTED DOCUMENTATION (Click to Insert)</h3><textarea id="noteBox"></textarea><div id="workflowStatus" class="status">Select a workflow action.</div>
         </div>
       </div>
-      <div class="modal-foot"><button>🖨 Print / Export</button><div><button id="proceedBtn" class="btn-success">Proceed</button><button id="cautionBtn" class="btn-warning">Proceed with Caution</button><button id="doNotPrescribeBtn" class="btn-danger">Do Not Prescribe</button></div></div>
+      <div class="modal-foot"><button>🖨 Print / Export</button><div><button id="proceedBtn" class="btn-success">Proceed to eRx</button><button id="cautionBtn" class="btn-warning">Proceed with Caution</button><button id="doNotPrescribeBtn" class="btn-danger">Do Not Prescribe</button></div></div>
     </div>
   </section>
 

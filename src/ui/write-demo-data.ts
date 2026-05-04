@@ -45,6 +45,6 @@ const uiDemoData = {
   }
 };
 
-const output = `window.RXGUARD_LOCAL_DEMO = ${JSON.stringify(uiDemoData, null, 2)};\n`;
+const output = `window.RXSIGNAL_LOCAL_DEMO = ${JSON.stringify(uiDemoData, null, 2)};\n`;
 fs.writeFileSync('public/demo-data.js', output, 'utf8');
 console.log('wrote public/demo-data.js from local CLI adapter');

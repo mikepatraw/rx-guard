@@ -32,7 +32,7 @@ export function buildNarrativeSummary(request: ReviewRequest, flags: ReviewFlag[
   }
 
   const medication = request.proposedMedication.name;
-  parts.push(`Overall, RX Guard recommends clinician review before finalizing the ${medication} prescribing decision.`);
+  parts.push(`Overall, RXsignal recommends clinician review before finalizing the ${medication} prescribing decision.`);
 
   return parts.join(' ');
 }
