@@ -1,4 +1,4 @@
-window.RXGUARD_LOCAL_DEMO = {
+window.RXSIGNAL_LOCAL_DEMO = {
   "generatedFrom": "src/cli/local-adapter.ts",
   "demoInput": {
     "name": "Tamera164 Wisozk929",
@@ -31,7 +31,7 @@ window.RXGUARD_LOCAL_DEMO = {
   },
   "rxGuardReview": {
     "riskLevel": "high",
-    "summary": "High-priority concerns include pdmp history shows 4 distinct prescribers for controlled substances in the last 90 days. and pdmp history shows 4 distinct pharmacies used for controlled substances in the last 90 days.. Additional review is warranted because pdmp review may have occurred but was not documented., encounter note is sparse for a controlled-substance review., pdmp history shows overlapping stimulant and sedative therapy in the last 90 days., the note does not clearly connect the prescription to a functional treatment goal., and the note provides limited narrative evidence of risk review or mitigation planning.. Documentation gaps were also detected, including functional goal or treatment objective, monitoring or follow-up plan, and risk discussion or counseling. Overall, RX Guard recommends clinician review before finalizing the Xanax prescribing decision.",
+    "summary": "High-priority concerns include pdmp history shows 4 distinct prescribers for controlled substances in the last 90 days. and pdmp history shows 4 distinct pharmacies used for controlled substances in the last 90 days.. Additional review is warranted because pdmp review may have occurred but was not documented., encounter note is sparse for a controlled-substance review., pdmp history shows overlapping stimulant and sedative therapy in the last 90 days., the note does not clearly connect the prescription to a functional treatment goal., and the note provides limited narrative evidence of risk review or mitigation planning.. Documentation gaps were also detected, including functional goal or treatment objective, monitoring or follow-up plan, and risk discussion or counseling. Overall, RXsignal recommends clinician review before finalizing the Xanax prescribing decision.",
     "flags": [
       {
         "code": "missing_pdmp_documentation",
