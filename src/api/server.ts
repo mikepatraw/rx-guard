@@ -114,7 +114,7 @@ export function createRxGuardServer() {
         writeJson(res, error instanceof RequestBodyTooLargeError ? 413 : 400, {
           ok: false,
           agent: {
-            name: 'RX Guard',
+            name: 'RXsignal',
             mode: 'byo-a2a-preview'
           },
           error: {
@@ -132,6 +132,6 @@ export function createRxGuardServer() {
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   createRxGuardServer().listen(port, () => {
-    console.log(`RX Guard server listening on http://localhost:${port}`);
+    console.log(`RXsignal server listening on http://localhost:${port}`);
   });
 }

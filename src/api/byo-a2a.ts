@@ -63,7 +63,7 @@ export function invokeByoA2aAgent(payload: ByoAgentInvocationInput): ByoAgentInv
     return {
       ok: true,
       agent: {
-        name: 'RX Guard',
+        name: 'RXsignal',
         mode: 'byo-a2a-preview'
       },
       response
@@ -72,7 +72,7 @@ export function invokeByoA2aAgent(payload: ByoAgentInvocationInput): ByoAgentInv
     return {
       ok: false,
       agent: {
-        name: 'RX Guard',
+        name: 'RXsignal',
         mode: 'byo-a2a-preview'
       },
       error: {

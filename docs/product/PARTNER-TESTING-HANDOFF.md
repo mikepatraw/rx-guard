@@ -1,6 +1,6 @@
-# RX Guard Partner Testing Handoff
+# RXsignal Partner Testing Handoff
 
-Use this guide to test RX Guard and give structured feedback.
+Use this guide to test RXsignal and give structured feedback.
 
 ## Primary partner test path
 
@@ -14,9 +14,9 @@ No Prompt Opinion account, GitHub account, Node install, npm install, or local s
 
 ## Goal
 
-Validate that RX Guard's clinician-facing workflow is clear, readable, and useful for a synthetic controlled-substance prescribing review.
+Validate that RXsignal's clinician-facing workflow is clear, readable, and useful for a synthetic controlled-substance prescribing review.
 
-The staging site demonstrates the RX Guard UI and Prompt Opinion-compatible decision-support contract. It does **not** make a live API call into Prompt Opinion. Prompt Opinion remains the published A2A/BYO agent layer for the final submission; the staging site is the low-friction review surface for partners.
+The staging site demonstrates the RXsignal UI and Prompt Opinion-compatible decision-support contract. It does **not** make a live API call into Prompt Opinion. Prompt Opinion remains the published A2A/BYO agent layer for the final submission; the staging site is the low-friction review surface for partners.
 
 ## Data safety
 
@@ -30,11 +30,11 @@ Do not enter:
 - addresses, phone numbers, emails, or other identifiers
 - real clinical notes
 
-The default Sheila Bankston case is synthetic and should be used for the primary test.
+The default Tamera164 Wisozk929 case is synthetic and should be used for the primary test.
 
-## What RX Guard is supposed to do
+## What RXsignal is supposed to do
 
-RX Guard should:
+RXsignal should:
 - start from the native medication workflow
 - auto-run a synthetic controlled-substance safety review when a controlled medication is selected
 - identify documentation and contextual medication-risk concerns
@@ -44,16 +44,16 @@ RX Guard should:
 - suggest concise chart-ready language a clinician could adapt
 - clearly frame itself as support guidance, not an autonomous prescribing decision
 
-## What RX Guard should emphasize most
+## What RXsignal should emphasize most
 
-For the default case, RX Guard should focus on:
+For the default case, RXsignal should focus on:
 - patient-reported history mismatch with synthetic PDMP-style evidence
 - recent controlled-substance fills
 - multiple prescribers and pharmacies
 - PDMP documentation gap
 - opioid/benzodiazepine-type risk context when shown by the synthetic evidence
 
-## What RX Guard should avoid
+## What RXsignal should avoid
 
 Please watch for and flag any UI copy or result that:
 - sounds accusatory or moralizing
@@ -69,17 +69,17 @@ Please watch for and flag any UI copy or result that:
 1. Open `https://rx-guard-iota.vercel.app` on phone or desktop.
 2. Confirm the medication page and **+ Add Medication** workflow are visible.
 3. Select **Xanax 1 mg tablet** from the medication search results.
-4. Confirm RX Guard starts automatically without a separate tools menu or module launch.
+4. Confirm RXsignal starts automatically without a separate tools menu or module launch.
 5. Review the risk score, recommendation, PDMP-style rows, suggested documentation, and workflow buttons.
-6. Confirm **Re-run RXGuard** appears beside the pending Xanax prescription.
+6. Confirm **Re-run RXsignal** appears beside the pending Xanax prescription.
 7. Try **Do Not Prescribe** and confirm the simulated order/documentation status updates clearly.
 8. Send feedback using the format below.
 
 ## Optional Prompt Opinion path
 
-If specifically asked to test Prompt Opinion itself, use the published RX Guard agent through the **chat / A2A path**. Once the hosted RXGuard MCP is attached, Prompt Opinion should call the MCP-backed synthetic lookup behind that chat/A2A flow; testers should not evaluate separate MCP tool screens as the product UX.
+If specifically asked to test Prompt Opinion itself, use the published RXsignal agent through the **chat / A2A path**. Once the hosted RXsignal MCP is attached, Prompt Opinion should call the MCP-backed synthetic lookup behind that chat/A2A flow; testers should not evaluate separate MCP tool screens as the product UX.
 
-For Prompt Opinion chat testing, use synthetic key `RXG-SB-001` rather than entering direct patient identifiers. The expected compact response contract is:
+For Prompt Opinion chat testing, use synthetic key `RXG-TW-001` rather than entering direct patient identifiers. The expected compact response contract is:
 
 ```json
 {
@@ -128,4 +128,4 @@ No / Yes — [where]
 
 ## One-sentence standard for success
 
-RX Guard passes if the staging workflow gives a clinician a quick, defensible, non-punitive explanation of the main synthetic prescribing risk and offers concise language they could realistically adapt into the chart.
+RXsignal passes if the staging workflow gives a clinician a quick, defensible, non-punitive explanation of the main synthetic prescribing risk and offers concise language they could realistically adapt into the chart.

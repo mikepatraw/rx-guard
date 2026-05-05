@@ -1,8 +1,8 @@
-# RX Guard Prompt Opinion Chat / A2A Calibration
+# RXsignal Prompt Opinion Chat / A2A Calibration
 
 ## Purpose
 
-This document captures product and demo calibration for the Prompt Opinion chat / A2A version of RX Guard.
+This document captures product and demo calibration for the Prompt Opinion chat / A2A version of RXsignal.
 
 For copy-pasteable Prompt Opinion BYO Agent field configuration, use the single source of truth:
 
@@ -12,7 +12,7 @@ This file intentionally does **not** repeat System Prompt, Consult Prompt, Respo
 
 ## Current product direction
 
-RX Guard should be optimized as a **Prompt Opinion chat / A2A agent**, not as an MCP-tools-first product.
+RXsignal should be optimized as a **Prompt Opinion chat / A2A agent**, not as an MCP-tools-first product.
 
 The desired experience is an EHR-style risk-analysis overlay that returns structured content a UI can render into:
 
@@ -29,7 +29,7 @@ The desired experience is an EHR-style risk-analysis overlay that returns struct
 
 ## Product calibration goals
 
-The Prompt Opinion version of RX Guard should:
+The Prompt Opinion version of RXsignal should:
 
 - stay clinician-supportive and non-punitive
 - remain precise and avoid unsupported inference
@@ -81,7 +81,7 @@ To make the Prompt Opinion version cleaner for marketplace and demo use:
 
 ## Judge-optimized framing
 
-For hackathon judging, RX Guard should signal four things quickly.
+For hackathon judging, RXsignal should signal four things quickly.
 
 ### Clarity
 

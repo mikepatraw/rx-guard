@@ -1,16 +1,16 @@
-# PreSignRx Prompt Opinion Chat Test Prompt
+# RXsignal Prompt Opinion Chat Test Prompt
 
-Use this exact prompt in Prompt Opinion chat with the published **PreSignRx** agent selected.
+Use this exact prompt in Prompt Opinion chat with the published **RXsignal** agent selected.
 
-Before testing: disable PreSignRx custom Agent guardrail unless Prompt Opinion clearly scopes it to assistant output only. A JSON-shape guardrail attached to the user-input path will reject this consult prompt before PreSignRx can respond.
+Before testing: disable RXsignal custom Agent guardrail unless Prompt Opinion clearly scopes it to assistant output only. A JSON-shape guardrail attached to the user-input path will reject this consult prompt before RXsignal can respond.
 
-This version uses Prompt Opinion native patient context for chart/EHR facts when available. PreSignRx contributes only a synthetic PDMP-style prescription-history overlay; do not paste a full invented patient or complete medical history into chat.
+This version uses Prompt Opinion native patient context for chart/EHR facts when available. RXsignal contributes only a synthetic PDMP-style prescription-history overlay; do not paste a full invented patient or complete medical history into chat.
 
-This version intentionally does **not** ask Prompt Opinion to return PDMP table rows. Live testing showed Prompt Opinion repeatedly transformed nested PDMP row objects into invalid repeated flat arrays. The Prompt Opinion agent should return risk/recommendation status; the PreSignRx UI/local adapter owns table rendering for the synthetic overlay.
+This version intentionally does **not** ask Prompt Opinion to return PDMP table rows. Live testing showed Prompt Opinion repeatedly transformed nested PDMP row objects into invalid repeated flat arrays. The Prompt Opinion agent should return risk/recommendation status; the RXsignal UI/local adapter owns table rendering for the synthetic overlay.
 
 ---
 
-Review this controlled-substance prescribing encounter as PreSignRx.
+Review this controlled-substance prescribing encounter as RXsignal.
 
 Use the current selected Prompt Opinion Patient/Data Scope context if already visible in this chat. Do not call or retry FindPatientId.
 Preferred test patient: Tamera164 Wisozk929 selected in Prompt Opinion Patient scope.

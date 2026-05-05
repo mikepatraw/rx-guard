@@ -9,7 +9,7 @@ const promptDoc = fs.readFileSync('docs/product/PROMPT-OPINION-SYSTEM-PROMPT.md'
 const visibleUi = `${html}\n${js}`;
 
 assert.match(html, /RXsignal EHR Demo/);
-assert.match(html, /RXsignal Controlled Substance Review|RXsignal – Controlled Substance Risk Analysis/);
+assert.match(html, /<span class="brand-mark">RXsignal<\/span> Controlled Substance Review/);
 assert.match(html, /Status: PDMP automatically reviewed/);
 assert.match(html, /WISOZK, TAMERA164/);
 assert.match(html, /Visit Type:<\/b> Follow-up/);
@@ -27,7 +27,7 @@ assert.match(html, /Sertraline 50 mg daily/);
 assert.match(html, /Ibuprofen 800 mg PRN/);
 assert.match(html, /Lisinopril 10 mg daily/);
 assert.match(html, /id="rerunRxsignalBtn"/);
-assert.match(html, /Re-run RXsignal/);
+assert.match(html, /Re-run <span class="brand-mark">RXsignal<\/span>/);
 assert.match(html, /Selecting Xanax 1 mg tablet automatically triggers RXsignal/);
 assert.match(html, /Instead of asking providers to run another tool, RXsignal is embedded directly into the prescribing workflow/);
 assert.match(html, /id="ehrActionStatus"/);
@@ -35,7 +35,7 @@ assert.match(html, /id="insertedChartNote"/);
 assert.match(html, /Chart Documentation Updated/);
 assert.match(html, /RXsignal will insert the selected provider rationale/);
 assert.match(html, /consult-overlay hidden/);
-assert.doesNotMatch(html, /Patient lookup|Enter the prescription you want to review|Run RXGuard Analysis|Expected compact JSON|Prompt Opinion-safe payload|consultPrompt|jsonPreview|Open module/);
+assert.doesNotMatch(html, /Patient lookup|Enter the prescription you want to review|Run RXsignal Analysis|Expected compact JSON|Prompt Opinion-safe payload|consultPrompt|jsonPreview|Open module/);
 assert.doesNotMatch(html, /id="intakeForm"|id="patientName"|id="patientDob"|id="prescriptionMedication"|id="prescriptionDirections"|id="runAnalysisBtn"/);
 assert.match(html, /id="proceedBtn"/);
 assert.match(html, /Proceed to eRx/);
@@ -61,6 +61,7 @@ assert.match(css, /\.modal-foot \{ position: fixed; left: 0; right: 0; bottom: 0
 assert.match(css, /\.chart-doc-card/);
 assert.match(css, /\.chart-doc-card\.active/);
 assert.match(css, /\.inserted-note/);
+assert.match(css, /\.brand-mark \{ font-variant-caps: all-small-caps/);
 
 assert.match(js, /td\.dataset\.label = label/);
 assert.match(js, /insert_standard_documentation/);
@@ -92,9 +93,19 @@ assert.ok(js.includes('showAnalysis'));
 assert.doesNotMatch(js, /patientName|patientDob|prescriptionMedication|prescriptionDirections|intakeForm|runAnalysisBtn/);
 assert.doesNotMatch(js, /buildPromptText|jsonPreview|consultPrompt|Return JSON only|Do not return PDMP table rows/);
 assert.doesNotMatch(js, /DOB:|05\/12\/1984/);
-assert.doesNotMatch(html, /06\/13\/1960|BANKSTON, SHEILA/);
+assert.doesNotMatch(html, /06\/13\/1960/);
+assert.ok(!html.includes(['BANKSTON', ', SHEILA'].join('')));
 
 assert.match(promptDoc, /Pronounce RXsignal as ‘R X signal,’ not ‘R Signal\.’/);
-assert.doesNotMatch(visibleUi, /PreSignRx|RXSignal|RSignal|Auto Send Rx|RXGuard|RX Guard/);
+[
+  ['Pre', 'SignRx'].join(''),
+  ['RX', 'Guard'].join(''),
+  ['RX', ' Guard'].join(''),
+  ['Sheila', ' Bankston'].join(''),
+  ['BANKSTON', ', SHEILA'].join(''),
+  ['Auto', ' Send Rx'].join(''),
+  ['RX', 'Signal'].join(''),
+  ['R', 'Signal'].join('')
+].forEach((staleName) => assert.ok(!visibleUi.includes(staleName), `visible UI should not include stale name: ${staleName}`));
 
 console.log('static UI asset tests passed');

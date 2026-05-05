@@ -1,16 +1,16 @@
-# RX Guard Architecture Specification
+# RXsignal Architecture Specification
 
 ## 1. Purpose
 
-This document defines the technical architecture for RX Guard’s hackathon MVP.
+This document defines the technical architecture for RXsignal’s hackathon MVP.
 
-RX Guard is a FHIR-aware prescribing safety agent designed for controlled-substance workflow review. The architecture is intentionally narrow, explainable, and feasible for the **Agents Assemble: The Healthcare AI Endgame** challenge.
+RXsignal is a FHIR-aware prescribing safety agent designed for controlled-substance workflow review. The architecture is intentionally narrow, explainable, and feasible for the **Agents Assemble: The Healthcare AI Endgame** challenge.
 
 The goal is to build a believable healthcare agent that can operate with synthetic clinical context, produce useful review output, and integrate cleanly into the Prompt Opinion ecosystem.
 
 ## 2. Architecture Principles
 
-RX Guard should be built around the following principles:
+RXsignal should be built around the following principles:
 
 - **Interoperable first**: model the system as an agent that receives healthcare context and returns structured output
 - **FHIR-aware, not FHIR-maximalist**: support a small useful subset of FHIR resources instead of overbuilding
@@ -23,7 +23,7 @@ RX Guard should be built around the following principles:
 ## 3. System Context
 
 ### External environment
-RX Guard will exist within the Prompt Opinion ecosystem as an **A2A agent**.
+RXsignal will exist within the Prompt Opinion ecosystem as an **A2A agent**.
 
 The surrounding ecosystem is expected to provide:
 - an agent workspace or invocation surface
@@ -31,8 +31,8 @@ The surrounding ecosystem is expected to provide:
 - marketplace discovery/invocation
 - support for interoperable standards including A2A and SHARP/FHIR context propagation
 
-### RX Guard role
-RX Guard’s job is to:
+### RXsignal role
+RXsignal’s job is to:
 1. receive a prescribing review request
 2. consume clinical context and note content
 3. analyze documentation completeness and contextual safety concerns
@@ -45,7 +45,7 @@ RX Guard’s job is to:
 Prompt Opinion Platform
         |
         v
-  RX Guard A2A Agent
+  RXsignal A2A Agent
         |
         +-----------------------------+
         |                             |
@@ -69,7 +69,7 @@ FHIR/Encounter Parser ----> Rules + AI Review Engine
 
 ## 5.1 A2A Agent Interface
 
-This is the externally visible RX Guard agent.
+This is the externally visible RXsignal agent.
 
 Responsibilities:
 - receive requests from the platform
@@ -282,7 +282,7 @@ This layer packages the final result for platform output.
 ## 6. Data Flow
 
 ### End-to-end flow
-1. Platform invokes RX Guard agent.
+1. Platform invokes RXsignal agent.
 2. Agent receives synthetic encounter payload.
 3. Intake layer validates and normalizes data.
 4. FHIR parser extracts relevant clinical fields.
@@ -295,7 +295,7 @@ This layer packages the final result for platform output.
 
 ## 7. Minimal FHIR Scope
 
-To stay feasible, RX Guard should support a **minimum viable FHIR subset**.
+To stay feasible, RXsignal should support a **minimum viable FHIR subset**.
 
 ### Recommended resource subset
 - `Patient`
@@ -393,7 +393,7 @@ docs/
 ## 12. Safety and Privacy Model
 
 ### Safety posture
-RX Guard is a support tool, not a prescribing authority.
+RXsignal is a support tool, not a prescribing authority.
 
 ### Guardrails
 - all demo data must be synthetic or de-identified

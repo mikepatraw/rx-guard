@@ -1,19 +1,19 @@
-# RX Guard Submission Checklist
+# RXsignal Submission Checklist
 
-This checklist translates the **Agents Assemble: The Healthcare AI Endgame** requirements into concrete work for RX Guard.
+This checklist translates the **Agents Assemble: The Healthcare AI Endgame** requirements into concrete work for RXsignal.
 
 Last refreshed: 2026-05-02.
 
 ## Current submission strategy
 
-RX Guard should stay on one primary path: **A2A Agent**.
+RXsignal should stay on one primary path: **A2A Agent**.
 
 ```text
 Prompt Opinion published A2A/BYO agent
-  -> embedded synthetic PDMP_DATABASE in the System Prompt
+  -> embedded synthetic PDMP_PRESCRIPTION_HISTORY_OVERLAY in the System Prompt
   -> compact decision-support contract
-  -> RX Guard synthetic clinical data adapter
-  -> RX Guard EHR-style workflow renderer
+  -> RXsignal synthetic clinical data adapter
+  -> RXsignal EHR-style workflow renderer
 ```
 
 The hosted MCP work is no longer the submission path. Keep it as experimental/supporting infrastructure in the repo, but do not make MCP the judge-facing product surface or a second category pitch.
@@ -24,7 +24,7 @@ The public Vercel site is a partner-testable staging renderer, not a live Prompt
 https://rx-guard-iota.vercel.app
 ```
 
-Do not build a live prescription/PDMP database before submission. For this submission, deterministic synthetic fixtures embedded in the Prompt Opinion System Prompt are safer, faster, and easier to explain. In production, RX Guard would connect to authorized EHR/PDMP/FHIR services through a secure clinical data layer and expose only minimum necessary structured context to the Prompt Opinion agent.
+Do not build a live prescription/PDMP database before submission. For this submission, deterministic synthetic fixtures embedded in the Prompt Opinion System Prompt are safer, faster, and easier to explain. In production, RXsignal would connect to authorized EHR/PDMP/FHIR services through a secure clinical data layer and expose only minimum necessary structured context to the Prompt Opinion agent.
 
 ## 1. Eligibility and compliance
 
@@ -36,13 +36,13 @@ Do not build a live prescription/PDMP database before submission. For this submi
 
 ## 2. Core submission path
 
-RX Guard is currently planned as:
+RXsignal is currently planned as:
 - **Path B: A2A Agent**
 
 Decision check:
 - [x] Use A2A as the primary submission artifact
-- [x] Configure/publish RX Guard as a Prompt Opinion BYO/A2A agent
-- [x] Use the embedded synthetic `PDMP_DATABASE` System Prompt for the final A2A submission path
+- [x] Configure/publish RXsignal as a Prompt Opinion BYO/A2A agent
+- [x] Use the embedded synthetic `PDMP_PRESCRIPTION_HISTORY_OVERLAY` System Prompt for the final A2A submission path
 - [x] Keep MCP as non-primary implementation research, not as a separate submission category
 - [ ] Run one final Prompt Opinion in-platform smoke after restoring the embedded-record prompt
 - [ ] Record final Prompt Opinion in-platform invocation evidence for the Devpost video
@@ -52,8 +52,8 @@ Decision check:
 - [x] Create Prompt Opinion account
 - [x] Access Prompt Opinion workspace
 - [x] Configure free-tier workspace model using `Google Gemini (FREE TIER)` with `Gemini 3 Flash Preview`
-- [x] Create/configure RX Guard as a **BYO Agent** rather than relying only on native Po Agent scaffolds
-- [x] Enable **A2A availability** for RX Guard
+- [x] Create/configure RXsignal as a **BYO Agent** rather than relying only on native Po Agent scaffolds
+- [x] Enable **A2A availability** for RXsignal
 - [x] Verify required setup fields for marketplace publication
 - [x] Confirm subscription-level publishing entitlement was sufficient to publish
 - [x] Capture technical A2A/MCP/agent-card endpoints in docs
@@ -61,14 +61,14 @@ Decision check:
 
 ## 4. Integration requirements
 
-- [x] Connect RX Guard logic to a Prompt Opinion-compatible agent flow
+- [x] Connect RXsignal logic to a Prompt Opinion-compatible agent flow
 - [x] Confirm the current compact request/response payload shape expected for the demo contract
 - [x] Keep Prompt Opinion output compact: `risk_score`, `risk_level`, `pdmp_summary_status`, `flags`, `recommendation`, `compliance_flag`, `auto_note`
-- [x] Keep deterministic PDMP rows in RX Guard/local synthetic data instead of asking Prompt Opinion to generate nested table data
+- [x] Keep deterministic PDMP rows in RXsignal/local synthetic data instead of asking Prompt Opinion to generate nested table data
 - [x] Keep the final Prompt Opinion setup on the embedded synthetic-record System Prompt; no MCP server is required for the A2A submission path
 - [x] Keep MCP/FHIR work documented as experimental/supporting infrastructure only, not the final submission path
-- [ ] Confirm the restored embedded-record prompt returns the expected `RXG-SB-001` high-risk JSON in Prompt Opinion
-- [x] Confirm Prompt Opinion output is clean enough to show briefly before switching to the RX Guard UI renderer
+- [ ] Confirm the restored embedded-record prompt returns the expected Tamera high-risk JSON in Prompt Opinion
+- [x] Confirm Prompt Opinion output is clean enough to show briefly before switching to the RXsignal UI renderer
 
 ## 5. Healthcare context requirements
 
@@ -76,17 +76,17 @@ From the challenge page:
 - SHARP extension specs should be used to propagate healthcare context
 - FHIR server data is highly recommended, but not strictly required
 
-Practical checklist for RX Guard:
-- [x] Map realistic synthetic encounter input to a safe synthetic key (`RXG-SB-001`) before Prompt Opinion handoff
+Practical checklist for RXsignal:
+- [x] Map realistic synthetic encounter input to the Tamera Prompt Opinion patient scope / `PO_PATIENT_TAMERA_WISOZK` overlay before Prompt Opinion handoff
 - [x] Include patient/encounter identifiers in a safe synthetic way
-- [x] Document how RX Guard consumes healthcare context and renders the workflow
+- [x] Document how RXsignal consumes healthcare context and renders the workflow
 - [x] Keep FHIR claims precise: FHIR-aware / FHIR-inspired, not a full production FHIR server
 - [ ] Add final Prompt Opinion screenshot/video evidence of enabled FHIR context extension if useful for judges
 
 ## 6. Marketplace readiness
 
-- [x] Configure RX Guard as an **A2A-enabled BYO Agent**
-- [x] Verify RX Guard appears in Marketplace Studio as publishable
+- [x] Configure RXsignal as an **A2A-enabled BYO Agent**
+- [x] Verify RXsignal appears in Marketplace Studio as publishable
 - [x] Confirm publishing is allowed on the current Prompt Opinion subscription
 - [x] Add marketplace title
 - [x] Add marketplace description
@@ -99,21 +99,21 @@ Practical checklist for RX Guard:
 
 The rules require a video under 3 minutes showing the project functioning within Prompt Opinion.
 
-- [x] Finalize one primary demo case: Sheila Bankston / `RXG-SB-001`
-- [x] Add three-patient demo workflow using the uploaded chart/progress-note content: Sheila Bankston, Charlie Williams, and Grover Keeling
+- [x] Finalize one primary demo case: Tamera164 Wisozk929 / `PO_PATIENT_TAMERA_WISOZK`
+- [x] Add three-patient demo workflow using the uploaded chart/progress-note content: Tamera164 Wisozk929, Charlie Williams, and Grover Keeling
 - [x] Build public Vercel staging UI for low-friction partner testing
 - [x] Remove raw expected JSON and internal Prompt Opinion payload panels from tester-facing UI
 - [x] Verify live staging link loads publicly without Vercel login
 - [x] Verify staging UI is usable on iPhone-sized Safari/Chromium viewport
 - [x] Ensure no real patient data appears on screen
-- [x] Record current no-title-card workflow video with patient lookup, progress notes, medication selection, split-screen Prompt Opinion interworking, RXGuard decisions, and chart documentation insertion
+- [x] Record current no-title-card workflow video with patient lookup, progress notes, medication selection, split-screen Prompt Opinion interworking, RXsignal decisions, and chart documentation insertion
 - [ ] Run final Prompt Opinion smoke using restored embedded-record prompt
 - [ ] Record the platform flow from invocation to result
 - [ ] Keep final video under 3 minutes
 
 ## 8. Devpost submission assets
 
-- [x] Project title finalized: RX Guard
+- [x] Project title finalized: RXsignal
 - [x] Short tagline drafted
 - [x] Full description drafted
 - [x] GitHub repo link included in draft
@@ -126,7 +126,7 @@ The rules require a video under 3 minutes showing the project functioning within
 ## 9. Messaging for judges
 
 The submission should clearly communicate:
-- [x] **AI Factor**: Prompt Opinion is the agent layer for compact decision support; RX Guard turns that output into workflow-specific clinical UI
+- [x] **AI Factor**: Prompt Opinion is the agent layer for compact decision support; RXsignal turns that output into workflow-specific clinical UI
 - [x] **Potential Impact**: reduces documentation gaps, improves consistency, and saves clinician review time
 - [x] **Feasibility**: synthetic data, human-in-the-loop workflow, narrow scope, healthcare-aware architecture
 - [x] **Safety**: clinician support only; not an autonomous prescriber; no real PHI; no live PDMP/EHR claims
@@ -148,7 +148,7 @@ The submission should clearly communicate:
 - [x] connected static UI exists
 - [x] public Vercel staging UI exists
 - [x] tests exist
-- [x] local RXGuard MCP medication/context server exists
+- [x] local RXsignal MCP medication/context server exists
 - [x] MCP server tests exist for deterministic synthetic lookup
 - [x] MCP setup/hosted Prompt Opinion plan is documented
 - [x] polished demo script added
@@ -159,10 +159,10 @@ The submission should clearly communicate:
 
 ### Before final submission
 - [x] Restore the embedded synthetic-record Prompt Opinion System Prompt as the final A2A submission path
-- [ ] Remove/disable RXGuard MCP from the live Prompt Opinion agent so the demo does not depend on the MCP category path
-- [ ] Run one final Prompt Opinion chat/A2A invocation pass with `RXG-SB-001` using the embedded-record smoke prompt
+- [ ] Remove/disable RXsignal MCP from the live Prompt Opinion agent so the demo does not depend on the MCP category path
+- [ ] Run one final Prompt Opinion chat/A2A invocation pass with Tamera164 Wisozk929 selected using the embedded-record smoke prompt
 - [ ] Capture the final marketplace/listing URL or clear discoverability instructions
-- [ ] Record the under-3-minute video showing Prompt Opinion invocation plus RX Guard UI rendering
+- [ ] Record the under-3-minute video showing Prompt Opinion invocation plus RXsignal UI rendering
 - [ ] Add the video link to Devpost draft/submission materials
 - [ ] Run final repository checks: `npm test`, docs link check/search, and secret-pattern scan over changed assets
 
@@ -178,11 +178,11 @@ The submission should clearly communicate:
 - Free-tier model setup is acceptable for initial workspace activation and does not appear to violate hackathon rules.
 - `Po Sample Policies` worked as a practical unblocker in policy-list-required template flows, but that path is secondary to the final BYO/A2A submission path.
 - Prompt Opinion should not be used as the prescription database.
-- For the submission, the synthetic PDMP/prescription data is embedded in the Prompt Opinion System Prompt and mirrored by RX Guard local fixtures. MCP work remains non-primary implementation research and should not be used as a second submission category.
+- For the submission, the synthetic PDMP/prescription data is embedded in the Prompt Opinion System Prompt and mirrored by RXsignal local fixtures. MCP work remains non-primary implementation research and should not be used as a second submission category.
 
 ## 13. Definition of submission-ready
 
-RX Guard is submission-ready when all of the following are true:
+RXsignal is submission-ready when all of the following are true:
 - it runs locally and predictably
 - public staging is usable for partner UI feedback
 - it is published to the Prompt Opinion Marketplace
@@ -193,12 +193,12 @@ RX Guard is submission-ready when all of the following are true:
 ## 14. Current live-state note
 
 As of this refresh:
-- RX Guard is published in Marketplace
-- RX Guard is configured as a BYO Agent with A2A enabled
+- RXsignal is published in Marketplace
+- RXsignal is configured as a BYO Agent with A2A enabled
 - Chat Selectable is available
-- local RXGuard MCP medication/context tools exist as non-primary supporting research, but the final submission path is the embedded-record A2A agent
+- local RXsignal MCP medication/context tools exist as non-primary supporting research, but the final submission path is the embedded-record A2A agent
 - final Prompt Opinion smoke must be rerun after removing MCP from the active agent and restoring the embedded synthetic-record System Prompt
 - public staging is live at `https://rx-guard-iota.vercel.app`
-- the staging UI starts from medication selection, auto-triggers RX Guard, and does not expose raw JSON/payload panels
+- the staging UI starts from medication selection, auto-triggers RXsignal, and does not expose raw JSON/payload panels
 - the latest demo evidence shows patient lookup, non-blank progress notes, three medication-selection workflows, split-screen Prompt Opinion interworking, provider actions, and chart-documentation insertion
 - the remaining validation gap is recording final in-platform hosted-MCP invocation evidence and the under-3-minute submission video

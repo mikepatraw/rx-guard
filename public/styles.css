@@ -1,6 +1,7 @@
 * { box-sizing: border-box; }
 body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #1d3340; background: #e8eef2; font-size: 14px; }
 button { border: 0; border-radius: 6px; padding: 8px 12px; font-weight: 700; cursor: pointer; }
+.brand-mark { font-variant-caps: all-small-caps; letter-spacing: .035em; }
 .topbar { height: 44px; display: flex; align-items: center; gap: 16px; padding: 0 14px; color: #fff; background: #0072a6; box-shadow: 0 2px 8px #0003; }
 .logo { width: 50px; height: 28px; border-radius: 14px; display: grid; place-items: center; background: #75b82a; font-weight: 800; font-size: 19px; font-style: italic; }
 nav { display: flex; flex: 1; gap: 18px; align-items: center; font-size: 13px; }

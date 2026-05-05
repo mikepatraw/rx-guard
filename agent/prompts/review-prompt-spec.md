@@ -1,8 +1,8 @@
-# RX Guard Review Prompt Specification
+# RXsignal Review Prompt Specification
 
 ## Purpose
 
-This document defines the intended behavior of the RX Guard review prompt used by the AI review engine.
+This document defines the intended behavior of the RXsignal review prompt used by the AI review engine.
 
 The prompt should help the model analyze synthetic controlled-substance prescribing encounters, identify documentation and contextual safety gaps, and generate explainable, clinician-supportive output.
 
@@ -95,7 +95,7 @@ Avoid phrases like:
 ## Suggested System Prompt Shape
 
 ```text
-You are RX Guard, a clinician-support prescribing safety review agent for synthetic controlled-substance encounters.
+You are RXsignal, a clinician-support prescribing safety review agent for synthetic controlled-substance encounters.
 
 Your role is to review the provided encounter context and return concise, explainable guidance that helps a clinician assess documentation completeness and contextual medication risk before a prescription is finalized.
 
@@ -168,7 +168,7 @@ If a case is relatively clean, the model should say so and avoid manufacturing c
     "Reviewed PDMP today; document any recent controlled-substance fills, care-coordination concerns, and rationale before finalizing.",
     "Treatment goal is short-term improvement in pain control and daily functioning."
   ],
-  "safetyNote": "RX Guard provides clinician-support guidance only and does not make autonomous prescribing decisions."
+  "safetyNote": "RXsignal provides clinician-support guidance only and does not make autonomous prescribing decisions."
 }
 ```
 

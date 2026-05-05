@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/RedParrotBerkeley/rx-guard/blob/main/agent/schemas/request.schema.json",
-  "title": "RX Guard Review Request",
-  "description": "Schema for invoking the RX Guard prescribing safety review agent with synthetic or de-identified encounter context.",
+  "title": "RXsignal Review Request",
+  "description": "Schema for invoking the RXsignal prescribing safety review agent with synthetic or de-identified encounter context.",
   "type": "object",
   "additionalProperties": false,
   "required": [

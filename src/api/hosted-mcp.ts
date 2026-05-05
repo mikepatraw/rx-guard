@@ -19,7 +19,7 @@ const responseHeaders = {
   'Cache-Control': 'no-store',
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-RXGuard-Demo-Key',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-RXsignal-Demo-Key',
 };
 
 export async function handleHostedMcpRequest(req: HostedMcpRequest, res: HostedMcpResponse): Promise<void> {
@@ -36,7 +36,7 @@ export async function handleHostedMcpRequest(req: HostedMcpRequest, res: HostedM
       id: null,
       error: {
         code: -32601,
-        message: 'Method not allowed. RXGuard hosted MCP endpoint accepts POST JSON-RPC requests.',
+        message: 'Method not allowed. RXsignal hosted MCP endpoint accepts POST JSON-RPC requests.',
       },
     });
     return;
@@ -58,7 +58,7 @@ export async function handleHostedMcpRequest(req: HostedMcpRequest, res: HostedM
       id: null,
       error: {
         code: -32700,
-        message: error instanceof Error ? error.message : 'Invalid RXGuard hosted MCP request.',
+        message: error instanceof Error ? error.message : 'Invalid RXsignal hosted MCP request.',
       },
     });
   }

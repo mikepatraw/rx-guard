@@ -1,8 +1,8 @@
-# RX Guard BYO Agent / A2A Integration Plan
+# RXsignal BYO Agent / A2A Integration Plan
 
 ## Purpose
 
-This document translates the recent Prompt Opinion platform findings into a concrete implementation direction for RX Guard.
+This document translates the recent Prompt Opinion platform findings into a concrete implementation direction for RXsignal.
 
 The important shift is that a native `Po Agent` may be useful for platform exploration, but final marketplace publication appears to require a **BYO Agent with A2A enabled**.
 
@@ -23,14 +23,14 @@ Treat the native Po Agent path as exploratory only.
 
 Treat the likely final submission artifact as:
 
-- **RX Guard external/BYO agent**
+- **RXsignal external/BYO agent**
 - **A2A availability enabled**
 - **discoverable from Marketplace Studio**
 - **invokable within Prompt Opinion**
 
 ## Architectural stance
 
-RX Guard should keep a thin separation between:
+RXsignal should keep a thin separation between:
 
 1. internal review engine
 2. external HTTP transport
@@ -57,7 +57,7 @@ The most likely BYO/A2A path is:
 Prompt Opinion BYO Agent (A2A enabled)
             |
             v
-   RX Guard HTTP endpoint / wrapper
+   RXsignal HTTP endpoint / wrapper
             |
             v
      normalizeReviewRequest()

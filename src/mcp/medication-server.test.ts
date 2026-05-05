@@ -98,7 +98,7 @@ assert.equal(parsedToolResult.recommended_response.recommendation, 'proceed_with
 
 const badToolResult = callRxGuardMcpTool('missing_tool', {});
 assert.equal(badToolResult.isError, true);
-assert.match(badToolResult.content[0].text, /Unknown RXGuard MCP tool/);
+assert.match(badToolResult.content[0].text, /Unknown RXsignal MCP tool/);
 
 const compatibilityToolResult = callRxGuardMcpTool('FindPatientId', { name: 'Tamera164 Wisozk929' });
 assert.equal(compatibilityToolResult.isError, false);
@@ -127,12 +127,12 @@ assert.equal(initializeResponse.result._meta['promptopinion.fhir'].supported, tr
 const rpcResourceList = handleJsonRpcMessage(JSON.stringify({ jsonrpc: '2.0', id: 11, method: 'resources/list', params: {} })) as {
   result: { resources: Array<{ uri: string; mimeType: string }> };
 };
-assert.ok(rpcResourceList.result.resources.some((resource) => resource.uri === 'fhir://CapabilityStatement/rxguard-synthetic-demo'));
+assert.ok(rpcResourceList.result.resources.some((resource) => resource.uri === 'fhir://CapabilityStatement/rxsignal-synthetic-demo'));
 assert.ok(rpcResourceList.result.resources.some((resource) => resource.uri === 'fhir://Patient/RXG-TW-001'));
 assert.ok(rpcResourceList.result.resources.every((resource) => resource.mimeType === 'application/fhir+json'));
 
 const rpcResourceRead = handleJsonRpcMessage(
-  JSON.stringify({ jsonrpc: '2.0', id: 12, method: 'resources/read', params: { uri: 'fhir://CapabilityStatement/rxguard-synthetic-demo' } })
+  JSON.stringify({ jsonrpc: '2.0', id: 12, method: 'resources/read', params: { uri: 'fhir://CapabilityStatement/rxsignal-synthetic-demo' } })
 ) as unknown as { result: { contents: [{ text: string; mimeType: string }] } };
 assert.equal(rpcResourceRead.result.contents[0].mimeType, 'application/fhir+json');
 const capabilityStatement = JSON.parse(rpcResourceRead.result.contents[0].text) as { resourceType: string; fhirVersion: string };
@@ -169,4 +169,4 @@ assert.equal(rpcToolCall.result.content[0].type, 'text');
 const parsedRpcToolCall = JSON.parse(rpcToolCall.result.content[0].text);
 assert.equal(parsedRpcToolCall.medication.generic_name, 'hydrocodone bitartrate / acetaminophen');
 
-console.log('rxguard mcp medication server tests passed');
+console.log('rxsignal mcp medication server tests passed');
