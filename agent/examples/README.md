@@ -1,6 +1,6 @@
 # Agent examples
 
-Example response payloads for RX Guard.
+Example response payloads for RXsignal.
 
 ## Files
 

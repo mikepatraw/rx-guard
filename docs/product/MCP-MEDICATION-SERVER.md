@@ -1,6 +1,6 @@
-# RXGuard Medication MCP Server
+# RXsignal Medication MCP Server
 
-RXGuard now has a local stdio MCP-compatible medication/context server for the deterministic synthetic database that previously lived only inside the Prompt Opinion system prompt.
+RXsignal now has a local stdio MCP-compatible medication/context server for the deterministic synthetic database that previously lived only inside the Prompt Opinion system prompt.
 
 This is intentionally **synthetic/demo-only**. It does not connect to real EHR, PDMP, Surescripts, RXNorm, pharmacy, billing, or patient systems.
 
@@ -8,18 +8,18 @@ This is intentionally **synthetic/demo-only**. It does not connect to real EHR, 
 
 ```text
 EHR medication selection
-  -> RXGuard adapter/event
-  -> RXGuard Medication MCP Server
-  -> Prompt Opinion / RX Guard BYO Agent
+  -> RXsignal adapter/event
+  -> RXsignal Medication MCP Server
+  -> Prompt Opinion / RXsignal BYO Agent
   -> compact risk JSON
-  -> RXGuard UI + chart documentation
+  -> RXsignal UI + chart documentation
 ```
 
 Separation of responsibilities:
 
 - **MCP server**: deterministic medication, synthetic patient-case, and synthetic PDMP-style lookup.
 - **Prompt Opinion**: reasoning layer that converts retrieved context into compact decision support.
-- **RXGuard UI**: EHR workflow renderer, provider actions, and chart documentation insertion.
+- **RXsignal UI**: EHR workflow renderer, provider actions, and chart documentation insertion.
 
 ## Local server command
 
@@ -96,7 +96,7 @@ Input:
 
 ```json
 {
-  "patient_key": "RXG-SB-001",
+  "patient_key": "RXG-TW-001",
   "proposed_medication": "Xanax 1 mg tablet"
 }
 ```
@@ -106,8 +106,8 @@ Output includes:
 ```json
 {
   "matched": true,
-  "patient_key": "RXG-SB-001",
-  "display_name": "Sheila Bankston",
+  "patient_key": "RXG-TW-001",
+  "display_name": "Tamera164 Wisozk929",
   "pdmp_summary_status": "matched",
   "recent_controlled_substances": [],
   "risk_factors": [],
@@ -135,7 +135,7 @@ Input:
 
 Current demo keys:
 
-- `RXG-SB-001` — Sheila Bankston / Xanax / high risk / do not prescribe
+- `RXG-TW-001` — Tamera164 Wisozk929 / Xanax / high risk / do not prescribe
 - `RXG-CW-002` — Charlie Williams / Hydrocodone-APAP / moderate risk / proceed with caution
 - `RXG-GK-003` — Grover Keeling / Oxycodone solution / pediatric dosing guardrails
 
@@ -150,7 +150,7 @@ msgs = [
   {"jsonrpc":"2.0","id":1,"method":"initialize","params":{}},
   {"jsonrpc":"2.0","method":"notifications/initialized","params":{}},
   {"jsonrpc":"2.0","id":2,"method":"tools/list","params":{}},
-  {"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"lookup_patient_medication_context","arguments":{"patient_key":"RXG-SB-001","proposed_medication":"Xanax 1 mg tablet"}}},
+  {"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"lookup_patient_medication_context","arguments":{"patient_key":"RXG-TW-001","proposed_medication":"Xanax 1 mg tablet"}}},
 ]
 payload = ''.join('Content-Length: %d\\r\\n\\r\\n%s' % (len(json.dumps(m).encode()), json.dumps(m)) for m in msgs)
 proc = subprocess.run(['node','dist/mcp/medication-server.js'], input=payload.encode(), stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, timeout=10)
@@ -162,15 +162,15 @@ The server also accepts newline-delimited JSON-RPC during simple terminal debugg
 
 Expected result:
 
-- `initialize` returns server info for `rxguard-medication-mcp`, tool capability metadata, the exact Prompt Opinion FHIR context extension declaration at `capabilities.extensions["ai.promptopinion/fhir-context"]`, synthetic/demo-only FHIR metadata, and FHIR-style resource capability discovery
+- `initialize` returns server info for `rxsignal-medication-mcp`, tool capability metadata, the exact Prompt Opinion FHIR context extension declaration at `capabilities.extensions["ai.promptopinion/fhir-context"]`, synthetic/demo-only FHIR metadata, and FHIR-style resource capability discovery
 - `resources/list` returns a synthetic FHIR CapabilityStatement resource plus one synthetic Patient resource per demo case
 - `resources/read` returns `application/fhir+json` content for the synthetic CapabilityStatement or patient resource
 - `tools/list` returns the three tools above
-- `tools/call` returns matched synthetic context for `RXG-SB-001`
+- `tools/call` returns matched synthetic context for `RXG-TW-001`
 
 ## Prompt Opinion status
 
-The MCP server is retained as supporting implementation research and a future production-style integration option. It is **not** the final Prompt Opinion submission path. For the current A2A/BYO submission, use the embedded synthetic-record System Prompt in `docs/product/PROMPT-OPINION-SYSTEM-PROMPT.md` and leave RXGuard MCP disabled/removed from the active Prompt Opinion agent.
+The MCP server is retained as supporting implementation research and a future production-style integration option. It is **not** the final Prompt Opinion submission path. For the current A2A/BYO submission, use the embedded synthetic-record System Prompt in `docs/product/PROMPT-OPINION-SYSTEM-PROMPT.md` and leave RXsignal MCP disabled/removed from the active Prompt Opinion agent.
 
 Do **not** connect live patient, pharmacy, PDMP, or medication databases during the hackathon demo unless that scope is explicitly approved. This server should expose only synthetic data when used for future experiments.
 
@@ -179,11 +179,11 @@ Do **not** connect live patient, pharmacy, PDMP, or medication databases during 
 If future work re-enables MCP as a supporting data path, the live Prompt Opinion system prompt would need language like:
 
 ```text
-When medication or synthetic PDMP context is needed, call the RXGuard MCP tools.
+When medication or synthetic PDMP context is needed, call the RXsignal MCP tools.
 Use lookup_patient_medication_context for synthetic patient keys and proposed medications.
 Use lookup_medication for medication metadata.
 Do not invent PDMP records, medication metadata, patient details, or workflow actions.
-Return compact JSON only for the RXGuard UI adapter.
+Return compact JSON only for the RXsignal UI adapter.
 ```
 
 Keep the compact response schema unchanged:

@@ -1,8 +1,8 @@
-# RX Guard Product Requirements Document
+# RXsignal Product Requirements Document
 
 ## 1. Overview
 
-RX Guard is a FHIR-aware prescribing safety agent for controlled-substance workflows. It reviews synthetic clinical encounter context, identifies documentation gaps and contextual prescribing risk factors, and returns explainable guidance before a prescription is finalized.
+RXsignal is a FHIR-aware prescribing safety agent for controlled-substance workflows. It reviews synthetic clinical encounter context, identifies documentation gaps and contextual prescribing risk factors, and returns explainable guidance before a prescription is finalized.
 
 This project is scoped for the **Agents Assemble: The Healthcare AI Endgame** hackathon and is intentionally designed to fit the challenge’s interoperability, feasibility, and healthcare-safety expectations.
 
@@ -16,7 +16,7 @@ Controlled-substance prescribing is clinically sensitive, operationally burdenso
 - avoidable chart rework
 - difficulty defending prescribing rationale later
 
-The first version of RX Guard is designed to reduce those failures by acting as a pre-sign review assistant, not as an autonomous prescribing authority.
+The first version of RXsignal is designed to reduce those failures by acting as a pre-sign review assistant, not as an autonomous prescribing authority.
 
 ## 3. Why Now
 
@@ -32,7 +32,7 @@ This is a good fit for the current healthcare-agent landscape because:
 
 Build a healthcare AI agent that demonstrates successful integration into the Prompt Opinion platform and uses interoperable healthcare context to solve a real workflow problem.
 
-For RX Guard, that objective becomes:
+For RXsignal, that objective becomes:
 
 > Build a FHIR-aware Prompt Opinion chat / A2A prescribing safety agent that reviews synthetic controlled-substance prescribing encounters and returns explainable documentation and risk guidance within the Prompt Opinion platform.
 
@@ -42,7 +42,7 @@ Help clinicians catch documentation gaps and contextual prescribing risks before
 
 ## 6. Non-Goals
 
-RX Guard MVP will **not**:
+RXsignal MVP will **not**:
 
 - autonomously approve or deny prescriptions
 - replace clinician judgment
@@ -64,7 +64,7 @@ RX Guard MVP will **not**:
 
 ## 8. Core Use Case
 
-A clinician has a synthetic patient encounter and is preparing a controlled-substance prescription. RX Guard receives the encounter context, analyzes the note and structured clinical data, identifies documentation and safety issues, and returns explainable recommendations for review before the prescription is finalized.
+A clinician has a synthetic patient encounter and is preparing a controlled-substance prescription. RXsignal receives the encounter context, analyzes the note and structured clinical data, identifies documentation and safety issues, and returns explainable recommendations for review before the prescription is finalized.
 
 ## 9. User Story
 
@@ -92,7 +92,7 @@ A clinician has a synthetic patient encounter and is preparing a controlled-subs
 
 ## 11. Sample Inputs
 
-RX Guard MVP should accept synthetic or de-identified inputs such as:
+RXsignal MVP should accept synthetic or de-identified inputs such as:
 
 - patient demographics
 - encounter context
@@ -107,7 +107,7 @@ RX Guard MVP should accept synthetic or de-identified inputs such as:
 
 ## 12. Sample Outputs
 
-RX Guard should return:
+RXsignal should return:
 
 - overall review status or risk level
 - list of flagged issues
@@ -125,7 +125,7 @@ Example output categories:
 
 ## 13. Why AI is Necessary
 
-A pure rules engine can flag fixed thresholds, but it struggles to reliably interpret messy note text and narrative justification. RX Guard uses AI because the value lies in:
+A pure rules engine can flag fixed thresholds, but it struggles to reliably interpret messy note text and narrative justification. RXsignal uses AI because the value lies in:
 
 - synthesizing structured and unstructured data together
 - detecting whether rationale is present or absent in free text
@@ -145,7 +145,7 @@ This supports the hackathon’s **Potential Impact** criterion because the workf
 
 ## 15. Why This Is Feasible
 
-This supports the hackathon’s **Feasibility** criterion because RX Guard is intentionally constrained:
+This supports the hackathon’s **Feasibility** criterion because RXsignal is intentionally constrained:
 
 - uses synthetic or de-identified data only
 - does not require live EHR or PDMP connectivity for MVP
@@ -205,7 +205,7 @@ Example:
 
 ### Demo flow
 1. Open synthetic encounter in platform.
-2. Invoke RX Guard.
+2. Invoke RXsignal.
 3. Show agent receiving FHIR-aware context.
 4. Show findings and missing documentation.
 5. Show suggested chart-ready language.

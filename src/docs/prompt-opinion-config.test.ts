@@ -27,13 +27,13 @@ assert.match(systemPrompt, /Tamera164 Wisozk929/);
 assert.match(systemPrompt, /Lincoln623 Bednar518/);
 assert.match(systemPrompt, /Grover Keeling/);
 assert.doesNotMatch(systemPrompt, /HIGH_RISK|MODERATE_RISK|LOW_RISK/);
-assert.doesNotMatch(systemPrompt, /call the RXGuard MCP tools/i);
+assert.doesNotMatch(systemPrompt, /call the RXsignal MCP tools/i);
 assert.doesNotMatch(systemPrompt, /MCP is the only source/i);
 assert.doesNotMatch(systemPrompt, /lookup_patient_medication_context/);
 
 assert.match(byoConfig, /native FHIR-style patient context/);
 assert.match(byoConfig, /PDMP_PRESCRIPTION_HISTORY_OVERLAY/);
-assert.match(byoConfig, /do not attach PreSignRx MCP/i);
+assert.match(byoConfig, /do not attach RXsignal MCP/i);
 assert.match(byoConfig, /Do not rely on patient search or patient-ID lookup/);
 assert.match(byoConfig, /FindPatientId/);
 assert.match(byoConfig, /selected Prompt Opinion Patient\/Data Scope context/);
@@ -44,7 +44,7 @@ assert.match(byoConfig, /EHR Auto-Note Draft/);
 assert.match(byoConfig, /Human-in-the-loop: never autonomous prescribing/);
 assert.doesNotMatch(byoConfig, /synthetic, de-identified `PDMP_DATABASE` directly/);
 assert.doesNotMatch(byoConfig, /MCP-only/i);
-assert.doesNotMatch(byoConfig, /hosted PreSignRx MCP server/i);
+assert.doesNotMatch(byoConfig, /hosted RXsignal MCP server/i);
 assert.doesNotMatch(byoConfig, /20 `generate_content` requests per day/);
 
 assert.match(chatTestPrompt, /current selected Prompt Opinion Patient\/Data Scope context/);
@@ -56,7 +56,7 @@ assert.match(chatTestPrompt, /Patient-reported history: no recent narcotic or co
 assert.match(chatTestPrompt, /native_patient_context_status/);
 assert.match(chatTestPrompt, /pdmp_summary_status/);
 assert.match(chatTestPrompt, /Do not include PDMP table rows/);
-assert.doesNotMatch(chatTestPrompt, /Synthetic patient key: RXG-SB-001/);
+assert.doesNotMatch(chatTestPrompt, /Synthetic patient key: RXG-TW-001/);
 assert.doesNotMatch(chatTestPrompt, /MCP tools/i);
 assert.doesNotMatch(chatTestPrompt, /lookup_patient_medication_context/);
 

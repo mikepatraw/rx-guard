@@ -1,23 +1,23 @@
-# RX Guard
+# RXsignal
 
-RX Guard is a Prompt Opinion-published, A2A-enabled prescribing safety agent for controlled-substance workflows. It reviews synthetic prescribing encounters, identifies documentation gaps and contextual risk factors, and returns explainable clinician-support guidance before a prescription is finalized.
+RXsignal is a Prompt Opinion-published, A2A-enabled prescribing safety agent for controlled-substance workflows. It reviews synthetic prescribing encounters, identifies documentation gaps and contextual risk factors, and returns explainable clinician-support guidance before a prescription is finalized.
 
 ## Why this project exists
 
-Controlled-substance prescribing workflows are high-friction and high-stakes. Clinicians often need to combine note content, medication context, risk factors, and policy expectations under time pressure. RX Guard is designed to make that review faster, clearer, and more defensible.
+Controlled-substance prescribing workflows are high-friction and high-stakes. Clinicians often need to combine note content, medication context, risk factors, and policy expectations under time pressure. RXsignal is designed to make that review faster, clearer, and more defensible.
 
 ## Hackathon framing
 
 This project is being scoped for the **Agents Assemble: The Healthcare AI Endgame** challenge.
 
-RX Guard is intentionally framed as:
+RXsignal is intentionally framed as:
 - an interoperable healthcare agent
 - human-in-the-loop decision support
 - synthetic/de-identified data only
 - FHIR-context-aware
 - focused on documentation quality and prescribing safety review
 
-RX Guard is intentionally **not** framed as:
+RXsignal is intentionally **not** framed as:
 - an autonomous prescribing decision-maker
 - a live EHR/PDMP integration product for day one
 - a fraud accusation engine
@@ -79,7 +79,7 @@ rx-guard/
 
 ## Current status
 
-RX Guard now has:
+RXsignal now has:
 - a working hybrid MVP review engine
 - synthetic demo cases
 - Prompt Opinion marketplace publication
@@ -88,7 +88,7 @@ RX Guard now has:
 - repo docs aligned to the Prompt Opinion chat/A2A path
 - a provisional BYO/A2A wrapper endpoint for local shaping
 - a local CLI adapter that accepts realistic encounter fields, resolves the synthetic case key, and renders Prompt Opinion-style decision support
-- a connected static EHR-style demo UI that reads the local adapter's generated Sheila Bankston payload, renders deterministic PDMP rows, and drives workflow buttons
+- a connected static EHR-style demo UI that reads the local adapter's generated Tamera164 Wisozk929 payload, renders deterministic PDMP rows, and drives workflow buttons
 - a public Vercel staging UI for low-friction partner testing on phone or desktop: `https://rx-guard-iota.vercel.app`
 
 ## Current MVP status
@@ -103,7 +103,7 @@ The repository now includes a working hybrid MVP foundation with:
 - a simple local HTTP server
 - a provisional BYO/A2A adapter endpoint for shaping external invocation
 - CLI-style case runners for demo review
-- a local CLI adapter for the realistic encounter → synthetic key → Prompt Opinion-safe JSON → RX Guard-rendered PDMP flow
+- a local CLI adapter for the realistic encounter → synthetic key → Prompt Opinion-safe JSON → RXsignal-rendered PDMP flow
 - basic test coverage for the review core
 - demo script and Devpost draft
 - Prompt Opinion chat/A2A calibration guidance
@@ -128,7 +128,7 @@ The repository now includes a working hybrid MVP foundation with:
 
 ## Public staging test
 
-Reviewers can test the synthetic RX Guard workflow without cloning the repo:
+Reviewers can test the synthetic RXsignal workflow without cloning the repo:
 
 ```text
 https://rx-guard-iota.vercel.app
@@ -136,7 +136,7 @@ https://rx-guard-iota.vercel.app
 
 See `docs/product/STAGING-TEST-GUIDE.md` for partner instructions and synthetic-only safety notes.
 
-The staging site is aligned to the Prompt Opinion A2A/agent contract, but it is not a live Prompt Opinion API integration. It is a public, read-only synthetic workflow renderer generated from the RX Guard local adapter. Prompt Opinion remains the published agent layer for the submission; RX Guard owns the synthetic clinical data adapter and EHR-style workflow UI.
+The staging site is aligned to the Prompt Opinion A2A/agent contract, but it is not a live Prompt Opinion API integration. It is a public, read-only synthetic workflow renderer generated from the RXsignal local adapter. Prompt Opinion remains the published agent layer for the submission; RXsignal owns the synthetic clinical data adapter and EHR-style workflow UI.
 
 ## Run locally
 
@@ -173,9 +173,9 @@ powershell -ExecutionPolicy Bypass -File .\scripts\run-local-demo.ps1
 powershell -ExecutionPolicy Bypass -File .\scripts\start-ui-demo.ps1
 ```
 
-The local adapter demonstrates the intended handoff without requiring a live Prompt Opinion API call: RX Guard accepts realistic EHR-style encounter fields, resolves the synthetic patient to `RXG-SB-001`, sends only the synthetic key and clinical facts through the Prompt Opinion-safe payload, then renders compact decision-support JSON together with deterministic local PDMP rows.
+The local adapter demonstrates the intended handoff without requiring a live Prompt Opinion API call: RXsignal accepts realistic EHR-style encounter fields, resolves the synthetic patient to the Tamera Prompt Opinion patient scope / `PO_PATIENT_TAMERA_WISOZK` overlay, sends only the synthetic key and clinical facts through the Prompt Opinion-safe payload, then renders compact decision-support JSON together with deterministic local PDMP rows.
 
-The UI opens on a synthetic eCW-style medication page. The UI wrapper builds `public/demo-data.js` from the same local adapter used by the CLI demo, then the page reads that payload to render the Sheila Bankston RXGuard analysis, deterministic local PDMP rows, and Proceed / Proceed with Caution / Do Not Prescribe workflow buttons. Use `docs/product/LOCAL-TEST-GUIDE.md` as the local test link.
+The UI opens on a synthetic eCW-style medication page. The UI wrapper builds `public/demo-data.js` from the same local adapter used by the CLI demo, then the page reads that payload to render the Tamera164 Wisozk929 RXsignal analysis, deterministic local PDMP rows, and Proceed / Proceed with Caution / Do Not Prescribe workflow buttons. Use `docs/product/LOCAL-TEST-GUIDE.md` as the local test link.
 
 ### Developer checks
 
@@ -204,18 +204,18 @@ http://localhost:8787/health
 ## Prompt Opinion demo path
 
 The current intended live/demo path is:
-1. enter realistic encounter fields locally for the synthetic Sheila Bankston scenario
-2. let the RX Guard CLI/local adapter resolve the encounter to `RXG-SB-001`
+1. enter realistic encounter fields locally for the synthetic Tamera164 Wisozk929 scenario
+2. let the RXsignal CLI/local adapter resolve the encounter to `RXG-TW-001`
 3. send the synthetic key and clinical facts through the Prompt Opinion-safe compact JSON contract
-4. render the deterministic local PDMP rows and EHR-style controlled-substance risk modal in RX Guard
-5. click the appropriate workflow action for the synthetic case, usually **Do Not Prescribe** for the high-risk Sheila Bankston scenario
+4. render the deterministic local PDMP rows and EHR-style controlled-substance risk modal in RXsignal
+5. click the appropriate workflow action for the synthetic case, usually **Do Not Prescribe** for the high-risk Tamera164 Wisozk929 scenario
 6. reinforce that the output is clinician-support guidance, not an autonomous prescribing decision
 
 The public Vercel staging path uses the same generated static data and can be used for partner UI feedback. It should be described as Prompt Opinion-compatible staging, not as a live Prompt Opinion-connected app.
 
 ## Remaining work
 
-1. Validate and record the end-user Prompt Opinion chat/A2A invocation path on the synthetic `RXG-SB-001` case.
+1. Validate and record the end-user Prompt Opinion chat/A2A invocation path on the synthetic Tamera case.
 2. Capture the final marketplace listing URL/details and fold them into Devpost materials.
 3. Record the final under-3-minute in-platform demo.
 4. Improve normalization for FHIR-like inputs after submission scope is stable.
@@ -228,8 +228,8 @@ Recent platform validation changed the expected integration path:
 - A free Prompt Opinion account is sufficient to begin setup
 - Free-tier model configuration works with `Google Gemini (FREE TIER)` using `Gemini 3 Flash Preview`
 - Native `Po Agents` are useful for learning the platform, but the final publishable path is the **A2A-enabled BYO Agent** flow
-- RX Guard is now published in Prompt Opinion Marketplace
-- RX Guard has **A2A enabled** and is intended to be used through the **chat/A2A agent path**, not as a custom MCP-tools surface
+- RXsignal is now published in Prompt Opinion Marketplace
+- RXsignal has **A2A enabled** and is intended to be used through the **chat/A2A agent path**, not as a custom MCP-tools surface
 - No custom MCP tools are exposed beyond built-in patient helpers
 - The Vercel staging UI is public and partner-testable at `https://rx-guard-iota.vercel.app`
 - The remaining live validation gap is recording/confirming a clean synthetic-case invocation flow from Prompt Opinion chat for final submission evidence
@@ -241,7 +241,7 @@ Known live endpoints:
 - A2A agent card URL: `https://app.promptopinion.ai/api/workspaces/019d881e-b5b2-7bae-b3ef-c1df241d8e01/ai-agents/019d8868-ce0e-78bb-9f77-97a09fae4a8e/.well-known/agent-card.json`
 
 That means the current best submission path is:
-1. finish the core RX Guard prompt/behavior
+1. finish the core RXsignal prompt/behavior
 2. validate chat selection and synthetic-case invocation against the published BYO/A2A agent
 3. capture the marketplace listing URL/details
 4. record the in-platform demo against that final published path

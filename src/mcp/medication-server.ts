@@ -105,7 +105,7 @@ export function listRxGuardMcpTools(): McpToolDescription[] {
     {
       name: 'lookup_medication',
       description:
-        'Look up a synthetic RXGuard medication by brand, generic, or canonical display name. Returns deterministic medication metadata for Prompt Opinion reasoning.',
+        'Look up a synthetic RXsignal medication by brand, generic, or canonical display name. Returns deterministic medication metadata for Prompt Opinion reasoning.',
       inputSchema: {
         type: 'object',
         properties: {
@@ -122,7 +122,7 @@ export function listRxGuardMcpTools(): McpToolDescription[] {
       inputSchema: {
         type: 'object',
         properties: {
-          patient_key: { type: 'string', description: 'Synthetic RXGuard patient key, for example RXG-TW-001.' },
+          patient_key: { type: 'string', description: 'Synthetic RXsignal patient key, for example RXG-TW-001.' },
           synthetic_patient_key: { type: 'string', description: 'Alias for patient_key used by Prompt Opinion chat prompts.' },
           syntheticPatientKey: { type: 'string', description: 'CamelCase alias for patient_key.' },
           patientKey: { type: 'string', description: 'CamelCase alias for patient_key.' },
@@ -139,11 +139,11 @@ export function listRxGuardMcpTools(): McpToolDescription[] {
     {
       name: 'get_demo_case',
       description:
-        'Return the full synthetic RXGuard demo case for one patient key. Contains no real PHI and is intended for demo/dev use only.',
+        'Return the full synthetic RXsignal demo case for one patient key. Contains no real PHI and is intended for demo/dev use only.',
       inputSchema: {
         type: 'object',
         properties: {
-          patient_key: { type: 'string', description: 'Synthetic RXGuard patient key, for example RXG-LB-002.' },
+          patient_key: { type: 'string', description: 'Synthetic RXsignal patient key, for example RXG-LB-002.' },
         },
         required: ['patient_key'],
         additionalProperties: false,
@@ -152,14 +152,14 @@ export function listRxGuardMcpTools(): McpToolDescription[] {
     {
       name: 'FindPatientId',
       description:
-        'Prompt Opinion FHIR compatibility shim. Resolve a synthetic RXGuard patient key or display name to the same synthetic patient id so the agent does not call external FHIR lookup tools.',
+        'Prompt Opinion FHIR compatibility shim. Resolve a synthetic RXsignal patient key or display name to the same synthetic patient id so the agent does not call external FHIR lookup tools.',
       inputSchema: {
         type: 'object',
         properties: {
-          patient_key: { type: 'string', description: 'Synthetic RXGuard patient key, for example RXG-TW-001.' },
-          patientId: { type: 'string', description: 'Synthetic RXGuard patient id or key.' },
-          patient_id: { type: 'string', description: 'Synthetic RXGuard patient id or key.' },
-          identifier: { type: 'string', description: 'Synthetic RXGuard patient identifier.' },
+          patient_key: { type: 'string', description: 'Synthetic RXsignal patient key, for example RXG-TW-001.' },
+          patientId: { type: 'string', description: 'Synthetic RXsignal patient id or key.' },
+          patient_id: { type: 'string', description: 'Synthetic RXsignal patient id or key.' },
+          identifier: { type: 'string', description: 'Synthetic RXsignal patient identifier.' },
           name: { type: 'string', description: 'Synthetic patient display name, for example Tamera164 Wisozk929.' },
           patientName: { type: 'string', description: 'Synthetic patient display name, for example Tamera164 Wisozk929.' },
         },
@@ -189,7 +189,7 @@ export function lookupMedication(input: MedicationLookupInput) {
     return {
       matched: false,
       medication: null,
-      message: `Medication not found in RXGuard synthetic medication database: ${query}`,
+      message: `Medication not found in RXsignal synthetic medication database: ${query}`,
     };
   }
 
@@ -265,14 +265,14 @@ export function getDemoCase(input: DemoCaseInput) {
     return {
       matched: false,
       case: null,
-      message: 'Synthetic RXGuard demo case not found. Do not invent patient details.',
+      message: 'Synthetic RXsignal demo case not found. Do not invent patient details.',
     };
   }
 
   return {
     matched: true,
     case: demoCase,
-    message: 'Synthetic RXGuard demo case matched.',
+    message: 'Synthetic RXsignal demo case matched.',
   };
 }
 
@@ -296,7 +296,7 @@ export function findPatientId(input: FindPatientIdInput) {
       matched: false,
       patient_id: null,
       patient_key: lookupValues[0]?.toUpperCase() ?? null,
-      message: 'Synthetic patient id not found. Use one of the RXGuard demo keys and do not call external/live FHIR patient lookup.',
+      message: 'Synthetic patient id not found. Use one of the RXsignal demo keys and do not call external/live FHIR patient lookup.',
     };
   }
 
@@ -305,7 +305,7 @@ export function findPatientId(input: FindPatientIdInput) {
     patient_id: demoCase.patient_key,
     patient_key: demoCase.patient_key,
     display_name: demoCase.display_name,
-    message: 'Synthetic RXGuard patient id matched.',
+    message: 'Synthetic RXsignal patient id matched.',
   };
 }
 
@@ -321,7 +321,7 @@ export function callRxGuardMcpTool(name: string, args: Record<string, unknown> =
     } else if (name === 'FindPatientId') {
       payload = findPatientId(args);
     } else {
-      return textResult(`Unknown RXGuard MCP tool: ${name}`, true);
+      return textResult(`Unknown RXsignal MCP tool: ${name}`, true);
     }
 
     return textResult(JSON.stringify(payload, null, 2));
@@ -408,17 +408,17 @@ function writeFramedResponse(response: unknown): void {
 }
 
 function readSyntheticFhirResource(uri: string) {
-  if (uri === 'fhir://CapabilityStatement/rxguard-synthetic-demo') {
+  if (uri === 'fhir://CapabilityStatement/rxsignal-synthetic-demo') {
     return {
       resourceType: 'CapabilityStatement',
-      id: 'rxguard-synthetic-demo',
+      id: 'rxsignal-synthetic-demo',
       status: 'active',
       date: '2026-05-01',
       kind: 'capability',
       fhirVersion: '4.0.1',
       format: ['json'],
       implementation: {
-        description: 'RXGuard synthetic/demo-only medication context MCP server for Prompt Opinion FHIR extension discovery.',
+        description: 'RXsignal synthetic/demo-only medication context MCP server for Prompt Opinion FHIR extension discovery.',
         url: 'https://rx-guard-iota.vercel.app/api/mcp',
       },
       rest: [
@@ -444,16 +444,16 @@ function readSyntheticFhirResource(uri: string) {
   return {
     resourceType: 'Patient',
     id: demoCase.patient_key,
-    meta: { tag: [{ system: 'https://rxguard.demo/tags', code: 'synthetic-demo-only' }] },
-    identifier: [{ system: 'https://rxguard.demo/synthetic-patient-key', value: demoCase.patient_key }],
+    meta: { tag: [{ system: 'https://rxsignal.demo/tags', code: 'synthetic-demo-only' }] },
+    identifier: [{ system: 'https://rxsignal.demo/synthetic-patient-key', value: demoCase.patient_key }],
     name: [{ family: familyName, given: givenParts }],
     extension: [
       {
-        url: 'https://rxguard.demo/fhir/StructureDefinition/progress-note-summary',
+        url: 'https://rxsignal.demo/fhir/StructureDefinition/progress-note-summary',
         valueString: demoCase.progress_note.summary,
       },
       {
-        url: 'https://rxguard.demo/fhir/StructureDefinition/recommended-response',
+        url: 'https://rxsignal.demo/fhir/StructureDefinition/recommended-response',
         valueString: JSON.stringify(demoCase.recommended_response),
       },
     ],
@@ -486,14 +486,14 @@ export function handleJsonRpcMessage(message: string) {
             'promptopinion.fhir': promptOpinionFhirExtension,
           },
         },
-        serverInfo: { name: 'rxguard-medication-mcp', version: '0.1.0' },
+        serverInfo: { name: 'rxsignal-medication-mcp', version: '0.1.0' },
         _meta: {
           fhir: promptOpinionFhirExtension,
           promptOpinion: { fhirExtension: promptOpinionFhirExtension },
           'promptopinion.fhir': promptOpinionFhirExtension,
         },
         instructions:
-          'RXGuard exposes synthetic/demo-only FHIR-style medication and patient context for Prompt Opinion. Do not treat results as real patient, EHR, PDMP, pharmacy, or prescribing data.',
+          'RXsignal exposes synthetic/demo-only FHIR-style medication and patient context for Prompt Opinion. Do not treat results as real patient, EHR, PDMP, pharmacy, or prescribing data.',
       },
     };
   }
@@ -517,8 +517,8 @@ export function handleJsonRpcMessage(message: string) {
       result: {
         resources: [
           {
-            uri: 'fhir://CapabilityStatement/rxguard-synthetic-demo',
-            name: 'RXGuard Synthetic FHIR CapabilityStatement',
+            uri: 'fhir://CapabilityStatement/rxsignal-synthetic-demo',
+            name: 'RXsignal Synthetic FHIR CapabilityStatement',
             description: 'Synthetic/demo-only FHIR R4 capability metadata for Prompt Opinion extension discovery.',
             mimeType: 'application/fhir+json',
           },
@@ -536,7 +536,7 @@ export function handleJsonRpcMessage(message: string) {
   if (request.method === 'resources/read') {
     const uri = typeof request.params?.uri === 'string' ? request.params.uri : '';
     const payload = readSyntheticFhirResource(uri);
-    if (!payload) return jsonRpcError(request.id ?? null, -32602, `Unknown RXGuard FHIR resource: ${uri || 'missing uri'}`);
+    if (!payload) return jsonRpcError(request.id ?? null, -32602, `Unknown RXsignal FHIR resource: ${uri || 'missing uri'}`);
     return {
       jsonrpc: '2.0',
       id: request.id ?? null,

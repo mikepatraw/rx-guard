@@ -1,7 +1,7 @@
 # Product docs
 
 - `PRD.md` — product requirements and scope.
-- `COMPETITION-RULES-AND-COMPLIANCE.md` — Agents Assemble rules summary and RXGuard guideline review.
+- `COMPETITION-RULES-AND-COMPLIANCE.md` — Agents Assemble rules summary and RXsignal guideline review.
 - `SUBMISSION-CHECKLIST.md` — submission readiness checklist.
 - `LOCAL-TEST-GUIDE.md` — clone-to-local-test walkthrough for macOS and Windows.
 - `STAGING-TEST-GUIDE.md` — public Vercel staging test guide for partners and reviewers.

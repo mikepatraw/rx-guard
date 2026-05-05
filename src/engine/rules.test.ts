@@ -20,7 +20,7 @@ assert.ok(['low', 'moderate'].includes(result3.riskLevel));
 assert.ok(result3.flags.some((flag) => flag.code === 'balanced_case'));
 assert.ok(!result3.flags.some((flag) => flag.code === 'missing_functional_goal_context'));
 
-const case4 = normalizeReviewRequest(loadCase('data/synthetic/case-04-pdmp-crossref-bankston.json'));
+const case4 = normalizeReviewRequest(loadCase('data/synthetic/case-04-pdmp-crossref-wisozk.json'));
 const result4 = reviewEncounter(case4);
 assert.equal(result4.riskLevel, 'high');
 assert.equal(result4.pdmpCrossReference?.matched, true);

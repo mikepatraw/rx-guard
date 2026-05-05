@@ -1,6 +1,6 @@
-# RX Guard Staging Test Guide
+# RXsignal Staging Test Guide
 
-Use this guide when sending RX Guard to a partner, judge, or reviewer who should test the clinical workflow without cloning the repository.
+Use this guide when sending RXsignal to a partner, judge, or reviewer who should test the clinical workflow without cloning the repository.
 
 ## Public staging link
 
@@ -12,18 +12,18 @@ No Prompt Opinion, GitHub, Node, or npm setup is required for this staging test.
 
 ## What this staging site is
 
-The Vercel staging site is a public, read-only synthetic workflow test. It shows the RX Guard clinician-facing UI that consumes the same Prompt Opinion-compatible contract used by the local adapter.
+The Vercel staging site is a public, read-only synthetic workflow test. It shows the RXsignal clinician-facing UI that consumes the same Prompt Opinion-compatible contract used by the local adapter.
 
 Current staging architecture:
 
 ```text
 Synthetic prescription/PDMP fixture
-  -> RX Guard local adapter
+  -> RXsignal local adapter
   -> Prompt Opinion-compatible compact decision-support payload
-  -> RX Guard EHR-style UI on Vercel
+  -> RXsignal EHR-style UI on Vercel
 ```
 
-Important distinction: the staging site is aligned to Prompt Opinion's A2A/agent contract, but it does **not** make a live API call into Prompt Opinion. Prompt Opinion remains the published agent layer for the submission; the Vercel site is the low-friction reviewer UI that demonstrates how RX Guard renders the workflow.
+Important distinction: the staging site is aligned to Prompt Opinion's A2A/agent contract, but it does **not** make a live API call into Prompt Opinion. Prompt Opinion remains the published agent layer for the submission; the Vercel site is the low-friction reviewer UI that demonstrates how RXsignal renders the workflow.
 
 ## Data safety rules
 
@@ -39,22 +39,22 @@ The staging UI uses the canonical synthetic case:
 
 | Field | Value |
 | --- | --- |
-| Patient | Sheila Bankston |
+| Patient | Tamera164 Wisozk929 |
 | Medication search | Xanax |
 | Selected prescription | Xanax 1 mg tablet |
 | Directions | 1 tablet PO BID PRN for anxiety |
-| Synthetic key | RXG-SB-001 |
+| Synthetic key | RXG-TW-001 |
 
-The RX Guard adapter maps this local prescribing event to the safe synthetic key before building the Prompt Opinion-compatible decision-support payload.
+The RXsignal adapter maps this local prescribing event to the safe synthetic key before building the Prompt Opinion-compatible decision-support payload.
 
 ## Partner test flow
 
 1. Open `https://rx-guard-iota.vercel.app` on phone or desktop.
 2. Confirm the medication page and **+ Add Medication** workflow are easy to understand.
 3. Select **Xanax 1 mg tablet** from the medication search results.
-4. Confirm RX Guard starts automatically without a separate tools menu or module launch.
+4. Confirm RXsignal starts automatically without a separate tools menu or module launch.
 5. Review the risk score, recommendation, PDMP-style rows, suggested documentation, and workflow buttons.
-6. Confirm **Re-run RXGuard** appears beside the pending Xanax prescription as a manual provider-control option.
+6. Confirm **Re-run RXsignal** appears beside the pending Xanax prescription as a manual provider-control option.
 7. Try the workflow buttons, especially **Do Not Prescribe**, and confirm the UI clearly updates the simulated action/documentation status.
 8. Send feedback on anything confusing, too technical, hard to read, or hard to tap.
 
@@ -87,7 +87,7 @@ If yes, where?
 ## Recommended partner message
 
 ```text
-Here’s the RX Guard staging test:
+Here’s the RXsignal staging test:
 
 https://rx-guard-iota.vercel.app
 
@@ -97,8 +97,8 @@ Please test the prescribing review flow on phone or desktop:
 1. Open the link.
 2. Click “+ Add Medication.”
 3. Select “Xanax 1 mg tablet.”
-4. Confirm RX Guard starts automatically and the review appears.
-5. Confirm “Re-run RXGuard” is visible after the first review.
+4. Confirm RXsignal starts automatically and the review appears.
+5. Confirm “Re-run RXsignal” is visible after the first review.
 6. Review the risk score, PDMP-style rows, recommendation, and workflow buttons.
 7. Tell me what feels confusing, too technical, hard to read, or hard to tap.
 ```
@@ -107,7 +107,7 @@ Please test the prescribing review flow on phone or desktop:
 
 For judges, frame staging accurately:
 
-> RX Guard has a public staging UI showing the prescribing-review workflow using synthetic data and the Prompt Opinion-compatible compact agent contract. Prompt Opinion is the published A2A healthcare agent layer; RX Guard provides the synthetic clinical data adapter and EHR-style workflow renderer. In production, RX Guard would connect to authorized EHR/PDMP/FHIR sources through a secure data service rather than storing clinical data inside Prompt Opinion.
+> RXsignal has a public staging UI showing the prescribing-review workflow using synthetic data and the Prompt Opinion-compatible compact agent contract. Prompt Opinion is the published A2A healthcare agent layer; RXsignal provides the synthetic clinical data adapter and EHR-style workflow renderer. In production, RXsignal would connect to authorized EHR/PDMP/FHIR sources through a secure data service rather than storing clinical data inside Prompt Opinion.
 
 ## Known limits
 

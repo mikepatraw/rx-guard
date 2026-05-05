@@ -235,7 +235,7 @@ function renderPdmpRows(rows: PdmpPrescription[]): string {
 export function renderCliReview(review: LocalCliReview): string {
   const flags = review.promptOpinionResponse.flags.map((flag) => `  - ${flag}`).join('\n');
   return [
-    'RX Guard Local CLI Adapter',
+    'RXsignal Local CLI Adapter',
     '==========================',
     `Resolved synthetic key: ${review.syntheticPatientKey}`,
     '',

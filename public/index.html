@@ -44,7 +44,7 @@
         </div>
         <p id="rxsignalTriggerHelp" class="trigger-help">Instead of asking providers to run another tool, RXsignal is embedded directly into the prescribing workflow. The moment a controlled medication is selected, it runs automatically and gives a decision-ready output in seconds.</p>
       </div>
-      <div class="pending"><h3>Pending Prescriptions</h3><div class="pending-med"><div><b>Xanax 1 mg tablet</b><br>1 tablet PO BID PRN for anxiety</div><button id="rerunRxsignalBtn" class="rerun-btn hidden" type="button">Re-run RXsignal</button></div></div>
+      <div class="pending"><h3>Pending Prescriptions</h3><div class="pending-med"><div><b>Xanax 1 mg tablet</b><br>1 tablet PO BID PRN for anxiety</div><button id="rerunRxsignalBtn" class="rerun-btn hidden" type="button">Re-run <span class="brand-mark">RXsignal</span></button></div></div>
       <div id="chartDocumentationCard" class="chart-doc-card" aria-live="polite">
         <div class="chart-doc-head"><h3>Chart Documentation Updated</h3><span id="ehrActionStatus">Awaiting provider action</span></div>
         <p id="insertedChartNote" class="inserted-note">RXsignal will insert the selected provider rationale into the encounter note after a workflow action is chosen.</p>
@@ -55,11 +55,11 @@
 
   <section id="consultOverlay" class="consult-overlay hidden">
     <div class="consult-panel">
-      <div class="consult-head"><span>Controlled medication selected</span><b>RXsignal Review</b></div>
+        <div class="consult-head"><span>Controlled medication selected</span><b><span class="brand-mark">RXsignal</span> Review</b></div>
       <div class="intake-form">
         <div class="intake-copy">
           <small>Embedded prescribing safety check</small>
-          <h2>RXsignal review started automatically.</h2>
+          <h2><span class="brand-mark">RXsignal</span> review started automatically.</h2>
           <p>Checking selected prescription against local synthetic PDMP evidence before the order is finalized.</p>
         </div>
         <div id="agentStatus" class="agent-status">Ready for medication selection.</div>
@@ -69,7 +69,7 @@
 
   <section id="rxOverlay" class="overlay hidden">
     <div class="rx-modal">
-      <div class="modal-head"><h2>🛡 RXsignal Controlled Substance Review</h2><span>Status: PDMP automatically reviewed &nbsp; <b data-rx-field="pdmp-query-date">04/19/2026 10:32 AM</b> &nbsp; ✕</span></div>
+      <div class="modal-head"><h2>🛡 <span class="brand-mark">RXsignal</span> Controlled Substance Review</h2><span>Status: PDMP automatically reviewed &nbsp; <b data-rx-field="pdmp-query-date">04/19/2026 10:32 AM</b> &nbsp; ✕</span></div>
       <div class="modal-body">
         <div class="left-col">
           <div class="summary">

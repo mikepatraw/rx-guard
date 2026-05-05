@@ -39,7 +39,7 @@ assert.deepEqual(Object.keys(review.promptOpinionPayload), [
 ]);
 
 const output = renderCliReview(review);
-assert.match(output, /RX Guard Local CLI Adapter/);
+assert.match(output, /RXsignal Local CLI Adapter/);
 assert.match(output, /Resolved synthetic key: RXG-TW-001/);
 assert.match(output, /Prompt Opinion-safe payload/);
 assert.match(output, /"synthetic_patient_key": "RXG-TW-001"/);

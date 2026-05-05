@@ -1,7 +1,7 @@
 {
   "status": "review_complete",
   "riskLevel": "high",
-  "summary": "High-priority concerns include concurrent opioid and benzodiazepine exposure detected.. Additional review is warranted because pdmp review may have occurred but was not documented., the note does not clearly connect the prescription to a functional treatment goal., and the note provides limited narrative evidence of risk review or mitigation planning.. Documentation gaps were also detected, including pdmp review documentation, functional goal or treatment objective, and risk discussion or counseling. Overall, RX Guard recommends clinician review before finalizing the oxycodone prescribing decision.",
+  "summary": "High-priority concerns include concurrent opioid and benzodiazepine exposure detected.. Additional review is warranted because pdmp review may have occurred but was not documented., the note does not clearly connect the prescription to a functional treatment goal., and the note provides limited narrative evidence of risk review or mitigation planning.. Documentation gaps were also detected, including pdmp review documentation, functional goal or treatment objective, and risk discussion or counseling. Overall, RXsignal recommends clinician review before finalizing the oxycodone prescribing decision.",
   "flags": [
     {
       "code": "opioid_benzo_overlap",

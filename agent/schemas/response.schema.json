@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/RedParrotBerkeley/rx-guard/blob/main/agent/schemas/response.schema.json",
-  "title": "RX Guard Review Response",
-  "description": "Structured response schema for RX Guard prescribing safety review results.",
+  "title": "RXsignal Review Response",
+  "description": "Structured response schema for RXsignal prescribing safety review results.",
   "type": "object",
   "additionalProperties": false,
   "required": [
