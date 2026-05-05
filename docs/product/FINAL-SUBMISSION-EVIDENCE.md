@@ -11,7 +11,7 @@ Last checked from the repo workspace on 2026-05-05:
 - Local MCP dev command, if future supporting-tool work is revisited: `npm run mcp:medication`
 - Hosted MCP route, if future supporting-tool work is revisited: `/api/mcp` on the hosted RXsignal server
 
-The agent card endpoint returned HTTP 200, but the Prompt Opinion platform display name still needs one final rename/verification pass so the live listing identifies the agent as **RXsignal** before recording. The Vercel staging UI returned HTTP 200. The staging UI is still a synthetic public renderer; it is not proof of live Prompt Opinion API invocation.
+The agent card endpoint returned HTTP 200 with the live agent name **RXsignal**. Marketplace search for RXsignal returned the published listing, and marketplace search for the previous name returned no results. The Vercel staging UI returned HTTP 200. The staging UI is still a synthetic public renderer; live Prompt Opinion invocation must be evidenced separately from the staging smoke.
 
 ## Final evidence to capture
 
@@ -28,7 +28,7 @@ Capture these four artifacts before Devpost submission:
    - RXsignal System Prompt restored to the embedded synthetic `PDMP_PRESCRIPTION_HISTORY_OVERLAY` version.
    - RXsignal MCP server removed/disabled from the active agent for the final A2A submission recording.
    - Tamera164 Wisozk929 selected in Prompt Opinion Patient/Data Scope, then the Tamera smoke prompt submitted.
-   - JSON-only response visible with the compact contract.
+   - Compact JSON response visible with the expected contract. Prompt Opinion chat may wrap the JSON in a markdown fence; parse/contract checks matter more than the wrapper for the brief platform evidence cut.
    - `pdmp_summary_status` should be `"matched"` for the Tamera and Lincoln cases; Grover should render a low/no-recent-fill safety context.
 
 3. **RXsignal renderer evidence**
