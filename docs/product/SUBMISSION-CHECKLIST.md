@@ -44,7 +44,7 @@ Decision check:
 - [x] Configure/publish RXsignal as a Prompt Opinion BYO/A2A agent
 - [x] Use the embedded synthetic `PDMP_PRESCRIPTION_HISTORY_OVERLAY` System Prompt for the final A2A submission path
 - [x] Keep MCP as non-primary implementation research, not as a separate submission category
-- [ ] Run one final Prompt Opinion in-platform smoke after restoring the embedded-record prompt
+- [x] Run one final Prompt Opinion in-platform smoke after restoring the embedded-record prompt
 - [ ] Record final Prompt Opinion in-platform invocation evidence for the Devpost video
 
 ## 3. Prompt Opinion account and platform setup
@@ -57,7 +57,7 @@ Decision check:
 - [x] Verify required setup fields for marketplace publication
 - [x] Confirm subscription-level publishing entitlement was sufficient to publish
 - [x] Capture technical A2A/MCP/agent-card endpoints in docs
-- [ ] Capture final polished marketplace/listing URL or discoverability path for Devpost
+- [x] Capture final polished marketplace/listing URL or discoverability path for Devpost
 
 ## 4. Integration requirements
 
@@ -67,7 +67,7 @@ Decision check:
 - [x] Keep deterministic PDMP rows in RXsignal/local synthetic data instead of asking Prompt Opinion to generate nested table data
 - [x] Keep the final Prompt Opinion setup on the embedded synthetic-record System Prompt; no MCP server is required for the A2A submission path
 - [x] Keep MCP/FHIR work documented as experimental/supporting infrastructure only, not the final submission path
-- [ ] Confirm the restored embedded-record prompt returns the expected Tamera high-risk JSON in Prompt Opinion
+- [x] Confirm the restored embedded-record prompt returns the expected Tamera high-risk JSON in Prompt Opinion
 - [x] Confirm Prompt Opinion output is clean enough to show briefly before switching to the RXsignal UI renderer
 
 ## 5. Healthcare context requirements
@@ -107,7 +107,7 @@ The rules require a video under 3 minutes showing the project functioning within
 - [x] Verify staging UI is usable on iPhone-sized Safari/Chromium viewport
 - [x] Ensure no real patient data appears on screen
 - [x] Record current no-title-card workflow video with patient lookup, progress notes, medication selection, split-screen Prompt Opinion interworking, RXsignal decisions, and chart documentation insertion
-- [ ] Run final Prompt Opinion smoke using restored embedded-record prompt
+- [x] Run final Prompt Opinion smoke using restored embedded-record prompt
 - [ ] Record the platform flow from invocation to result
 - [ ] Keep final video under 3 minutes
 
@@ -119,7 +119,7 @@ The rules require a video under 3 minutes showing the project functioning within
 - [x] GitHub repo link included in draft
 - [x] Architecture / technical notes ready if needed
 - [x] Public staging link documented: `https://rx-guard-iota.vercel.app`
-- [ ] Prompt Opinion marketplace URL/discoverability details included
+- [x] Prompt Opinion marketplace URL/discoverability details included
 - [ ] Demo video link included
 - [ ] Final polish pass on screenshots/video captions
 
@@ -159,9 +159,9 @@ The submission should clearly communicate:
 
 ### Before final submission
 - [x] Restore the embedded synthetic-record Prompt Opinion System Prompt as the final A2A submission path
-- [ ] Remove/disable RXsignal MCP from the live Prompt Opinion agent so the demo does not depend on the MCP category path
-- [ ] Run one final Prompt Opinion chat/A2A invocation pass with Tamera164 Wisozk929 selected using the embedded-record smoke prompt
-- [ ] Capture the final marketplace/listing URL or clear discoverability instructions
+- [x] Remove/disable RXsignal MCP from the live Prompt Opinion agent so the demo does not depend on the MCP category path
+- [x] Run one final Prompt Opinion chat/A2A invocation pass with Tamera164 Wisozk929 selected using the embedded-record smoke prompt
+- [x] Capture the final marketplace/listing URL or clear discoverability instructions
 - [ ] Record the under-3-minute video showing Prompt Opinion invocation plus RXsignal UI rendering
 - [ ] Add the video link to Devpost draft/submission materials
 - [ ] Run final repository checks: `npm test`, docs link check/search, and secret-pattern scan over changed assets
@@ -197,8 +197,8 @@ As of this refresh:
 - RXsignal is configured as a BYO Agent with A2A enabled
 - Chat Selectable is available
 - local RXsignal MCP medication/context tools exist as non-primary supporting research, but the final submission path is the embedded-record A2A agent
-- final Prompt Opinion smoke must be rerun after removing MCP from the active agent and restoring the embedded synthetic-record System Prompt
+- final Prompt Opinion smoke passed after live rename/restored embedded synthetic-record System Prompt
 - public staging is live at `https://rx-guard-iota.vercel.app`
 - the staging UI starts from medication selection, auto-triggers RXsignal, and does not expose raw JSON/payload panels
 - the latest demo evidence shows patient lookup, non-blank progress notes, three medication-selection workflows, split-screen Prompt Opinion interworking, provider actions, and chart-documentation insertion
-- the remaining validation gap is recording final in-platform hosted-MCP invocation evidence and the under-3-minute submission video
+- the remaining validation gap is recording the under-3-minute submission video and attaching final Devpost assets
