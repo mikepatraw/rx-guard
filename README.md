@@ -235,10 +235,10 @@ Recent platform validation changed the expected integration path:
 - The remaining live validation gap is recording/confirming a clean synthetic-case invocation flow from Prompt Opinion chat for final submission evidence
 
 Known live endpoints:
-- A2A agent URL: `https://app.promptopinion.ai/api/workspaces/019d881e-b5b2-7bae-b3ef-c1df241d8e01/ai-agents/019d8868-ce0e-78bb-9f77-97a09fae4a8e`
-- A2A HTTP+JSON interface URL: `https://app.promptopinion.ai/api/workspaces/019d881e-b5b2-7bae-b3ef-c1df241d8e01/ai-agents/019d8868-ce0e-78bb-9f77-97a09fae4a8e/a2a-http-json`
-- MCP URL: `https://app.promptopinion.ai/api/workspaces/019d881e-b5b2-7bae-b3ef-c1df241d8e01/ai-agents/019d8868-ce0e-78bb-9f77-97a09fae4a8e/mcp`
-- A2A agent card URL: `https://app.promptopinion.ai/api/workspaces/019d881e-b5b2-7bae-b3ef-c1df241d8e01/ai-agents/019d8868-ce0e-78bb-9f77-97a09fae4a8e/.well-known/agent-card.json`
+- A2A agent URL: `https://app.promptopinion.ai/api/workspaces/[REDACTED_WORKSPACE_ID]/ai-agents/[REDACTED_AGENT_ID]`
+- A2A HTTP+JSON interface URL: `https://app.promptopinion.ai/api/workspaces/[REDACTED_WORKSPACE_ID]/ai-agents/[REDACTED_AGENT_ID]/a2a-http-json`
+- MCP URL: `https://app.promptopinion.ai/api/workspaces/[REDACTED_WORKSPACE_ID]/ai-agents/[REDACTED_AGENT_ID]/mcp`
+- A2A agent card URL: `https://app.promptopinion.ai/api/workspaces/[REDACTED_WORKSPACE_ID]/ai-agents/[REDACTED_AGENT_ID]/.well-known/agent-card.json`
 
 That means the current best submission path is:
 1. finish the core RXsignal prompt/behavior

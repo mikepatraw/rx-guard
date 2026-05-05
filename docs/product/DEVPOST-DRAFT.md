@@ -79,10 +79,10 @@ This is a synthetic public workflow test for partners and judges. It demonstrate
 
 ## Prompt Opinion endpoints captured
 
-- A2A agent URL: https://app.promptopinion.ai/api/workspaces/019d881e-b5b2-7bae-b3ef-c1df241d8e01/ai-agents/019d8868-ce0e-78bb-9f77-97a09fae4a8e
-- A2A HTTP+JSON interface URL: https://app.promptopinion.ai/api/workspaces/019d881e-b5b2-7bae-b3ef-c1df241d8e01/ai-agents/019d8868-ce0e-78bb-9f77-97a09fae4a8e/a2a-http-json
-- MCP URL: https://app.promptopinion.ai/api/workspaces/019d881e-b5b2-7bae-b3ef-c1df241d8e01/ai-agents/019d8868-ce0e-78bb-9f77-97a09fae4a8e/mcp
-- A2A agent card URL: https://app.promptopinion.ai/api/workspaces/019d881e-b5b2-7bae-b3ef-c1df241d8e01/ai-agents/019d8868-ce0e-78bb-9f77-97a09fae4a8e/.well-known/agent-card.json
+- A2A agent URL: https://app.promptopinion.ai/api/workspaces/[REDACTED_WORKSPACE_ID]/ai-agents/[REDACTED_AGENT_ID]
+- A2A HTTP+JSON interface URL: https://app.promptopinion.ai/api/workspaces/[REDACTED_WORKSPACE_ID]/ai-agents/[REDACTED_AGENT_ID]/a2a-http-json
+- MCP URL: https://app.promptopinion.ai/api/workspaces/[REDACTED_WORKSPACE_ID]/ai-agents/[REDACTED_AGENT_ID]/mcp
+- A2A agent card URL: https://app.promptopinion.ai/api/workspaces/[REDACTED_WORKSPACE_ID]/ai-agents/[REDACTED_AGENT_ID]/.well-known/agent-card.json
 
 These are technical integration endpoints, not polished marketplace landing pages. For judges and end users, RXsignal should be presented through the Prompt Opinion chat/A2A agent experience.
 

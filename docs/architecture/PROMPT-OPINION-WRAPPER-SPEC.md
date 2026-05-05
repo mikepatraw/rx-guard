@@ -236,8 +236,8 @@ These should be checked during the final recording pass:
 ## 16.1 Confirmed live Prompt Opinion endpoints
 
 Current live endpoints captured from Prompt Opinion:
-- MCP URL: `https://app.promptopinion.ai/api/workspaces/019d881e-b5b2-7bae-b3ef-c1df241d8e01/ai-agents/019d8868-ce0e-78bb-9f77-97a09fae4a8e/mcp`
-- A2A URL: `https://app.promptopinion.ai/api/workspaces/019d881e-b5b2-7bae-b3ef-c1df241d8e01/ai-agents/019d8868-ce0e-78bb-9f77-97a09fae4a8e/.well-known/agent-card.json`
+- MCP URL: `https://app.promptopinion.ai/api/workspaces/[REDACTED_WORKSPACE_ID]/ai-agents/[REDACTED_AGENT_ID]/mcp`
+- A2A URL: `https://app.promptopinion.ai/api/workspaces/[REDACTED_WORKSPACE_ID]/ai-agents/[REDACTED_AGENT_ID]/.well-known/agent-card.json`
 
 These confirm that Prompt Opinion has provisioned RXsignal as a concrete BYO agent artifact with both MCP and A2A surfaces, even though the intended end-user/demo path remains the chat/A2A flow rather than a custom MCP-tools experience.
 
