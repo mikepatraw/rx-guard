@@ -7,7 +7,7 @@ Use this guide for the last Prompt Opinion / Devpost pass. It is intentionally n
 Last checked from the repo workspace on 2026-05-05:
 
 - Public staging UI: `https://rx-guard-iota.vercel.app/`
-- A2A agent card: `https://app.promptopinion.ai/api/workspaces/019d881e-b5b2-7bae-b3ef-c1df241d8e01/ai-agents/019d8868-ce0e-78bb-9f77-97a09fae4a8e/.well-known/agent-card.json`
+- A2A agent card: `https://app.promptopinion.ai/api/workspaces/[REDACTED_WORKSPACE_ID]/ai-agents/[REDACTED_AGENT_ID]/.well-known/agent-card.json`
 - Local MCP dev command, if future supporting-tool work is revisited: `npm run mcp:medication`
 - Hosted MCP route, if future supporting-tool work is revisited: `/api/mcp` on the hosted RXsignal server
 
