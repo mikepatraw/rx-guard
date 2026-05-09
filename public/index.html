@@ -33,14 +33,16 @@
       <div class="tabs"><span>Summary</span><span>Progress Note</span><span class="active">Medications</span><span>Orders</span><span>Documents</span></div>
       <div class="card"><h3>Current Medications <button id="addMedicationBtn" type="button">+ Add Medication</button></h3><div class="med"><b>Sertraline 50 mg daily</b><br>Take 1 tablet PO daily</div><div class="med"><b>Ibuprofen 800 mg PRN</b><br>Take 1 tablet PO TID PRN pain</div><div class="med"><b>Lisinopril 10 mg daily</b><br>Take 1 tablet PO daily</div></div>
       <div class="prescribing-card" aria-label="Add medication workflow">
-        <div class="prescribing-head"><h3>Add Medication</h3><span>Controlled medication selected</span></div>
+        <div class="prescribing-head"><h3>Add Medication</h3><span>Medication search ready</span></div>
         <label class="med-search" for="medicationSearch">Search medication
-          <input id="medicationSearch" value="Xanax" autocomplete="off" aria-describedby="rxsignalTriggerHelp" />
+          <input id="medicationSearch" placeholder="Type medication" autocomplete="off" aria-describedby="rxsignalTriggerHelp" aria-controls="medicationResults" />
         </label>
-        <div class="med-results" role="listbox" aria-label="Medication search results">
-          <button class="med-result" type="button" role="option"><b>Xanax 0.5 mg tablet</b><span>alprazolam tablet</span></button>
-          <button id="selectXanaxBtn" class="med-result selected" type="button" role="option" aria-selected="true"><b>Xanax 1 mg tablet</b><span>Selecting Xanax 1 mg tablet automatically triggers RXsignal</span></button>
-          <button class="med-result" type="button" role="option"><b>Alprazolam 1 mg tablet</b><span>generic equivalent</span></button>
+        <div id="medicationResults" class="med-results hidden" role="listbox" aria-label="Medication search results">
+          <button class="med-result" type="button" role="option" data-medication="Xanax 0.5 mg tablet" data-search="xanax alprazolam 0.5 tablet"><b>Xanax 0.5 mg tablet</b><span>alprazolam tablet</span></button>
+          <button id="selectXanaxBtn" class="med-result" type="button" role="option" data-medication="Xanax 1 mg tablet" data-search="xanax alprazolam 1 mg tablet"><b>Xanax 1 mg tablet</b><span>Selecting a controlled medication automatically triggers RXsignal</span></button>
+          <button class="med-result" type="button" role="option" data-medication="Alprazolam 1 mg tablet" data-search="alprazolam xanax generic equivalent 1 mg tablet"><b>Alprazolam 1 mg tablet</b><span>generic equivalent</span></button>
+          <button class="med-result" type="button" role="option" data-medication="Lorazepam 1 mg tablet" data-search="lorazepam ativan benzodiazepine 1 mg tablet"><b>Lorazepam 1 mg tablet</b><span>benzodiazepine alternative</span></button>
+          <button class="med-result" type="button" role="option" data-medication="Clonazepam 0.5 mg tablet" data-search="clonazepam klonopin benzodiazepine 0.5 mg tablet"><b>Clonazepam 0.5 mg tablet</b><span>benzodiazepine alternative</span></button>
         </div>
         <p id="rxsignalTriggerHelp" class="trigger-help">Instead of asking providers to run another tool, RXsignal is embedded directly into the prescribing workflow. The moment a controlled medication is selected, it runs automatically and gives a decision-ready output in seconds.</p>
       </div>

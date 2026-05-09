@@ -92,13 +92,14 @@ function insightsFor(data) {
   ];
 }
 
-function applySelectionToReview(data) {
+function applySelectionToReview(data, medication) {
   const patient = data?.patient ?? { displayName: 'Tamera164 Wisozk929', dobDisplay: 'DOB display unavailable', age: 'unknown', mrn: '903184' };
   const prescription = data?.demoInput ?? { medication: 'Xanax 1 mg tablet', directions: '1 tablet PO BID PRN for anxiety' };
+  const selectedMedication = medication ?? prescription.medication;
   setField('patient-name', patient.displayName);
   setField('patient-dob', `${patient.dobDisplay} (${patient.age})`);
   setField('mrn', patient.mrn);
-  setField('medication', prescription.medication);
+  setField('medication', selectedMedication);
   setField('directions', prescription.directions);
 }
 
@@ -127,6 +128,11 @@ function renderDemo(data) {
   document.getElementById('noteBox').value = response.auto_note;
 }
 
+function closeReviewOverlay() {
+  document.getElementById('rxOverlay').classList.add('hidden');
+  document.getElementById('consultOverlay').classList.add('hidden');
+}
+
 function applyWorkflow(action) {
   const note = document.getElementById('noteBox');
   const status = document.getElementById('workflowStatus');
@@ -138,6 +144,26 @@ function applyWorkflow(action) {
   chartCard.classList.add('active');
   ehrActionStatus.textContent = action.message;
   insertedChartNote.textContent = action.doc;
+  closeReviewOverlay();
+}
+
+function filterMedicationResults(event) {
+  const input = event.currentTarget;
+  const queryTokens = input.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const results = document.getElementById('medicationResults');
+  const buttons = Array.from(results.querySelectorAll('.med-result'));
+  let visibleCount = 0;
+
+  for (const button of buttons) {
+    const searchText = button.dataset.search;
+    const matches = queryTokens.length > 0 && queryTokens.every((token) => searchText.includes(token));
+    button.classList.toggle('hidden', !matches);
+    button.classList.remove('selected');
+    button.setAttribute('aria-selected', 'false');
+    if (matches) visibleCount += 1;
+  }
+
+  results.classList.toggle('hidden', visibleCount === 0);
 }
 
 function showRerunAction() {
@@ -146,7 +172,8 @@ function showRerunAction() {
 
 function showAnalysis(event) {
   event?.preventDefault();
-  applySelectionToReview(demo);
+  const selectedMedication = event?.currentTarget?.dataset?.medication;
+  applySelectionToReview(demo, selectedMedication);
   const overlay = document.getElementById('consultOverlay');
   const status = document.getElementById('agentStatus');
   document.getElementById('rxOverlay').classList.add('hidden');
@@ -162,8 +189,13 @@ function showAnalysis(event) {
 }
 
 renderDemo(demo);
-document.getElementById('addMedicationBtn').addEventListener('click', () => document.getElementById('medicationSearch').focus());
-document.getElementById('selectXanaxBtn').addEventListener('click', showAnalysis);
+const medicationSearch = document.getElementById('medicationSearch');
+const medicationResults = document.getElementById('medicationResults');
+const medicationResultButtons = Array.from(medicationResults.querySelectorAll('.med-result'));
+
+document.getElementById('addMedicationBtn').addEventListener('click', () => medicationSearch.focus());
+medicationSearch.addEventListener('input', filterMedicationResults);
+medicationResultButtons.forEach((button) => button.addEventListener('click', showAnalysis));
 document.getElementById('rerunRxsignalBtn').addEventListener('click', showAnalysis);
 document.getElementById('proceedBtn').addEventListener('click', () => applyWorkflow(actions.proceed));
 document.getElementById('cautionBtn').addEventListener('click', () => applyWorkflow(actions.caution));
