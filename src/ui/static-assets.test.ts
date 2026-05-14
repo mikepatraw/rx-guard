@@ -5,10 +5,20 @@ const html = fs.readFileSync('public/index.html', 'utf8');
 const css = fs.readFileSync('public/styles.css', 'utf8');
 const js = fs.readFileSync('public/app.js', 'utf8');
 const demoData = fs.readFileSync('public/demo-data.js', 'utf8');
+const vercelConfig = JSON.parse(fs.readFileSync('vercel.json', 'utf8')) as {
+  headers?: Array<{ source: string; headers: Array<{ key: string; value: string }> }>;
+};
+const ogImage = fs.readFileSync('public/og-image.png');
 const promptDoc = fs.readFileSync('docs/product/PROMPT-OPINION-SYSTEM-PROMPT.md', 'utf8');
 const visibleUi = `${html}\n${js}`;
 
 assert.match(html, /RXsignal EHR Demo/);
+assert.match(html, /<meta name="description" content="RXsignal is a synthetic EHR demo/);
+assert.match(html, /<meta property="og:image" content="https:\/\/rx-guard-iota\.vercel\.app\/og-image\.png"/);
+assert.match(html, /<meta property="og:image:type" content="image\/png"/);
+assert.match(html, /<meta name="twitter:card" content="summary_large_image"/);
+assert.ok(ogImage.length > 1000, 'Open Graph image should be present and non-empty');
+assert.ok(ogImage.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])), 'Open Graph image should be a PNG');
 assert.match(html, /<span class="brand-mark">RXsignal<\/span> Controlled Substance Review/);
 assert.match(html, /Status: PDMP automatically reviewed/);
 assert.match(html, /WISOZK, TAMERA164/);
@@ -106,6 +116,15 @@ assert.doesNotMatch(html, /06\/13\/1960/);
 assert.ok(!html.includes(['BANKSTON', ', SHEILA'].join('')));
 
 assert.match(promptDoc, /Pronounce RXsignal as ‘R X signal,’ not ‘R Signal\.’/);
+const responseHeaders = vercelConfig.headers?.find((entry) => entry.source === '/(.*)')?.headers ?? [];
+const headerMap = new Map(responseHeaders.map(({ key, value }) => [key, value]));
+assert.match(headerMap.get('Content-Security-Policy') ?? '', /default-src 'self'/);
+assert.match(headerMap.get('Content-Security-Policy') ?? '', /frame-ancestors 'none'/);
+assert.equal(headerMap.get('Strict-Transport-Security'), 'max-age=63072000; includeSubDomains; preload');
+assert.equal(headerMap.get('X-Content-Type-Options'), 'nosniff');
+assert.equal(headerMap.get('X-Frame-Options'), 'DENY');
+assert.equal(headerMap.get('Referrer-Policy'), 'strict-origin-when-cross-origin');
+assert.equal(headerMap.get('Permissions-Policy'), 'camera=(), microphone=(), geolocation=()');
 [
   ['Pre', 'SignRx'].join(''),
   ['RX', 'Guard'].join(''),
